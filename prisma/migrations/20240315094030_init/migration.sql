@@ -55,11 +55,11 @@ CREATE TABLE "GlobalEvent" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "index" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "factionId" INTEGER NOT NULL,
+    "factionId" INTEGER,
     "message" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "GlobalEvent_factionId_fkey" FOREIGN KEY ("factionId") REFERENCES "Faction" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "GlobalEvent_factionId_fkey" FOREIGN KEY ("factionId") REFERENCES "Faction" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateTable

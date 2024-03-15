@@ -71,8 +71,8 @@ model GlobalEvent {
   id        Int      @id @default(autoincrement())
   index     Int      @unique
   title     String
-  faction   Faction  @relation(fields: [factionId], references: [id])
-  factionId Int
+  faction   Faction? @relation(fields: [factionId], references: [id])
+  factionId Int?
   message   String
   planets   Planet[] @relation("GlobalEvent")
   createdAt DateTime @default(now())
