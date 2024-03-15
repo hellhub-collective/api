@@ -22,7 +22,7 @@ We have a few entities that we can interact with in the API. Here is a brief ove
 
 ### Sectors
 
-Sectors contain a number of planets and define a area on the galaxy map. At the moment we are missing some data for the sectors, but we will add them as soon as we have them.
+Sectors contain a number of planets and define a area on the galaxy map. We have manually mapped all planets to their respective sectors, if new planets should start existing (what is highly unlikely) we will add them too.
 
 ### Planets
 
