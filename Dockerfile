@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # Set environment variables
 ENV WAR_ID="801"
-ENV DATABASE_URL="file:/temp/prod/primsa/database/data.db"
+ENV DATABASE_URL="file:./database/data.db"
 ENV API_URL="https://api.live.prod.thehelldiversgame.com/api"
 
 # install dependencies into temp directory
@@ -52,6 +52,9 @@ RUN bun run generate
 
 # build the app
 RUN bun run output
+
+# create a non-root use
+RUN chmod a+rw prisma/database prisma/database/*
 
 # run the app
 USER bun
