@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model War {
+  id        Int      @id @default(autoincrement())
+  index     Int      @unique
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Sector {
+  id        Int      @id @default(autoincrement())
+  index     Int      @unique
+  name      String
+  planets   Planet[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Faction {
+  id             Int           @id @default(autoincrement())
+  index          Int           @unique
+  name           String
+  planets        Planet[]      @relation(name: "owner")
+  initialPlanets Planet[]      @relation(name: "initialOwner")
+  globalEvents   GlobalEvent[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  homeWorld      HomeWorld[]   @relation("HomeWorld")
+}
+
+model Planet {
+  id             Int          @id @default(autoincrement())
+  index          Int          @unique
+  name           String
+  owner          Faction      @relation(name: "owner", fields: [ownerId], references: [id])
+  ownerId        Int
+  sector         Sector       @relation(fields: [sectorId], references: [id])
+  sectorId       Int
+  health         Int
+  maxHealth      Int
+  players        Int
+  disabled       Boolean
+  regeneration   Int
+  initialOwner   Faction      @relation(name: "initialOwner", fields: [initialOwnerId], references: [id])
+  initialOwnerId Int
+  positionX      Float
+  positionY      Float
+  globalEvent    GlobalEvent? @relation("GlobalEvent", fields: [globalEventId], references: [id])
+  globalEventId  Int?
+  campaign       Campaign[]   @relation("Campaign")
+  homeWorld      HomeWorld[]  @relation("HomeWorld")
+  attacking      Attack[]     @relation("Attack")
+  defending      Attack[]     @relation("Defend")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model GlobalEvent {
+  id        Int      @id @default(autoincrement())
+  index     Int      @unique
+  title     String
+  faction   Faction  @relation(fields: [factionId], references: [id])
+  factionId Int
+  message   String
+  planets   Planet[] @relation("GlobalEvent")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Campaign {
+  id        Int      @id @default(autoincrement())
+  type      Int
+  index     Int      @unique
+  count     Int
+  planet    Planet   @relation("Campaign", fields: [planetId], references: [id])
+  planetId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HomeWorld {
+  id        Int      @id @default(autoincrement())
+  faction   Faction  @relation("HomeWorld", fields: [factionId], references: [id])
+  factionId Int
+  planet    Planet   @relation("HomeWorld", fields: [planetId], references: [id])
+  planetId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attack {
+  id        Int      @id @default(autoincrement())
+  target    Planet   @relation("Attack", fields: [targetId], references: [id])
+  targetId  Int
+  source    Planet   @relation("Defend", fields: [sourceId], references: [id])
+  sourceId  Int
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}

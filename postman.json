@@ -1,0 +1,3282 @@
+{
+	"info": {
+		"_postman_id": "92940ded-affa-4260-a27b-f12888c76b5d",
+		"name": "Helldivers 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6421438"
+	},
+	"item": [
+		{
+			"name": "source",
+			"item": [
+				{
+					"name": "Get War Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en-US",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{datasource_url}}/WarSeason/:warId/Status",
+							"host": [
+								"{{datasource_url}}"
+							],
+							"path": [
+								"WarSeason",
+								":warId",
+								"Status"
+							],
+							"variable": [
+								{
+									"key": "warId",
+									"value": "801"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get War Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en-US",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{datasource_url}}/WarSeason/:warId/WarInfo",
+							"host": [
+								"{{datasource_url}}"
+							],
+							"path": [
+								"WarSeason",
+								":warId",
+								"WarInfo"
+							],
+							"variable": [
+								{
+									"key": "warId",
+									"value": "801"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sectors",
+			"item": [
+				{
+					"name": "/api/sectors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/sectors",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sectors"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/sectors",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"sectors"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:37:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "878"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 0,\n            \"name\": \"Sol\",\n            \"createdAt\": \"2024-03-14T07:42:24.345Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.345Z\"\n        },\n        {\n            \"id\": 2,\n            \"index\": 1,\n            \"name\": \"Altus\",\n            \"createdAt\": \"2024-03-14T07:42:24.347Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.347Z\"\n        },\n        {\n            \"id\": 3,\n            \"index\": 2,\n            \"name\": \"Barnard\",\n            \"createdAt\": \"2024-03-14T07:42:24.348Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.348Z\"\n        },\n        {\n            \"id\": 4,\n            \"index\": 3,\n            \"name\": \"Cancri\",\n            \"createdAt\": \"2024-03-14T07:42:24.350Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.350Z\"\n        },\n        {\n            \"id\": 5,\n            \"index\": 4,\n            \"name\": \"Gothmar\",\n            \"createdAt\": \"2024-03-14T07:42:24.354Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.354Z\"\n        },\n        {\n            \"id\": 6,\n            \"index\": 5,\n            \"name\": \"Cantolus\",\n            \"createdAt\": \"2024-03-14T07:42:24.356Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.356Z\"\n        },\n        {\n            \"id\": 7,\n            \"index\": -1,\n            \"name\": \"Unknown\",\n            \"createdAt\": \"2024-03-14T07:42:24.358Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.358Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 7\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/sectors/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/sectors/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sectors",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/sectors/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"sectors",
+										":id"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:41:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "131"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"index\": 0,\n        \"name\": \"Sol\",\n        \"createdAt\": \"2024-03-14T07:42:24.345Z\",\n        \"updatedAt\": \"2024-03-14T07:42:24.345Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/sectors/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"sectors",
+										":id"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:41:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Sector with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/sectors/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"sectors",
+										":id"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:41:39 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/sectors/:id/planets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/sectors/:id/planets",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"sectors",
+								":id",
+								"planets"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/sectors/:id/planets",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"sectors",
+										":id",
+										"planets"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 07:50:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4831"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 0,\n            \"name\": \"Super Earth\",\n            \"ownerId\": 1,\n            \"sectorId\": 1,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 651,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0,\n            \"positionY\": 0,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.367Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.367Z\"\n        },\n        {\n            \"id\": 2,\n            \"index\": 1,\n            \"name\": \"Klen Dahth II\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.05373042,\n            \"positionY\": 0.10565466,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.373Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.373Z\"\n        },\n        {\n            \"id\": 3,\n            \"index\": 2,\n            \"name\": \"Pathfinder V\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.04664221,\n            \"positionY\": 0.16758725,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.378Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.378Z\"\n        },\n        {\n            \"id\": 4,\n            \"index\": 3,\n            \"name\": \"Widow's Harbor\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.12536779,\n            \"positionY\": 0.11821219,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.381Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.381Z\"\n        },\n        {\n            \"id\": 5,\n            \"index\": 4,\n            \"name\": \"New Haven\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.10280278,\n            \"positionY\": 0.05765711,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.385Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.385Z\"\n        },\n        {\n            \"id\": 6,\n            \"index\": 5,\n            \"name\": \"Pilen V\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.15988354,\n            \"positionY\": 0.043583166,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.390Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.390Z\"\n        },\n        {\n            \"id\": 7,\n            \"index\": 6,\n            \"name\": \"Hydrofall Prime\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.13535836,\n            \"positionY\": -0.03378948,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.395Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.395Z\"\n        },\n        {\n            \"id\": 8,\n            \"index\": 7,\n            \"name\": \"Zea Rugosia\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.36159223,\n            \"positionY\": -0.52270126,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.399Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.399Z\"\n        },\n        {\n            \"id\": 9,\n            \"index\": 8,\n            \"name\": \"Darrowsport\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.09485684,\n            \"positionY\": -0.08101245,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.402Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.402Z\"\n        },\n        {\n            \"id\": 10,\n            \"index\": 9,\n            \"name\": \"Fornskogur II\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.15801243,\n            \"positionY\": -0.09685686,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.408Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.408Z\"\n        },\n        {\n            \"id\": 11,\n            \"index\": 10,\n            \"name\": \"Midasburg\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.06770126,\n            \"positionY\": -0.1448935,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.411Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.411Z\"\n        },\n        {\n            \"id\": 12,\n            \"index\": 11,\n            \"name\": \"Cerberus Iiic\",\n            \"ownerId\": 1,\n            \"sectorId\": 4,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.001789452,\n            \"positionY\": -0.18935835,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.415Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.415Z\"\n        },\n        {\n            \"id\": 13,\n            \"index\": 12,\n            \"name\": \"Prosperity Falls\",\n            \"ownerId\": 1,\n            \"sectorId\": 4,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.001789474,\n            \"positionY\": -0.12535837,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.419Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.419Z\"\n        },\n        {\n            \"id\": 14,\n            \"index\": 13,\n            \"name\": \"Okul VI\",\n            \"ownerId\": 1,\n            \"sectorId\": 5,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.06158319,\n            \"positionY\": -0.16488354,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.425Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.425Z\"\n        },\n        {\n            \"id\": 15,\n            \"index\": 14,\n            \"name\": \"Martyr's Bay\",\n            \"ownerId\": 1,\n            \"sectorId\": 6,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.099012464,\n            \"positionY\": -0.11185683,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.437Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.437Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 18,\n        \"total\": 261\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Sectors contain a number of planets and define a area on the galaxy map. At the moment we are missing some data for the sectors, but we will add them as soon as we have them."
+		},
+		{
+			"name": "planets",
+			"item": [
+				{
+					"name": "/api/planets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/planets",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"planets"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 07:50:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4831"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 0,\n            \"name\": \"Super Earth\",\n            \"ownerId\": 1,\n            \"sectorId\": 1,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 651,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0,\n            \"positionY\": 0,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.367Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.367Z\"\n        },\n        {\n            \"id\": 2,\n            \"index\": 1,\n            \"name\": \"Klen Dahth II\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.05373042,\n            \"positionY\": 0.10565466,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.373Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.373Z\"\n        },\n        {\n            \"id\": 3,\n            \"index\": 2,\n            \"name\": \"Pathfinder V\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.04664221,\n            \"positionY\": 0.16758725,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.378Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.378Z\"\n        },\n        {\n            \"id\": 4,\n            \"index\": 3,\n            \"name\": \"Widow's Harbor\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.12536779,\n            \"positionY\": 0.11821219,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.381Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.381Z\"\n        },\n        {\n            \"id\": 5,\n            \"index\": 4,\n            \"name\": \"New Haven\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.10280278,\n            \"positionY\": 0.05765711,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.385Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.385Z\"\n        },\n        {\n            \"id\": 6,\n            \"index\": 5,\n            \"name\": \"Pilen V\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.15988354,\n            \"positionY\": 0.043583166,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.390Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.390Z\"\n        },\n        {\n            \"id\": 7,\n            \"index\": 6,\n            \"name\": \"Hydrofall Prime\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.13535836,\n            \"positionY\": -0.03378948,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.395Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.395Z\"\n        },\n        {\n            \"id\": 8,\n            \"index\": 7,\n            \"name\": \"Zea Rugosia\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.36159223,\n            \"positionY\": -0.52270126,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.399Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.399Z\"\n        },\n        {\n            \"id\": 9,\n            \"index\": 8,\n            \"name\": \"Darrowsport\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.09485684,\n            \"positionY\": -0.08101245,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.402Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.402Z\"\n        },\n        {\n            \"id\": 10,\n            \"index\": 9,\n            \"name\": \"Fornskogur II\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.15801243,\n            \"positionY\": -0.09685686,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.408Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.408Z\"\n        },\n        {\n            \"id\": 11,\n            \"index\": 10,\n            \"name\": \"Midasburg\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.06770126,\n            \"positionY\": -0.1448935,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.411Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.411Z\"\n        },\n        {\n            \"id\": 12,\n            \"index\": 11,\n            \"name\": \"Cerberus Iiic\",\n            \"ownerId\": 1,\n            \"sectorId\": 4,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.001789452,\n            \"positionY\": -0.18935835,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.415Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.415Z\"\n        },\n        {\n            \"id\": 13,\n            \"index\": 12,\n            \"name\": \"Prosperity Falls\",\n            \"ownerId\": 1,\n            \"sectorId\": 4,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.001789474,\n            \"positionY\": -0.12535837,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.419Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.419Z\"\n        },\n        {\n            \"id\": 14,\n            \"index\": 13,\n            \"name\": \"Okul VI\",\n            \"ownerId\": 1,\n            \"sectorId\": 5,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.06158319,\n            \"positionY\": -0.16488354,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.425Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.425Z\"\n        },\n        {\n            \"id\": 15,\n            \"index\": 14,\n            \"name\": \"Martyr's Bay\",\n            \"ownerId\": 1,\n            \"sectorId\": 6,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.099012464,\n            \"positionY\": -0.11185683,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.437Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.437Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 18,\n        \"total\": 261\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/planets/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/planets/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"planets",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 07:57:37 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "320"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"index\": 0,\n        \"name\": \"Super Earth\",\n        \"ownerId\": 1,\n        \"sectorId\": 1,\n        \"health\": 1000000,\n        \"maxHealth\": 1000000,\n        \"players\": 651,\n        \"disabled\": false,\n        \"regeneration\": 1388,\n        \"initialOwnerId\": 1,\n        \"positionX\": 0,\n        \"positionY\": 0,\n        \"globalEventId\": null,\n        \"createdAt\": \"2024-03-14T07:42:24.367Z\",\n        \"updatedAt\": \"2024-03-14T07:42:24.367Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 07:58:36 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Planet with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 07:57:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/planets/:id/attacks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/planets/:id/attacks",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"planets",
+								":id",
+								"attacks"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "243",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id/attacks",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id",
+										"attacks"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "243",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:00:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "582"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"attacking\": [],\n        \"defending\": [\n            {\n                \"id\": 1,\n                \"targetId\": 243,\n                \"sourceId\": 159,\n                \"updatedAt\": \"2024-03-14T07:42:25.435Z\",\n                \"createdAt\": \"2024-03-14T07:42:25.435Z\"\n            },\n            {\n                \"id\": 2,\n                \"targetId\": 243,\n                \"sourceId\": 159,\n                \"updatedAt\": \"2024-03-14T07:42:25.437Z\",\n                \"createdAt\": \"2024-03-14T07:42:25.437Z\"\n            },\n            {\n                \"id\": 3,\n                \"targetId\": 243,\n                \"sourceId\": 245,\n                \"updatedAt\": \"2024-03-14T07:42:25.439Z\",\n                \"createdAt\": \"2024-03-14T07:42:25.439Z\"\n            },\n            {\n                \"id\": 4,\n                \"targetId\": 243,\n                \"sourceId\": 245,\n                \"updatedAt\": \"2024-03-14T07:42:25.441Z\",\n                \"createdAt\": \"2024-03-14T07:42:25.441Z\"\n            }\n        ]\n    },\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 4\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/planets/:id/owners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/planets/:id/owners",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"planets",
+								":id",
+								"owners"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id/owners",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id",
+										"owners"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:08:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "272"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"owner\": {\n            \"id\": 1,\n            \"index\": 1,\n            \"name\": \"Humans\",\n            \"createdAt\": \"2024-03-14T07:42:24.360Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.360Z\"\n        },\n        \"initialOwner\": {\n            \"id\": 1,\n            \"index\": 1,\n            \"name\": \"Humans\",\n            \"createdAt\": \"2024-03-14T07:42:24.360Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.360Z\"\n        }\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id/owners",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id",
+										"owners"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:08:38 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Planet with id (1000) appears to have no owners\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id/owners",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id",
+										"owners"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:08:49 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/planets/:id/campaigns",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/planets/:id/campaigns",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"planets",
+								":id",
+								"campaigns"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "243",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id/campaigns",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id",
+										"campaigns"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "243",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 08:17:33 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "220"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 6,\n            \"type\": 0,\n            \"index\": 50015,\n            \"count\": 2,\n            \"planetId\": 243,\n            \"createdAt\": \"2024-03-14T07:42:25.492Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.492Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 1\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Planets celestial bodies inside a sector. As the war for democracy rages on, the planets are the main battlegrounds. Planets have player counts, a controlling faction."
+		},
+		{
+			"name": "attacks",
+			"item": [
+				{
+					"name": "/api/attacks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/attacks",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"attacks"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:04:55 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1853"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 23,\n            \"targetId\": 243,\n            \"sourceId\": 159,\n            \"updatedAt\": \"2024-03-14T09:17:37.615Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.615Z\"\n        },\n        {\n            \"id\": 24,\n            \"targetId\": 243,\n            \"sourceId\": 159,\n            \"updatedAt\": \"2024-03-14T09:17:37.617Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.617Z\"\n        },\n        {\n            \"id\": 25,\n            \"targetId\": 243,\n            \"sourceId\": 245,\n            \"updatedAt\": \"2024-03-14T09:17:37.618Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.618Z\"\n        },\n        {\n            \"id\": 26,\n            \"targetId\": 243,\n            \"sourceId\": 245,\n            \"updatedAt\": \"2024-03-14T09:17:37.620Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.620Z\"\n        },\n        {\n            \"id\": 27,\n            \"targetId\": 169,\n            \"sourceId\": 80,\n            \"updatedAt\": \"2024-03-14T09:17:37.621Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.621Z\"\n        },\n        {\n            \"id\": 28,\n            \"targetId\": 169,\n            \"sourceId\": 80,\n            \"updatedAt\": \"2024-03-14T09:17:37.623Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.623Z\"\n        },\n        {\n            \"id\": 29,\n            \"targetId\": 197,\n            \"sourceId\": 198,\n            \"updatedAt\": \"2024-03-14T09:17:37.624Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.624Z\"\n        },\n        {\n            \"id\": 30,\n            \"targetId\": 197,\n            \"sourceId\": 198,\n            \"updatedAt\": \"2024-03-14T09:17:37.626Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.626Z\"\n        },\n        {\n            \"id\": 31,\n            \"targetId\": 154,\n            \"sourceId\": 198,\n            \"updatedAt\": \"2024-03-14T09:17:37.627Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.627Z\"\n        },\n        {\n            \"id\": 32,\n            \"targetId\": 154,\n            \"sourceId\": 198,\n            \"updatedAt\": \"2024-03-14T09:17:37.629Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.629Z\"\n        },\n        {\n            \"id\": 33,\n            \"targetId\": 154,\n            \"sourceId\": 240,\n            \"updatedAt\": \"2024-03-14T09:17:37.632Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.632Z\"\n        },\n        {\n            \"id\": 34,\n            \"targetId\": 154,\n            \"sourceId\": 240,\n            \"updatedAt\": \"2024-03-14T09:17:37.633Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.633Z\"\n        },\n        {\n            \"id\": 35,\n            \"targetId\": 127,\n            \"sourceId\": 128,\n            \"updatedAt\": \"2024-03-14T09:17:37.635Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.635Z\"\n        },\n        {\n            \"id\": 36,\n            \"targetId\": 127,\n            \"sourceId\": 128,\n            \"updatedAt\": \"2024-03-14T09:17:37.636Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.636Z\"\n        },\n        {\n            \"id\": 37,\n            \"targetId\": 65,\n            \"sourceId\": 128,\n            \"updatedAt\": \"2024-03-14T09:17:37.638Z\",\n            \"createdAt\": \"2024-03-14T09:17:37.638Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 2,\n        \"total\": 22\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/attacks/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/attacks/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"attacks",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "23",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "23",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:05:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 23,\n        \"targetId\": 243,\n        \"sourceId\": 159,\n        \"updatedAt\": \"2024-03-14T09:17:37.615Z\",\n        \"createdAt\": \"2024-03-14T09:17:37.615Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:05:35 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Attack with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:05:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/attacks/:id/planets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/attacks/:id/planets",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"attacks",
+								":id",
+								"planets"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "23",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks/:id/planets",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks",
+										":id",
+										"planets"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "23",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:14:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "674"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"source\": {\n            \"id\": 159,\n            \"index\": 158,\n            \"name\": \"Choepessa IV\",\n            \"ownerId\": 1,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.7044093,\n            \"positionY\": 0.25667855,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.134Z\",\n            \"updatedAt\": \"2024-03-14T09:17:37.393Z\"\n        },\n        \"target\": {\n            \"id\": 243,\n            \"index\": 242,\n            \"name\": \"Ustotu\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 1289,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.806865,\n            \"positionY\": 0.20750636,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.388Z\",\n            \"updatedAt\": \"2024-03-14T09:17:37.573Z\"\n        }\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks/:id/planets",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks",
+										":id",
+										"planets"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:14:49 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Attack with id (1000) appears not be associated with any planets\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/attacks/:id/planets",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"attacks",
+										":id",
+										"planets"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 11:12:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Attacks always have a source and a target. The source is the planet that the attack is coming from, and the target is the planet that the attack is going to. You an check the attack progress by having a look on the planet's health properties."
+		},
+		{
+			"name": "factions",
+			"item": [
+				{
+					"name": "/api/factions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/factions",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"factions"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:03:49 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "431"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 1,\n            \"name\": \"Humans\",\n            \"createdAt\": \"2024-03-14T07:42:24.360Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.360Z\"\n        },\n        {\n            \"id\": 2,\n            \"index\": 2,\n            \"name\": \"Terminids\",\n            \"createdAt\": \"2024-03-14T07:42:24.362Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.362Z\"\n        },\n        {\n            \"id\": 3,\n            \"index\": 3,\n            \"name\": \"Automatons\",\n            \"createdAt\": \"2024-03-14T07:42:24.364Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.364Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 3\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/factions/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/factions/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"factions",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:06:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"index\": 1,\n        \"name\": \"Humans\",\n        \"createdAt\": \"2024-03-14T07:42:24.360Z\",\n        \"updatedAt\": \"2024-03-14T07:42:24.360Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:06:29 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Faction with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:06:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/factions/:id/origins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/factions/:id/origins",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"factions",
+								":id",
+								"origins"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id/origins",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id",
+										"origins"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:43:04 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "320"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"index\": 0,\n        \"name\": \"Super Earth\",\n        \"ownerId\": 1,\n        \"sectorId\": 1,\n        \"health\": 1000000,\n        \"maxHealth\": 1000000,\n        \"players\": 915,\n        \"disabled\": false,\n        \"regeneration\": 1388,\n        \"initialOwnerId\": 1,\n        \"positionX\": 0,\n        \"positionY\": 0,\n        \"globalEventId\": null,\n        \"createdAt\": \"2024-03-14T07:42:24.367Z\",\n        \"updatedAt\": \"2024-03-14T09:17:37.041Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id/origins",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id",
+										"origins"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:43:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "86"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Faction with id (2) does not have a home planet.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/factions/:id/planets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/factions/:id/planets",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"factions",
+								":id",
+								"planets"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id/planets",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id",
+										"planets"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:15:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4831"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 0,\n            \"name\": \"Super Earth\",\n            \"ownerId\": 1,\n            \"sectorId\": 1,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 651,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0,\n            \"positionY\": 0,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.367Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.367Z\"\n        },\n        {\n            \"id\": 2,\n            \"index\": 1,\n            \"name\": \"Klen Dahth II\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.05373042,\n            \"positionY\": 0.10565466,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.373Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.373Z\"\n        },\n        {\n            \"id\": 3,\n            \"index\": 2,\n            \"name\": \"Pathfinder V\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.04664221,\n            \"positionY\": 0.16758725,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.378Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.378Z\"\n        },\n        {\n            \"id\": 4,\n            \"index\": 3,\n            \"name\": \"Widow's Harbor\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.12536779,\n            \"positionY\": 0.11821219,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.381Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.381Z\"\n        },\n        {\n            \"id\": 5,\n            \"index\": 4,\n            \"name\": \"New Haven\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.10280278,\n            \"positionY\": 0.05765711,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.385Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.385Z\"\n        },\n        {\n            \"id\": 6,\n            \"index\": 5,\n            \"name\": \"Pilen V\",\n            \"ownerId\": 1,\n            \"sectorId\": 2,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.15988354,\n            \"positionY\": 0.043583166,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.390Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.390Z\"\n        },\n        {\n            \"id\": 7,\n            \"index\": 6,\n            \"name\": \"Hydrofall Prime\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.13535836,\n            \"positionY\": -0.03378948,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.395Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.395Z\"\n        },\n        {\n            \"id\": 8,\n            \"index\": 7,\n            \"name\": \"Zea Rugosia\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.36159223,\n            \"positionY\": -0.52270126,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.399Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.399Z\"\n        },\n        {\n            \"id\": 9,\n            \"index\": 8,\n            \"name\": \"Darrowsport\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.09485684,\n            \"positionY\": -0.08101245,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.402Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.402Z\"\n        },\n        {\n            \"id\": 10,\n            \"index\": 9,\n            \"name\": \"Fornskogur II\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.15801243,\n            \"positionY\": -0.09685686,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.408Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.408Z\"\n        },\n        {\n            \"id\": 11,\n            \"index\": 10,\n            \"name\": \"Midasburg\",\n            \"ownerId\": 1,\n            \"sectorId\": 3,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.06770126,\n            \"positionY\": -0.1448935,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.411Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.411Z\"\n        },\n        {\n            \"id\": 12,\n            \"index\": 11,\n            \"name\": \"Cerberus Iiic\",\n            \"ownerId\": 1,\n            \"sectorId\": 4,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": 0.001789452,\n            \"positionY\": -0.18935835,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.415Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.415Z\"\n        },\n        {\n            \"id\": 13,\n            \"index\": 12,\n            \"name\": \"Prosperity Falls\",\n            \"ownerId\": 1,\n            \"sectorId\": 4,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.001789474,\n            \"positionY\": -0.12535837,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.419Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.419Z\"\n        },\n        {\n            \"id\": 14,\n            \"index\": 13,\n            \"name\": \"Okul VI\",\n            \"ownerId\": 1,\n            \"sectorId\": 5,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.06158319,\n            \"positionY\": -0.16488354,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.425Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.425Z\"\n        },\n        {\n            \"id\": 15,\n            \"index\": 14,\n            \"name\": \"Martyr's Bay\",\n            \"ownerId\": 1,\n            \"sectorId\": 6,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 1388,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.099012464,\n            \"positionY\": -0.11185683,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:24.437Z\",\n            \"updatedAt\": \"2024-03-14T07:42:24.437Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 16,\n        \"total\": 230\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/factions/:id/pushbacks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/factions/:id/pushbacks",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"factions",
+								":id",
+								"pushbacks"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id/pushbacks",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id",
+										"pushbacks"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 09:16:42 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1340"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 154,\n            \"index\": 153,\n            \"name\": \"Draupnir\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 667332,\n            \"maxHealth\": 1000000,\n            \"players\": 16339,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.745425,\n            \"positionY\": -0.1314594,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.120Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.120Z\"\n        },\n        {\n            \"id\": 241,\n            \"index\": 240,\n            \"name\": \"Troost\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.9021621,\n            \"positionY\": 0.15547518,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.383Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.383Z\"\n        },\n        {\n            \"id\": 243,\n            \"index\": 242,\n            \"name\": \"Ustotu\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 1876,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.806865,\n            \"positionY\": 0.20750636,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.388Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.388Z\"\n        },\n        {\n            \"id\": 244,\n            \"index\": 243,\n            \"name\": \"Vandalon IV\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 11,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.840825,\n            \"positionY\": 0.06103413,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.390Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.390Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 4\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Factions are divided in three groups: Terminids, Humans and Automatons. Humans are the only faction that can be controlled by players. The other two are controlled by the game as Non-Player Characters (NPCs)."
+		},
+		{
+			"name": "war",
+			"item": [
+				{
+					"name": "/api/war",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/war",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"war"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The current war season is the 1st. The war season is a period of time in which the factions fight for control of the planets. The war season has a start and an end date which of the time of this writing is bugged out and not working properly."
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "/api/events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/events",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "",
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/events",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"events"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "",
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": "",
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 12:12:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "684"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 5,\n            \"index\": 1499087,\n            \"title\": \"BRIEFING\",\n            \"factionId\": 1,\n            \"message\": \"Upon each Barrier Planet now stands a network of massive, Termicide-dispensing towers: the Terminid Control System. Once activated, the TCS will exterminate every Terminid on that planet, and inoculate it against all future infestations. \\n\\nHowever, surges in Terminid activity have forced the SEAF Engineers to evacuate. Now, only the Helldivers can ensure the safety of our citizens.\\n\\nThe Terminid Control System must be activated—at any cost.\",\n            \"createdAt\": \"2024-03-14T11:51:30.704Z\",\n            \"updatedAt\": \"2024-03-14T11:51:30.704Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/events/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/events/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/events/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"events",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 12:13:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "620"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 5,\n        \"index\": 1499087,\n        \"title\": \"BRIEFING\",\n        \"factionId\": 1,\n        \"message\": \"Upon each Barrier Planet now stands a network of massive, Termicide-dispensing towers: the Terminid Control System. Once activated, the TCS will exterminate every Terminid on that planet, and inoculate it against all future infestations. \\n\\nHowever, surges in Terminid activity have forced the SEAF Engineers to evacuate. Now, only the Helldivers can ensure the safety of our citizens.\\n\\nThe Terminid Control System must be activated—at any cost.\",\n        \"createdAt\": \"2024-03-14T11:51:30.704Z\",\n        \"updatedAt\": \"2024-03-14T11:51:30.704Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/events/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"events",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 12:13:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Event with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/events/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"events",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 12:13:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Event with id (1000) not found\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Events are in game briefings and updates that are sent to the players. They are used to inform the players about the current state of the game and the war."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "datasource_url",
+			"value": "https://api.live.prod.thehelldiversgame.com/api",
+			"type": "string"
+		},
+		{
+			"key": "api_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

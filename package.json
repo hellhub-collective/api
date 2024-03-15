@@ -1,0 +1,53 @@
+{
+  "name": "@helldivers-companion/api",
+  "description": "The official API for the community driven Helldivers Companion app",
+  "module": "./src/index.ts",
+  "main": "build/index.mjs",
+  "types": "build/index.d.ts",
+  "type": "module",
+  "keywords": [
+    "typescript",
+    "async",
+    "bun",
+    "typesafe",
+    "api",
+    "helldivers",
+    "videogame"
+  ],
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "output": "bun run scripts/build.ts",
+    "dev": "bun run --hot ./src/index.ts",
+    "refresh": "bun run ./scripts/refresh.ts",
+    "clean": "rm -rf prisma/database prisma/migrations",
+    "serve": "pm2 start --name=\"@helldivers-companion/api\" --interpreter ~/.bun/bin/bun build/index.js",
+    "generate": "bun run ./scripts/generate.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/memory-cache": "^0.2.5",
+    "@types/qs": "^6.9.12",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "bun-plugin-dts": "^0.2.1",
+    "bun-types": "^1.0.30",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "cron": "^3.1.6",
+    "hono": "^4.1.0",
+    "memory-cache": "^0.2.0",
+    "qs": "^6.12.0"
+  }
+}
