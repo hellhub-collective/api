@@ -9,6 +9,12 @@ export interface NameEntry {
   name: string;
 }
 
+export interface SectorEntry {
+  index: number;
+  name: string;
+  planets: NameEntry[];
+}
+
 const prisma = new PrismaClient();
 
 /**
@@ -16,7 +22,11 @@ const prisma = new PrismaClient();
  * executed before the helldiver's 2 server is contacted.
  */
 export async function prepareForSourceData() {
-  const [factions, planets, sectors]: NameEntry[][] = [[], [], []];
+  const [factions, planets, sectors]: [
+    NameEntry[],
+    NameEntry[],
+    SectorEntry[],
+  ] = [[], [], []];
 
   const [planetsData, sectorsData, factionsData] = await Promise.all([
     fs.readFile(
@@ -34,8 +44,8 @@ export async function prepareForSourceData() {
   ]);
 
   const planetsJSON: Record<string, string> = JSON.parse(planetsData);
-  const sectorsJSON: Record<string, string> = JSON.parse(sectorsData);
   const factionsJSON: Record<string, string> = JSON.parse(factionsData);
+  const sectorsJSON: Record<string, Array<number>> = JSON.parse(sectorsData);
 
   // populate planets
   for (const key in planetsJSON) {
@@ -44,9 +54,18 @@ export async function prepareForSourceData() {
   }
 
   // populate sectors
-  for (const key in sectorsJSON) {
-    const name = sectorsJSON[key];
-    sectors.push({ index: parseInt(key), name });
+  const sectorKeys = Object.keys(sectorsJSON);
+  for (let i = 0; i < sectorKeys.length; i++) {
+    const key = sectorKeys[i];
+    const children = sectorsJSON[key];
+    sectors.push({
+      name: key,
+      index: i + 1,
+      planets: children.map(index => ({
+        index: index,
+        name: planetsJSON[index],
+      })),
+    });
   }
 
   // populate factions
@@ -105,7 +124,9 @@ export async function transformAndStoreSourceData() {
 
   // generate the sector data
   for (const sector of sectors) {
-    await prisma.sector.create({ data: sector });
+    await prisma.sector.create({
+      data: { index: sector.index, name: sector.name },
+    });
   }
 
   // generate the faction data
@@ -123,9 +144,9 @@ export async function transformAndStoreSourceData() {
       continue;
     }
 
-    const planetSector = sectors.filter(s => s.index === info.sector).length
-      ? info.sector
-      : -1;
+    const planetSector = sectors.find(s => {
+      return s.planets.some(p => p.index === planet.index);
+    });
 
     await prisma.planet.create({
       data: {
@@ -139,7 +160,7 @@ export async function transformAndStoreSourceData() {
         positionY: info.position.y,
         regeneration: status.regenPerSecond,
         owner: { connect: { index: status.owner } },
-        sector: { connect: { index: planetSector } },
+        sector: { connect: { index: planetSector?.index } },
         initialOwner: { connect: { index: info.initialOwner } },
       },
     });
@@ -188,20 +209,13 @@ export async function transformAndStoreSourceData() {
       globals.planetIndices.includes(p.index);
     });
 
-    if (!faction?.index) {
-      console.warn(`No faction found for global event`, {
-        faction: globals.race,
-      });
-      continue;
-    }
-
     await prisma.globalEvent.create({
       data: {
         title: globals.title,
         index: globals.eventId,
         message: globals.message,
-        faction: { connect: { index: faction.index } },
         planets: { connect: targets.map(p => ({ index: p.index })) },
+        faction: faction ? { connect: { index: faction.index } } : undefined,
       },
     });
   }

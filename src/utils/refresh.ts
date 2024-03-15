@@ -25,7 +25,7 @@ export async function refreshAndStoreSourceData() {
   for (const sector of sectors) {
     await prisma.sector.update({
       where: { index: sector.index },
-      data: sector,
+      data: { index: sector.index, name: sector.name },
     });
   }
 
@@ -47,9 +47,9 @@ export async function refreshAndStoreSourceData() {
       continue;
     }
 
-    const planetSector = sectors.filter(s => s.index === info.sector).length
-      ? info.sector
-      : -1;
+    const planetSector = sectors.find(s => {
+      return s.planets.some(p => p.index === planet.index);
+    });
 
     await prisma.planet.update({
       where: { index: planet.index },
@@ -64,7 +64,7 @@ export async function refreshAndStoreSourceData() {
         positionY: info.position.y,
         regeneration: status.regenPerSecond,
         owner: { connect: { index: status.owner } },
-        sector: { connect: { index: planetSector } },
+        sector: { connect: { index: planetSector?.index } },
         initialOwner: { connect: { index: info.initialOwner } },
       },
     });
@@ -116,20 +116,13 @@ export async function refreshAndStoreSourceData() {
       globals.planetIndices.includes(p.index);
     });
 
-    if (!faction?.index) {
-      console.warn(`No faction found for global event`, {
-        faction: globals.race,
-      });
-      continue;
-    }
-
     await prisma.globalEvent.create({
       data: {
         title: globals.title,
         index: globals.eventId,
         message: globals.message,
-        faction: { connect: { index: faction.index } },
         planets: { connect: targets.map(p => ({ index: p.index })) },
+        faction: faction ? { connect: { index: faction.index } } : undefined,
       },
     });
   }
