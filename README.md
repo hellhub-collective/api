@@ -18,7 +18,7 @@ The API is written in Typescript and runs on the Bun framework. It pulls data fr
 
 ## Rate limit
 
-The Helldivers Companion API has a rate limit of 200 requests per minute.To avoid hitting rate limits in your clients check the following headers in your response:
+The Helldivers Companion API has a rate limit of 200 requests per minute. To avoid hitting rate limits in your clients check the following headers in your response:
 
 - `X-Rate-Limit`: The maximum number of requests per minute.
 - `X-Rate-Count`: The number of requests made in the current minute.
