@@ -12,9 +12,18 @@
 
 The unofficial API was not explicitly made usable by Arrowhead Game Studios for third parties, may be subject to change at any time. This API will be updated to reflect any changes to the game API.
 
-## How does it work?
+### How does it work?
 
 The API is written in Typescript and runs on the Bun framework. It pulls data from the Helldivers 2 API and transforms it into a more user-friendly format. It also caches the data so that the app can pull data from the API without having to worry about rate limits or slow response times.
+
+## Rate limit
+
+The Helldivers Companion API has a rate limit of 200 requests per minute.To avoid hitting rate limits in your clients check the following headers in your response:
+
+- `X-Rate-Limit`: The maximum number of requests per minute.
+- `X-Rate-Count`: The number of requests made in the current minute.
+- `X-Rate-Reset`: The time at which the current rate limit resets.
+- `X-Rate-Remaining`: The number of requests remaining.
 
 ## API Entities and Endpoints
 
