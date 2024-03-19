@@ -4390,7 +4390,7 @@
 		},
 		{
 			"key": "api_url",
-			"value": "https://api-helldivers-companion.koyeb.app/",
+			"value": "https://api-helldivers-companion.koyeb.app",
 			"type": "string"
 		}
 	]
