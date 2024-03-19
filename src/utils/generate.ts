@@ -32,19 +32,19 @@ export async function prepareForSourceData() {
   const [planetsData, sectorsData, factionsData, stratagemsData] =
     await Promise.all([
       fs.readFile(
-        path.join(process.cwd(), "src", "static/planets.json"),
+        path.join(process.cwd(), "src", "static/json/planets.json"),
         "utf-8",
       ),
       fs.readFile(
-        path.join(process.cwd(), "src", "static/sectors.json"),
+        path.join(process.cwd(), "src", "static/json/sectors.json"),
         "utf-8",
       ),
       fs.readFile(
-        path.join(process.cwd(), "src", "static/factions.json"),
+        path.join(process.cwd(), "src", "static/json/factions.json"),
         "utf-8",
       ),
       fs.readFile(
-        path.join(process.cwd(), "src", "static/stratagems.json"),
+        path.join(process.cwd(), "src", "static/json/stratagems.json"),
         "utf-8",
       ),
     ]);
