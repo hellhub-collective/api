@@ -107,6 +107,29 @@ export async function refreshAndStoreSourceData() {
     });
   }
 
+  // generate the planet event data (attack/defend orders)
+  await prisma.order.deleteMany();
+  for (const event of warStatus.planetEvents) {
+    const planet = planets.find(p => p.index === event.planetIndex);
+    const faction = factions.find(f => f.index === event.race);
+    const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
+
+    await prisma.order.create({
+      data: {
+        index: event.id,
+        eventType: event.eventType === 1 ? "DEFEND" : "ATTACK",
+        health: event.health,
+        maxHealth: event.maxHealth,
+        hqNodeIndex: jointOp?.hqNodeIndex,
+        startTime: new Date(event.startTime),
+        expireTime: new Date(event.expireTime),
+        campaign: { connect: { index: event.campaignId } },
+        planet: planet ? { connect: { index: planet.index } } : undefined,
+        faction: faction ? { connect: { index: faction.index } } : undefined,
+      },
+    });
+  }
+
   // generate the global event data
   await prisma.globalEvent.deleteMany();
   for (const globals of warStatus.globalEvents) {

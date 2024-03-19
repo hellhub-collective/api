@@ -56,6 +56,25 @@ export interface HomeWorld {
   planetIndices: number[];
 }
 
+export interface JointOperation {
+  id: number;
+  planetIndex: number;
+  hqNodeIndex: number;
+}
+
+export interface PlanetEvent {
+  id: number;
+  planetIndex: number;
+  eventType: number;
+  race: number;
+  health: number;
+  maxHealth: number;
+  startTime: number;
+  expireTime: number;
+  campaignId: number;
+  jointOperationIds: number[];
+}
+
 export interface WarStatus {
   warId: number;
   time: number;
@@ -65,8 +84,8 @@ export interface WarStatus {
   planetAttacks: PlanetAttack[];
   campaigns: Campaign[];
   communityTargets: never[];
-  jointOperations: never[];
-  planetEvents: never[];
+  jointOperations: JointOperation[];
+  planetEvents: PlanetEvent[];
   planetActiveEffects: never[];
   activeElectionPolicyEffects: never[];
   globalEvents: GlobalEvent[];

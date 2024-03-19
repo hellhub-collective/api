@@ -181,6 +181,7 @@ export async function transformAndStoreSourceData() {
     return warStatus.campaigns.map(c => c.planetIndex).includes(p.index);
   });
 
+  // generate the campaign data
   for (const campaign of warStatus.campaigns) {
     const planet = campaignPlanets.find(p => p.index === campaign.planetIndex);
 
@@ -197,6 +198,28 @@ export async function transformAndStoreSourceData() {
         type: campaign.type,
         count: campaign.count,
         planet: { connect: { index: planet.index } },
+      },
+    });
+  }
+
+  // generate the planet event data (attack/defend orders)
+  for (const event of warStatus.planetEvents) {
+    const planet = planets.find(p => p.index === event.planetIndex);
+    const faction = factions.find(f => f.index === event.race);
+    const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
+
+    await prisma.order.create({
+      data: {
+        index: event.id,
+        eventType: event.eventType === 1 ? "DEFEND" : "ATTACK",
+        health: event.health,
+        maxHealth: event.maxHealth,
+        hqNodeIndex: jointOp?.hqNodeIndex,
+        startTime: new Date(event.startTime),
+        expireTime: new Date(event.expireTime),
+        campaign: { connect: { index: event.campaignId } },
+        planet: planet ? { connect: { index: planet.index } } : undefined,
+        faction: faction ? { connect: { index: faction.index } } : undefined,
       },
     });
   }

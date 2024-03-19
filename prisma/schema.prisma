@@ -32,6 +32,7 @@ model Faction {
   id             Int           @id @default(autoincrement())
   index          Int           @unique
   name           String
+  orders         Order[]       @relation("Order")
   planets        Planet[]      @relation(name: "owner")
   initialPlanets Planet[]      @relation(name: "initialOwner")
   globalEvents   GlobalEvent[]
@@ -59,6 +60,7 @@ model Planet {
   positionY      Float
   globalEvent    GlobalEvent? @relation("GlobalEvent", fields: [globalEventId], references: [id])
   globalEventId  Int?
+  orders         Order[]      @relation("Order")
   campaign       Campaign[]   @relation("Campaign")
   homeWorld      HomeWorld[]  @relation("HomeWorld")
   attacking      Attack[]     @relation("Attack")
@@ -84,6 +86,7 @@ model Campaign {
   type      Int
   index     Int      @unique
   count     Int
+  order     Order[]  @relation("Order")
   planet    Planet   @relation("Campaign", fields: [planetId], references: [id])
   planetId  Int
   createdAt DateTime @default(now())
@@ -98,6 +101,25 @@ model HomeWorld {
   planetId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  index       Int       @unique
+  planet      Planet?   @relation("Order", fields: [planetId], references: [id])
+  planetId    Int?
+  faction     Faction?  @relation("Order", fields: [factionId], references: [id])
+  factionId   Int?
+  campaign    Campaign? @relation("Order", fields: [campaignId], references: [id])
+  campaignId  Int?
+  eventType   String
+  health      Int
+  maxHealth   Int
+  hqNodeIndex Int?
+  startTime   DateTime
+  expireTime  DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Attack {

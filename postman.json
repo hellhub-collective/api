@@ -1388,9 +1388,566 @@
 							"body": "{\n    \"data\": [\n        {\n            \"id\": 6,\n            \"type\": 0,\n            \"index\": 50015,\n            \"count\": 2,\n            \"planetId\": 243,\n            \"createdAt\": \"2024-03-14T07:42:25.492Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.492Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 1\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "/api/planets/:id/orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/planets/:id/orders",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"planets",
+								":id",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "",
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "170",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/planets/:id/orders",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"planets",
+										":id",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "170",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "1"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "199"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710837102423"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 08:30:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "381"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 4320,\n            \"planetId\": 170,\n            \"factionId\": 2,\n            \"campaignId\": 6,\n            \"eventType\": \"DEFEND\",\n            \"health\": 506501,\n            \"maxHealth\": 1800000,\n            \"hqNodeIndex\": 2,\n            \"startTime\": \"1970-01-01T00:53:37.040Z\",\n            \"expireTime\": \"1970-01-01T00:55:03.440Z\",\n            \"createdAt\": \"2024-03-19T08:15:43.721Z\",\n            \"updatedAt\": \"2024-03-19T08:15:43.721Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 1\n    }\n}"
+						}
+					]
 				}
 			],
 			"description": "Celestial bodies inside a sector. As the war for democracy rages on, the planets are the main battlegrounds. Planets carry player counts and have a controlling faction."
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "/api/orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/orders",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": null,
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": null,
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": null,
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/orders",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": null,
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": null,
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": null,
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "4"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "196"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710836953670"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 08:29:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "381"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 4320,\n            \"planetId\": 170,\n            \"factionId\": 2,\n            \"campaignId\": 6,\n            \"eventType\": \"DEFEND\",\n            \"health\": 506501,\n            \"maxHealth\": 1800000,\n            \"hqNodeIndex\": 2,\n            \"startTime\": \"1970-01-01T00:53:37.040Z\",\n            \"expireTime\": \"1970-01-01T00:55:03.440Z\",\n            \"createdAt\": \"2024-03-19T08:15:43.721Z\",\n            \"updatedAt\": \"2024-03-19T08:15:43.721Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/orders/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/orders/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/orders/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"orders",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "1"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "199"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710836953670"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 08:28:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "317"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"index\": 4320,\n        \"planetId\": 170,\n        \"factionId\": 2,\n        \"campaignId\": 6,\n        \"eventType\": \"DEFEND\",\n        \"health\": 506501,\n        \"maxHealth\": 1800000,\n        \"hqNodeIndex\": 2,\n        \"startTime\": \"1970-01-01T00:53:37.040Z\",\n        \"expireTime\": \"1970-01-01T00:55:03.440Z\",\n        \"createdAt\": \"2024-03-19T08:15:43.721Z\",\n        \"updatedAt\": \"2024-03-19T08:15:43.721Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/orders/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"orders",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "2"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "198"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710836953670"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 08:28:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Order with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/orders/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"orders",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "3"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "197"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710836953670"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 08:29:10 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Determine what planets need to be defended or attacked. When a attack/defend order is given, the whole community will try to attack/defend the planet."
 		},
 		{
 			"name": "Attacks",
@@ -2865,6 +3422,147 @@
 							"body": "{\n    \"data\": [\n        {\n            \"id\": 154,\n            \"index\": 153,\n            \"name\": \"Draupnir\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 667332,\n            \"maxHealth\": 1000000,\n            \"players\": 16339,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.745425,\n            \"positionY\": -0.1314594,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.120Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.120Z\"\n        },\n        {\n            \"id\": 241,\n            \"index\": 240,\n            \"name\": \"Troost\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 0,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.9021621,\n            \"positionY\": 0.15547518,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.383Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.383Z\"\n        },\n        {\n            \"id\": 243,\n            \"index\": 242,\n            \"name\": \"Ustotu\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 1876,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.806865,\n            \"positionY\": 0.20750636,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.388Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.388Z\"\n        },\n        {\n            \"id\": 244,\n            \"index\": 243,\n            \"name\": \"Vandalon IV\",\n            \"ownerId\": 3,\n            \"sectorId\": 7,\n            \"health\": 1000000,\n            \"maxHealth\": 1000000,\n            \"players\": 11,\n            \"disabled\": false,\n            \"regeneration\": 4,\n            \"initialOwnerId\": 1,\n            \"positionX\": -0.840825,\n            \"positionY\": 0.06103413,\n            \"globalEventId\": null,\n            \"createdAt\": \"2024-03-14T07:42:25.390Z\",\n            \"updatedAt\": \"2024-03-14T07:42:25.390Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 4\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "/api/factions/:id/orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/factions/:id/orders",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"factions",
+								":id",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "",
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/factions/:id/orders",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"factions",
+										":id",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "2"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "198"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710837275319"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 08:33:57 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "381"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"index\": 4320,\n            \"planetId\": 170,\n            \"factionId\": 2,\n            \"campaignId\": 6,\n            \"eventType\": \"DEFEND\",\n            \"health\": 506501,\n            \"maxHealth\": 1800000,\n            \"hqNodeIndex\": 2,\n            \"startTime\": \"1970-01-01T00:53:37.040Z\",\n            \"expireTime\": \"1970-01-01T00:55:03.440Z\",\n            \"createdAt\": \"2024-03-19T08:15:43.721Z\",\n            \"updatedAt\": \"2024-03-19T08:15:43.721Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 1,\n        \"total\": 1\n    }\n}"
+						}
+					]
 				}
 			],
 			"description": "Factions are divided in three groups: Terminids, Humans and Automatons. Humans are the only faction that can be controlled by players. The other two are controlled by the game as Non-Player Characters (NPCs)."
@@ -3276,7 +3974,7 @@
 		},
 		{
 			"key": "api_url",
-			"value": "http://localhost:3000",
+			"value": "https://api-helldivers-companion.koyeb.app",
 			"type": "string"
 		}
 	]
