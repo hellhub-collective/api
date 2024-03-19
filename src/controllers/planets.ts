@@ -193,3 +193,38 @@ export const getPlanetCampaigns = await witCache(async (ctx: Context) => {
     });
   }
 });
+
+export const getPlanetOrders = await witCache(async (ctx: Context) => {
+  try {
+    const id = parseIntParam(ctx, "id");
+    const query = await parseQueryParams(ctx);
+
+    const [count, orders] = await Promise.all([
+      prisma.order.count({
+        where: { planetId: id },
+      }),
+      prisma.order.findMany({
+        ...(query ?? {}),
+        where: { ...(query.where as any), planetId: id },
+      }),
+    ]);
+
+    return ctx.json({
+      data: orders,
+      error: null,
+      pagination: {
+        page: query.skip / query.take + 1,
+        pageSize: query.take,
+        pageCount: Math.ceil((count as number) / query.take),
+        total: count,
+      },
+    });
+  } catch (error: any) {
+    console.error(error);
+    ctx.status(500);
+    return ctx.json({
+      data: null,
+      error: { details: [error.message] },
+    });
+  }
+});

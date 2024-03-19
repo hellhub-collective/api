@@ -185,3 +185,38 @@ export const getFactionOrigin = await witCache(async (ctx: Context) => {
     });
   }
 });
+
+export const getFactionOrders = await witCache(async (ctx: Context) => {
+  try {
+    const id = parseIntParam(ctx, "id");
+    const query = await parseQueryParams(ctx);
+
+    const [count, orders] = await Promise.all([
+      prisma.order.count({
+        where: { ...(query.where ?? {}), factionId: id },
+      }),
+      prisma.order.findMany({
+        ...query,
+        where: { ...(query.where ?? {}), factionId: id },
+      }),
+    ]);
+
+    return ctx.json({
+      data: orders,
+      error: null,
+      pagination: {
+        page: query.skip / query.take + 1,
+        pageSize: query.take,
+        pageCount: Math.ceil((count as number) / query.take),
+        total: count,
+      },
+    });
+  } catch (error: any) {
+    console.error(error);
+    ctx.status(500);
+    return ctx.json({
+      data: null,
+      error: { details: [error.message] },
+    });
+  }
+});
