@@ -2,6 +2,7 @@ import "jobs/refresh";
 
 import { Hono } from "hono";
 
+import files from "middleware/files";
 import cache from "middleware/cache";
 import rateLimit from "middleware/rate-limit";
 
@@ -16,6 +17,9 @@ import stratagems from "routes/stratagems";
 
 // initiate hono api
 const app = new Hono().basePath("/api");
+
+// middleware for the api
+app.use("/static/*", files);
 app.use(rateLimit);
 app.use(cache);
 
