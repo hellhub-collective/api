@@ -2,7 +2,7 @@ export interface Stratagem {
   name: string;
   keys: string[];
   uses: string;
-  imageUrl: string | null;
+  imageUrl: string;
   codename: string | null;
   cooldown: number | null;
   activation: number | null;

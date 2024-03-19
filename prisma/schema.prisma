@@ -146,8 +146,8 @@ model Stratagem {
   name       String
   keys       String
   uses       String
-  cooldown   Int
-  activation Int
+  cooldown   Int?
+  activation Int?
   imageUrl   String
   group      StratagemGroup? @relation(fields: [groupId], references: [id])
   groupId    Int?
