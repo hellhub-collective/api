@@ -610,6 +610,422 @@
 			"description": "Sectors contain a number of planets and define a area on the galaxy map. At the moment we are missing some data for the sectors, but we will add them as soon as we have them."
 		},
 		{
+			"name": "Stratagems",
+			"item": [
+				{
+					"name": "/api/stratagems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/stratagems",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"stratagems"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "",
+									"description": "Filter results based on available fields",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Sort results, can be an array or object",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Limit the number of results",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "",
+									"description": "Start cursor at specific index",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/stratagems",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"stratagems"
+									],
+									"query": [
+										{
+											"key": "filters",
+											"value": "",
+											"description": "Filter results based on available fields",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "",
+											"description": "Sort results, can be an array or object",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"description": "Limit the number of results",
+											"disabled": true
+										},
+										{
+											"key": "start",
+											"value": "",
+											"description": "Start cursor at specific index",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "2"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "198"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710854217369"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 13:16:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3998"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"codename\": \"E/MG-101\",\n            \"name\": \"HMG Emplacement\",\n            \"keys\": [\n                \"down\",\n                \"up\",\n                \"left\",\n                \"right\",\n                \"right\",\n                \"left\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 180,\n            \"activation\": 3,\n            \"imageUrl\": \"/1/1.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.350Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.350Z\"\n        },\n        {\n            \"id\": 2,\n            \"codename\": null,\n            \"name\": \"Orbital EMS Strike\",\n            \"keys\": [\n                \"right\",\n                \"right\",\n                \"left\",\n                \"down\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 75,\n            \"activation\": 1,\n            \"imageUrl\": \"/1/2.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.352Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.352Z\"\n        },\n        {\n            \"id\": 3,\n            \"codename\": null,\n            \"name\": \"Orbital Gas Strike\",\n            \"keys\": [\n                \"right\",\n                \"right\",\n                \"down\",\n                \"right\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 75,\n            \"activation\": 1,\n            \"imageUrl\": \"/1/3.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.354Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.354Z\"\n        },\n        {\n            \"id\": 4,\n            \"codename\": null,\n            \"name\": \"Orbital Precision Strike\",\n            \"keys\": [\n                \"right\",\n                \"right\",\n                \"up\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 100,\n            \"activation\": 3,\n            \"imageUrl\": \"/1/4.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.356Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.356Z\"\n        },\n        {\n            \"id\": 5,\n            \"codename\": null,\n            \"name\": \"Orbital Smoke Strike\",\n            \"keys\": [\n                \"right\",\n                \"right\",\n                \"down\",\n                \"up\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 100,\n            \"activation\": 1,\n            \"imageUrl\": \"/1/5.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.358Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.358Z\"\n        },\n        {\n            \"id\": 6,\n            \"codename\": \"FX-12\",\n            \"name\": \"Shield Generator Relay\",\n            \"keys\": [\n                \"down\",\n                \"down\",\n                \"left\",\n                \"right\",\n                \"left\",\n                \"right\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 90,\n            \"activation\": 3,\n            \"imageUrl\": \"/1/6.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.361Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.361Z\"\n        },\n        {\n            \"id\": 7,\n            \"codename\": \"A/ARC-3\",\n            \"name\": \"Tesla Tower\",\n            \"keys\": [\n                \"down\",\n                \"up\",\n                \"right\",\n                \"up\",\n                \"left\",\n                \"right\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 150,\n            \"activation\": 3,\n            \"imageUrl\": \"/1/7.svg\",\n            \"groupId\": 1,\n            \"createdAt\": \"2024-03-19T13:05:55.363Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.363Z\"\n        },\n        {\n            \"id\": 8,\n            \"codename\": \"MD-6\",\n            \"name\": \"Anti-Personnel Minefield\",\n            \"keys\": [\n                \"down\",\n                \"right\",\n                \"up\",\n                \"right\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 180,\n            \"activation\": 3,\n            \"imageUrl\": \"/2/1.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.366Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.366Z\"\n        },\n        {\n            \"id\": 9,\n            \"codename\": \"ARC-3\",\n            \"name\": \"Arc Thrower\",\n            \"keys\": [\n                \"down\",\n                \"right\",\n                \"down\",\n                \"up\",\n                \"left\",\n                \"left\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 480,\n            \"activation\": 3,\n            \"imageUrl\": \"/2/2.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.367Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.367Z\"\n        },\n        {\n            \"id\": 10,\n            \"codename\": \"SH-20\",\n            \"name\": \"Ballistic Shield Backpack\",\n            \"keys\": [\n                \"down\",\n                \"left\",\n                \"down\",\n                \"down\",\n                \"up\",\n                \"left\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 300,\n            \"activation\": 5,\n            \"imageUrl\": \"/2/3.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.369Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.369Z\"\n        },\n        {\n            \"id\": 11,\n            \"codename\": \"GL-21\",\n            \"name\": \"Grenade Launcher\",\n            \"keys\": [\n                \"down\",\n                \"left\",\n                \"up\",\n                \"left\",\n                \"down\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 480,\n            \"activation\": 3,\n            \"imageUrl\": \"/2/4.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.370Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.370Z\"\n        },\n        {\n            \"id\": 12,\n            \"codename\": \"AX/LAS-5\",\n            \"name\": \"\\\"Guard Dog\\\" Rover\",\n            \"keys\": [\n                \"down\",\n                \"up\",\n                \"left\",\n                \"up\",\n                \"right\",\n                \"right\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 480,\n            \"activation\": 5,\n            \"imageUrl\": \"/2/5.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.371Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.371Z\"\n        },\n        {\n            \"id\": 13,\n            \"codename\": \"MD-I4\",\n            \"name\": \"Incendiary Mines\",\n            \"keys\": [\n                \"down\",\n                \"left\",\n                \"left\",\n                \"down\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 180,\n            \"activation\": 3,\n            \"imageUrl\": \"/2/6.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.373Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.373Z\"\n        },\n        {\n            \"id\": 14,\n            \"codename\": \"LAS-98\",\n            \"name\": \"Laser Cannon\",\n            \"keys\": [\n                \"down\",\n                \"left\",\n                \"down\",\n                \"up\",\n                \"left\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 480,\n            \"activation\": 3,\n            \"imageUrl\": \"/2/7.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.374Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.374Z\"\n        },\n        {\n            \"id\": 15,\n            \"codename\": \"SH-20\",\n            \"name\": \"Shield Generator Pack\",\n            \"keys\": [\n                \"down\",\n                \"up\",\n                \"left\",\n                \"right\",\n                \"left\",\n                \"right\"\n            ],\n            \"uses\": \"Unlimited\",\n            \"cooldown\": 480,\n            \"activation\": 5,\n            \"imageUrl\": \"/2/8.svg\",\n            \"groupId\": 2,\n            \"createdAt\": \"2024-03-19T13:05:55.375Z\",\n            \"updatedAt\": \"2024-03-19T13:05:55.375Z\"\n        }\n    ],\n    \"error\": null,\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 15,\n        \"pageCount\": 4,\n        \"total\": 57\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/stratagems/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/stratagems/:id",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"stratagems",
+								":id"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"description": "Only selects provided fields for response",
+									"disabled": true
+								},
+								{
+									"key": "include",
+									"value": "",
+									"description": "Include relations in response",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "The id of the entity to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/stratagems/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"stratagems",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "3"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "197"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710854217369"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 13:16:55 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "289"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"codename\": \"E/MG-101\",\n        \"name\": \"HMG Emplacement\",\n        \"keys\": [\n            \"down\",\n            \"up\",\n            \"left\",\n            \"right\",\n            \"right\",\n            \"left\"\n        ],\n        \"uses\": \"Unlimited\",\n        \"cooldown\": 180,\n        \"activation\": 3,\n        \"imageUrl\": \"/1/1.svg\",\n        \"groupId\": 1,\n        \"createdAt\": \"2024-03-19T13:05:55.350Z\",\n        \"updatedAt\": \"2024-03-19T13:05:55.350Z\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/stratagems/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"stratagems",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "4"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "196"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710854217369"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 13:17:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Stratagem with id (1000) not found\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/api/stratagems/:id",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"api",
+										"stratagems",
+										":id"
+									],
+									"query": [
+										{
+											"key": "select",
+											"value": "",
+											"description": "Only selects provided fields for response",
+											"disabled": true
+										},
+										{
+											"key": "include",
+											"value": "",
+											"description": "Include relations in response",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "hello",
+											"description": "The id of the entity to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "x-rate-count",
+									"value": "5"
+								},
+								{
+									"key": "x-rate-limit",
+									"value": "200"
+								},
+								{
+									"key": "x-rate-remaining",
+									"value": "195"
+								},
+								{
+									"key": "x-rate-reset",
+									"value": "1710854217369"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 19 Mar 2024 13:17:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"error\": {\n        \"details\": [\n            \"Invalid value for parameter (id)\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Stratagems are a way to represent the unique tactics and abilities of your army, and can be used to give you an edge in battle. Each stratagem has a cost has its own key combination to activate it."
+		},
+		{
 			"name": "Planets",
 			"item": [
 				{
@@ -3974,7 +4390,7 @@
 		},
 		{
 			"key": "api_url",
-			"value": "https://api-helldivers-companion.koyeb.app",
+			"value": "https://api-helldivers-companion.koyeb.app/",
 			"type": "string"
 		}
 	]
