@@ -6,6 +6,7 @@ import cache from "middleware/cache";
 import rateLimit from "middleware/rate-limit";
 
 import wars from "routes/war";
+import orders from "routes/orders";
 import events from "routes/events";
 import planets from "routes/planets";
 import sectors from "routes/sectors";
@@ -18,7 +19,7 @@ app.use(rateLimit);
 app.use(cache);
 
 // routes for the api
-const routes = [planets, sectors, wars, factions, attacks, events];
+const routes = [planets, sectors, wars, factions, attacks, events, orders];
 for (const route of routes) await route(app);
 
 export default app;
