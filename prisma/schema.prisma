@@ -131,3 +131,26 @@ model Attack {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
+
+model StratagemGroup {
+  id         Int         @id @default(autoincrement())
+  name       String
+  stratagems Stratagem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Stratagem {
+  id         Int             @id @default(autoincrement())
+  codename   String?
+  name       String
+  keys       String
+  uses       String
+  cooldown   Int
+  activation Int
+  imageUrl   String
+  group      StratagemGroup? @relation(fields: [groupId], references: [id])
+  groupId    Int?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
