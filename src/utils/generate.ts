@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs/promises";
 import { PrismaClient } from "@prisma/client";
 
+import type { StratagemMap } from "types/stratagem";
 import type { WarInfo, WarStatus } from "types/source";
 
 export interface NameEntry {
@@ -28,21 +29,27 @@ export async function prepareForSourceData() {
     SectorEntry[],
   ] = [[], [], []];
 
-  const [planetsData, sectorsData, factionsData] = await Promise.all([
-    fs.readFile(
-      path.join(process.cwd(), "src", "static/planets.json"),
-      "utf-8",
-    ),
-    fs.readFile(
-      path.join(process.cwd(), "src", "static/sectors.json"),
-      "utf-8",
-    ),
-    fs.readFile(
-      path.join(process.cwd(), "src", "static/factions.json"),
-      "utf-8",
-    ),
-  ]);
+  const [planetsData, sectorsData, factionsData, stratagemsData] =
+    await Promise.all([
+      fs.readFile(
+        path.join(process.cwd(), "src", "static/json/planets.json"),
+        "utf-8",
+      ),
+      fs.readFile(
+        path.join(process.cwd(), "src", "static/json/sectors.json"),
+        "utf-8",
+      ),
+      fs.readFile(
+        path.join(process.cwd(), "src", "static/json/factions.json"),
+        "utf-8",
+      ),
+      fs.readFile(
+        path.join(process.cwd(), "src", "static/json/stratagems.json"),
+        "utf-8",
+      ),
+    ]);
 
+  const stratagemsJSON: StratagemMap = JSON.parse(stratagemsData);
   const planetsJSON: Record<string, string> = JSON.parse(planetsData);
   const factionsJSON: Record<string, string> = JSON.parse(factionsData);
   const sectorsJSON: Record<string, Array<number>> = JSON.parse(sectorsData);
@@ -74,7 +81,7 @@ export async function prepareForSourceData() {
     factions.push({ index: parseInt(key), name });
   }
 
-  return { factions, planets, sectors };
+  return { factions, planets, sectors, stratagems: stratagemsJSON };
 }
 
 /**
@@ -111,9 +118,33 @@ export async function fetchSourceData() {
  * database.
  */
 export async function transformAndStoreSourceData() {
-  const { factions, planets, sectors } = await prepareForSourceData();
   const { warInfo, warStatus } = await fetchSourceData();
+  const { factions, planets, sectors, stratagems } =
+    await prepareForSourceData();
 
+  // index all stratagems
+  await Promise.all([
+    prisma.stratagem.deleteMany(),
+    prisma.stratagemGroup.deleteMany(),
+  ]);
+
+  for (const key in stratagems) {
+    const group = await prisma.stratagemGroup.create({
+      data: { name: stratagems[key].name },
+    });
+
+    for (const stratagem of stratagems[key].entries) {
+      await prisma.stratagem.create({
+        data: {
+          ...stratagem,
+          keys: stratagem.keys.join(","),
+          group: { connect: { id: group.id } },
+        },
+      });
+    }
+  }
+
+  // create the war data
   await prisma.war.create({
     data: {
       index: warInfo.warId,

@@ -1,0 +1,550 @@
+{
+  "1": {
+    "name": "Bridge",
+    "entries": [
+      {
+        "codename": "E/MG-101",
+        "name": "HMG Emplacement",
+        "keys": ["down", "up", "left", "right", "right", "left"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/1/1.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital EMS Strike",
+        "keys": ["right", "right", "left", "down"],
+        "uses": "Unlimited",
+        "cooldown": 75,
+        "activation": 1,
+        "imageUrl": "/1/2.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Gas Strike",
+        "keys": ["right", "right", "down", "right"],
+        "uses": "Unlimited",
+        "cooldown": 75,
+        "activation": 1,
+        "imageUrl": "/1/3.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Precision Strike",
+        "keys": ["right", "right", "up"],
+        "uses": "Unlimited",
+        "cooldown": 100,
+        "activation": 3,
+        "imageUrl": "/1/4.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Smoke Strike",
+        "keys": ["right", "right", "down", "up"],
+        "uses": "Unlimited",
+        "cooldown": 100,
+        "activation": 1,
+        "imageUrl": "/1/5.svg"
+      },
+      {
+        "codename": "FX-12",
+        "name": "Shield Generator Relay",
+        "keys": ["down", "down", "left", "right", "left", "right"],
+        "uses": "Unlimited",
+        "cooldown": 90,
+        "activation": 3,
+        "imageUrl": "/1/6.svg"
+      },
+      {
+        "codename": "A/ARC-3",
+        "name": "Tesla Tower",
+        "keys": ["down", "up", "right", "up", "left", "right"],
+        "uses": "Unlimited",
+        "cooldown": 150,
+        "activation": 3,
+        "imageUrl": "/1/7.svg"
+      }
+    ]
+  },
+  "2": {
+    "name": "Engineering Bay",
+    "entries": [
+      {
+        "codename": "MD-6",
+        "name": "Anti-Personnel Minefield",
+        "keys": ["down", "right", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/2/1.svg"
+      },
+      {
+        "codename": "ARC-3",
+        "name": "Arc Thrower",
+        "keys": ["down", "right", "down", "up", "left", "left"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/2/2.svg"
+      },
+      {
+        "codename": "SH-20",
+        "name": "Ballistic Shield Backpack",
+        "keys": ["down", "left", "down", "down", "up", "left"],
+        "uses": "Unlimited",
+        "cooldown": 300,
+        "activation": 5,
+        "imageUrl": "/2/3.svg"
+      },
+      {
+        "codename": "GL-21",
+        "name": "Grenade Launcher",
+        "keys": ["down", "left", "up", "left", "down"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/2/4.svg"
+      },
+      {
+        "codename": "AX/LAS-5",
+        "name": "\"Guard Dog\" Rover",
+        "keys": ["down", "up", "left", "up", "right", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 5,
+        "imageUrl": "/2/5.svg"
+      },
+      {
+        "codename": "MD-I4",
+        "name": "Incendiary Mines",
+        "keys": ["down", "left", "left", "down"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/2/6.svg"
+      },
+      {
+        "codename": "LAS-98",
+        "name": "Laser Cannon",
+        "keys": ["down", "left", "down", "up", "left"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/2/7.svg"
+      },
+      {
+        "codename": "SH-20",
+        "name": "Shield Generator Pack",
+        "keys": ["down", "up", "left", "right", "left", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 5,
+        "imageUrl": "/2/8.svg"
+      },
+      {
+        "codename": "B-1",
+        "name": "Supply Pack",
+        "keys": ["down", "left", "down", "up", "up", "down"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 5,
+        "imageUrl": "/2/9.svg"
+      }
+    ]
+  },
+  "3": {
+    "name": "General Stratagems",
+    "entries": [
+      {
+        "codename": "NUX-223",
+        "name": "Hellbomb",
+        "keys": ["down", "up", "left", "down", "up", "right", "down", "up"],
+        "uses": "Unlimited",
+        "cooldown": null,
+        "activation": null,
+        "imageUrl": "/3/1.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Illumination Flare",
+        "keys": ["right", "right", "left", "left"],
+        "uses": "Unlimited",
+        "cooldown": null,
+        "activation": null,
+        "imageUrl": "/3/2.svg"
+      },
+      {
+        "codename": null,
+        "name": "Reinforce",
+        "keys": ["up", "down", "right", "left", "up"],
+        "uses": "5 per Person",
+        "cooldown": 120,
+        "activation": 5,
+        "imageUrl": "/3/3.svg"
+      },
+      {
+        "codename": null,
+        "name": "Resupply",
+        "keys": ["down", "down", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 160,
+        "activation": 12,
+        "imageUrl": "/3/4.svg"
+      },
+      {
+        "codename": null,
+        "name": "SEAF Artillery",
+        "keys": ["right", "up", "up", "down"],
+        "uses": "5 Uses",
+        "cooldown": null,
+        "activation": null,
+        "imageUrl": "/3/5.svg"
+      },
+      {
+        "codename": null,
+        "name": "SOS Beacon",
+        "keys": ["up", "down", "right", "up"],
+        "uses": "Single use",
+        "cooldown": null,
+        "activation": 5,
+        "imageUrl": "/3/6.svg"
+      },
+      {
+        "codename": null,
+        "name": "Seismic Probe",
+        "keys": ["up", "up", "left", "right", "down", "down"],
+        "uses": "Single use",
+        "cooldown": null,
+        "activation": 9,
+        "imageUrl": "/3/7.svg"
+      },
+      {
+        "codename": null,
+        "name": "Upload Data",
+        "keys": ["down", "down", "up", "up", "up"],
+        "uses": "Unlimited",
+        "cooldown": null,
+        "activation": null,
+        "imageUrl": "/3/8.svg"
+      }
+    ]
+  },
+  "4": {
+    "name": "Hangar",
+    "entries": [
+      {
+        "codename": null,
+        "name": "Eagle 110MM Rocket Pods",
+        "keys": ["up", "right", "up", "left"],
+        "uses": "2 Uses",
+        "cooldown": 8,
+        "activation": 3,
+        "imageUrl": "/4/1.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle 500KG Bomb",
+        "keys": ["up", "right", "down", "down", "down"],
+        "uses": "1 Use",
+        "cooldown": 8,
+        "activation": 3,
+        "imageUrl": "/4/2.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle Airstrike",
+        "keys": ["up", "right", "down", "right"],
+        "uses": "2 Uses",
+        "cooldown": 8,
+        "activation": 3,
+        "imageUrl": "/4/3.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle Cluster Bomb",
+        "keys": ["up", "right", "down", "down", "right"],
+        "uses": "4 Uses",
+        "cooldown": 8,
+        "activation": 3,
+        "imageUrl": "/4/4.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle Napalm Airstrike",
+        "keys": ["up", "right", "down", "up"],
+        "uses": "2 Uses",
+        "cooldown": 8,
+        "activation": 3,
+        "imageUrl": "/4/5.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle Rearm",
+        "keys": ["up", "up", "left", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 120,
+        "activation": null,
+        "imageUrl": "/4/6.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle Smoke Strike",
+        "keys": ["up", "right", "up", "down"],
+        "uses": "2 Uses",
+        "cooldown": 8,
+        "activation": 3,
+        "imageUrl": "/4/7.svg"
+      },
+      {
+        "codename": null,
+        "name": "Eagle Strafing Run",
+        "keys": ["up", "right", "down"],
+        "uses": "3 Uses",
+        "cooldown": 8,
+        "activation": 1,
+        "imageUrl": "/4/8.svg"
+      },
+      {
+        "codename": "LIFT-850",
+        "name": "Jump Pack",
+        "keys": ["down", "up", "up", "down", "up"],
+        "uses": "",
+        "cooldown": 0,
+        "activation": 0,
+        "imageUrl": "/4/9.svg"
+      }
+    ]
+  },
+  "5": {
+    "name": "Orbital Canons",
+    "entries": [
+      {
+        "codename": null,
+        "name": "Orbital 120MM HE Barrage",
+        "keys": ["right", "right", "down", "left", "right", "down"],
+        "uses": "Unlimited",
+        "cooldown": 240,
+        "activation": 4,
+        "imageUrl": "/5/1.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital 380MM HE Barrage",
+        "keys": ["right", "down", "up", "up", "left", "down", "down"],
+        "uses": "Unlimited",
+        "cooldown": 240,
+        "activation": 5,
+        "imageUrl": "/5/2.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Airburst Strike",
+        "keys": ["right", "right", "right"],
+        "uses": "Unlimited",
+        "cooldown": 120,
+        "activation": 3,
+        "imageUrl": "/5/3.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Gatling Barrage",
+        "keys": ["right", "down", "left", "up", "up"],
+        "uses": "Unlimited",
+        "cooldown": 80,
+        "activation": 1,
+        "imageUrl": "/5/4.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Laser",
+        "keys": ["right", "down", "up", "right", "down"],
+        "uses": "3 Uses",
+        "cooldown": 300,
+        "activation": 1,
+        "imageUrl": "/5/5.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Railcannon Strike",
+        "keys": ["right", "up", "down", "down", "right"],
+        "uses": "Unlimited",
+        "cooldown": 120,
+        "activation": 2,
+        "imageUrl": "/5/6.svg"
+      },
+      {
+        "codename": null,
+        "name": "Orbital Walking Barrage",
+        "keys": ["right", "down", "right", "down", "right", "down"],
+        "uses": "Unlimited",
+        "cooldown": 240,
+        "activation": 2,
+        "imageUrl": "/5/7.svg"
+      }
+    ]
+  },
+  "6": {
+    "name": "Patriotic Administration Center",
+    "entries": [
+      {
+        "codename": "APW-1",
+        "name": "Anti-Materiel Rifle",
+        "keys": ["down", "left", "right", "up", "down"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/1.svg"
+      },
+      {
+        "codename": "AC-8",
+        "name": "Autocannon",
+        "keys": ["down", "left", "down", "up", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/2.svg"
+      },
+      {
+        "codename": "EAT-17",
+        "name": "Expendable Anti-tank",
+        "keys": ["down", "down", "left", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 70,
+        "activation": 2,
+        "imageUrl": "/6/3.svg"
+      },
+      {
+        "codename": "FLAM-40",
+        "name": "Flamethrower",
+        "keys": ["down", "left", "up", "down", "up"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/4.svg"
+      },
+      {
+        "codename": "MG-43",
+        "name": "Machine Gun",
+        "keys": ["down", "left", "down", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/5.svg"
+      },
+      {
+        "codename": "RS-422",
+        "name": "Railgun",
+        "keys": ["down", "right", "down", "up", "left", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/6.svg"
+      },
+      {
+        "codename": "GR-8",
+        "name": "Recoilless Rifle",
+        "keys": ["down", "left", "right", "right", "left"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/7.svg"
+      },
+      {
+        "codename": "FAF-14",
+        "name": "SPEAR Launcher",
+        "keys": ["down", "down", "up", "down", "down"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/8.svg"
+      },
+      {
+        "codename": "M-105",
+        "name": "Stalwart",
+        "keys": ["down", "left", "down", "up", "up", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/9.svg"
+      }
+    ]
+  },
+  "7": {
+    "name": "Robotics Workshop",
+    "entries": [
+      {
+        "codename": "A/AC-8",
+        "name": "Autocannon Sentry",
+        "keys": ["down", "up", "right", "up", "left", "up"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/7/1.svg"
+      },
+      {
+        "codename": "A/M-23",
+        "name": "EMS Mortar Sentry",
+        "keys": ["down", "up", "right", "down", "right"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/7/2.svg"
+      },
+      {
+        "codename": "A/G-16",
+        "name": "Gatling Sentry",
+        "keys": ["down", "up", "right", "left"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/7/3.svg"
+      },
+      {
+        "codename": "AD-334",
+        "name": "Guard Dog",
+        "keys": ["down", "up", "left", "up", "right", "down"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 5,
+        "imageUrl": "/7/4.svg"
+      },
+      {
+        "codename": "A/MG-43",
+        "name": "Machine Gun Sentry",
+        "keys": ["down", "up", "right", "right", "up"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/7/5.svg"
+      },
+      {
+        "codename": "A/M-12",
+        "name": "Mortar Sentry",
+        "keys": ["down", "up", "right", "right", "down"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/7/6.svg"
+      },
+      {
+        "codename": "EXO-45",
+        "name": "Patriot Exosuit",
+        "keys": ["left", "down", "right", "up", "left", "down", "down"],
+        "uses": "2 Uses",
+        "cooldown": 600,
+        "activation": 0,
+        "imageUrl": "/7/7.svg"
+      },
+      {
+        "codename": "A/MLS-4X",
+        "name": "Rocket Sentry",
+        "keys": ["down", "up", "right", "right", "left"],
+        "uses": "Unlimited",
+        "cooldown": 180,
+        "activation": 3,
+        "imageUrl": "/7/8.svg"
+      }
+    ]
+  }
+}

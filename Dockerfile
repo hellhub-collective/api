@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 ENV WAR_ID="801"
 ENV RATE_LIMIT="200"
 ENV DATABASE_URL="file:./database/data.db"
+ENV STRATAGEM_IMAGE_URL="/api/static/images/stratagems"
 ENV API_URL="https://api.live.prod.thehelldiversgame.com/api"
 
 # install dependencies into temp directory

@@ -2,6 +2,7 @@ import "jobs/refresh";
 
 import { Hono } from "hono";
 
+import files from "middleware/files";
 import cache from "middleware/cache";
 import rateLimit from "middleware/rate-limit";
 
@@ -12,14 +13,27 @@ import planets from "routes/planets";
 import sectors from "routes/sectors";
 import attacks from "routes/attacks";
 import factions from "routes/factions";
+import stratagems from "routes/stratagems";
 
 // initiate hono api
 const app = new Hono().basePath("/api");
+
+// middleware for the api
+app.use("/static/*", files);
 app.use(rateLimit);
 app.use(cache);
 
 // routes for the api
-const routes = [planets, sectors, wars, factions, attacks, events, orders];
-for (const route of routes) await route(app);
+const routes = [
+  planets,
+  sectors,
+  wars,
+  factions,
+  attacks,
+  events,
+  orders,
+  stratagems,
+];
 
+for (const route of routes) await route(app);
 export default app;
