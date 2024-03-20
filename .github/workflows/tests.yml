@@ -28,7 +28,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun install
+      - run: PRISMA_CLI_BINARY_TARGETS=debian-openssl-3.0.x bun install
       - run: bunx prisma generate
       - run: bunx prisma migrate dev
       - run: bun generate
