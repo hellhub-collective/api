@@ -18,4 +18,6 @@ jobs:
         with:
           bun-version: latest
       - run: bun install
+      - run: bun prisma generate
+      - run: bunx prisma migrate dev
       - run: bun test
