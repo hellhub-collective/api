@@ -1,10 +1,14 @@
 name: Tests
 
 env:
+  # prisma setip
+  PRISMA_CLI_BINARY_TARGETS: "debian-openssl-3.0.x"
   DATABASE_URL: "file:./database/data.db"
+  # api setup
   WAR_ID: "801"
   RATE_LIMIT: "200"
   API_URL: "https://api.live.prod.thehelldiversgame.com/api"
+  # stratagem setup
   STRATAGEM_IMAGE_URL: "https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public/stratagems"
 
 on:
