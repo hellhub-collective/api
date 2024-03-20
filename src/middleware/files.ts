@@ -91,7 +91,8 @@ export default async function files(ctx: Context, next: Next) {
 
     const content = await file.arrayBuffer();
     return ctx.newResponse(content, 200, { "Content-Type": mimeType });
-  } catch {
+  } catch (error: any) {
+    console.error(error);
     return ctx.newResponse("Not Found", 404);
   }
 }
