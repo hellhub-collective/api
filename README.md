@@ -1,14 +1,13 @@
 <p align="center">
-  <img src="./assets/logo-light.png#gh-light-mode-only" width="218px" alt="Helldivers Companion logo" />
-  <img src="./assets/logo-dark.png#gh-dark-mode-only" width="218px" alt="Helldivers Companion logo" />
+  <img src="./assets/logo.png" width="150px" alt="HellHub Logo" />
 </p>
 
-<h3 align="center">The official API for the community driven Helldivers Companion app.</h3>
+<h3 align="center">The Official API For The Community Driven HellHub App.</h3>
 <p align="center">Written 100% in Typescript, running on Bun. Pulls data from the official API and acts as cache/transformer relay.</p>
 
 <br>
 
-## Whats is the Helldivers Companion API?
+## Whats is the HellHub API?
 
 The unofficial API was not explicitly made usable by Arrowhead Game Studios for third parties, may be subject to change at any time. This API will be updated to reflect any changes to the game API.
 
@@ -18,7 +17,7 @@ The API is written in Typescript and runs on the Bun framework. It pulls data fr
 
 ## Rate limit
 
-The Helldivers Companion API has a rate limit of 200 requests per minute. To avoid hitting rate limits in your clients check the following headers in your response:
+The HellHub API has a rate limit of 200 requests per minute. To avoid hitting rate limits in your clients check the following headers in your response:
 
 - `X-Rate-Limit`: The maximum number of requests per minute.
 - `X-Rate-Count`: The number of requests made in the current minute.
@@ -27,7 +26,7 @@ The Helldivers Companion API has a rate limit of 200 requests per minute. To avo
 
 ## API Entities and Endpoints
 
-We have a few entities that we can interact with in the API. Here is a brief overview of each of them. These are all created from the source data of the Helldivers 2 API and merely modified to be more usable.
+For the full full documentation, check out the [postman collection](./postman.json) inside the repository root.
 
 ### Sectors
 

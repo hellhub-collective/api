@@ -1,6 +1,6 @@
 {
-  "name": "@helldivers-companion/api",
-  "description": "The official API for the community driven Helldivers Companion app",
+  "name": "@hellhub/api",
+  "description": "The official API for the community driven HellHub app",
   "module": "./src/index.ts",
   "main": "build/index.mjs",
   "types": "build/index.d.ts",
@@ -24,7 +24,7 @@
     "dev": "bun run --hot ./src/index.ts",
     "refresh": "bun run ./scripts/refresh.ts",
     "clean": "rm -rf prisma/database prisma/migrations",
-    "serve": "pm2 start --name=\"@helldivers-companion/api\" --interpreter ~/.bun/bin/bun build/index.js",
+    "serve": "pm2 start --name=\"@hellhub/api\" --interpreter ~/.bun/bin/bun build/index.js",
     "generate": "bun run ./scripts/generate.ts"
   },
   "devDependencies": {
