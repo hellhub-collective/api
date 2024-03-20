@@ -1,5 +1,14 @@
 name: Tests
 
+env:
+  # Primsa configuration
+  DATABASE_URL: "file:./database/data.db"
+  # API configuration
+  WAR_ID: "801"
+  RATE_LIMIT: "200"
+  API_URL: "https://api.live.prod.thehelldiversgame.com/api"
+  STRATAGEM_IMAGE_URL: "https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public/stratagems"
+
 on:
   pull_request:
     branches:
@@ -20,4 +29,5 @@ jobs:
       - run: bun install
       - run: bunx prisma generate
       - run: bunx prisma migrate dev
+      - run: bun generate
       - run: bun test
