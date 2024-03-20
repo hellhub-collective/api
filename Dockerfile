@@ -52,6 +52,9 @@ RUN bunx prisma generate
 # fetch the initial data
 RUN bun run generate
 
+# test the app
+RUN bun test
+
 # build the app
 RUN bun run output
 
