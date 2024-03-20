@@ -1,4 +1,4 @@
-import app from "index";
+import app from "../../src";
 import type { War } from "@prisma/client";
 import { describe, expect, it } from "bun:test";
 
