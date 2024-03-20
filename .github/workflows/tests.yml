@@ -2,7 +2,6 @@ name: Tests
 
 env:
   # prisma setip
-  PRISMA_CLI_BINARY_TARGETS: "debian-openssl-3.0.x"
   DATABASE_URL: "file:./database/data.db"
   # api setup
   WAR_ID: "801"
@@ -28,8 +27,8 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: PRISMA_CLI_BINARY_TARGETS=debian-openssl-3.0.x bun install
+      - run: bun install
       - run: bunx prisma generate
-      - run: bunx prisma migrate dev
+      - run: bunx prisma migrate deploy
       - run: bun generate
       - run: bun test
