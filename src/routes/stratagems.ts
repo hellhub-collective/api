@@ -6,4 +6,3 @@ export default async function stratagems(app: Hono) {
   app.get("/stratagems", Stratagems.getAllStratagems);
   app.get("/stratagems/:id", Stratagems.getStratagemById);
 }
-//https://api-helldivers-companion.koyeb.app

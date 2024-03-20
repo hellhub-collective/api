@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "92940ded-affa-4260-a27b-f12888c76b5d",
-		"name": "Helldivers Companion API",
-		"description": "## Whats is the Helldivers Companion API?\n\nThe API is written in Typescript and runs on the Bun framework. It pulls data from the Helldivers 2 API and transforms it into a more user-friendly format. It also caches the data so that the app can pull data from the API without having to worry about rate limits or slow response times.\n\n## Statement\n\nThe unofficial API was not explicitly made usable by Arrowhead Game Studios for third parties, may be subject to change at any time. This API will be updated to reflect any changes to the game API.",
+		"name": "HellHub API",
+		"description": "## Whats is the HellHub API?\n\nThe API is written in Typescript and runs on the Bun framework. It pulls data from the Helldivers 2 API and transforms it into a more user-friendly format. It also caches the data so that the app can pull data from the API without having to worry about rate limits or slow response times.\n\n## Statement\n\nThe unofficial API was not explicitly made usable by Arrowhead Game Studios for third parties, may be subject to change at any time. This API will be updated to reflect any changes to the game API.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "6421438"
 	},
@@ -4390,7 +4390,7 @@
 		},
 		{
 			"key": "api_url",
-			"value": "https://api-helldivers-companion.koyeb.app",
+			"value": "https://api-hellhub-collective.koyeb.app",
 			"type": "string"
 		}
 	]
