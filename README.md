@@ -24,7 +24,7 @@ The HellHub API is a community-driven project that strives to provide easy acces
 
 To start using the HellHub API, you can use the following base for your requests:
 
-```http
+```bash
 https://api-hellhub-collective.koyeb.app/api
 ```
 
