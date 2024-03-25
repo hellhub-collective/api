@@ -3,51 +3,48 @@
 </p>
 
 <h3 align="center">The Official API For The Community Driven HellHub App.</h3>
-<p align="center">Written 100% in Typescript, running on Bun. Pulls data from the official API and acts as cache/transformer relay.</p>
+<p align="center">Written 100% in <a href="https://github.com/microsoft/TypeScript">TypeScript</a>, running on <a href="https://github.com/oven-sh/bun">Bun</a>. Pulls data from the official game API and simplifies the data structure.</p>
 
-<br>
+<br />
 
-## Whats is the HellHub API?
+<p align="center">
+  <a href="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql">
+    <img src="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL" />
+  </a>
+  <a href="https://github.com/hellhub-collective/api/actions/workflows/tests.yml">
+    <img src="https://github.com/hellhub-collective/api/actions/workflows/tests.yml/badge.svg" alt="Tests" />
+  </a>
+</p>
 
-The unofficial API was not explicitly made usable by Arrowhead Game Studios for third parties, may be subject to change at any time. This API will be updated to reflect any changes to the game API.
+## What is the HellHub API?
 
-### How does it work?
+The HellHub API is a community-driven project that strives to provide easy access to the [Helldivers 2](https://store.steampowered.com/app/553850/HELLDIVERS_2/) data. This project is part of the HellHub Collective.
 
-The API is written in Typescript and runs on the Bun framework. It pulls data from the Helldivers 2 API and transforms it into a more user-friendly format. It also caches the data so that the app can pull data from the API without having to worry about rate limits or slow response times.
+## Getting started
 
-## Rate limit
+To start using the HellHub API, you can use the following base for your requests:
 
-The HellHub API has a rate limit of 200 requests per minute. To avoid hitting rate limits in your clients check the following headers in your response:
+```http
+https://api-hellhub-collective.koyeb.app/api
+```
 
-- `X-Rate-Limit`: The maximum number of requests per minute.
-- `X-Rate-Count`: The number of requests made in the current minute.
-- `X-Rate-Reset`: The time at which the current rate limit resets.
+Followed by the endpoint you want to access. Our data is **updated every 30 minutes**. For more information on the available endpoints, check the [postman collection](postman.json).
+
+## Fair usage
+
+To Enforce fair usage, we have implemented a rate limiter. The HellHub API has a rate limit of **200 requests per minute**. To avoid hitting rate limits in your clients check the following headers in your response:
+
 - `X-Rate-Remaining`: The number of requests remaining.
+- `X-Rate-Limit`: The maximum number of requests per minute.
+- `X-Rate-Reset`: The time at which the current rate limit resets.
+- `X-Rate-Count`: The number of requests made in the current minute.
 
-## API Entities and Endpoints
+We reserve the right to block any IP address that uses the API in a way that is not fair to other users, or that is trying to abuse the system.
 
-For the full full documentation, check out the [postman collection](./postman.json) inside the repository root.
+## Disclaimer
 
-### Sectors
+The unofficial game API was not explicitly made usable by Arrowhead Game Studios for third parties and thus may be subject to change at any time. This project will be updated to reflect any changes to the data source.
 
-Sectors contain a number of planets and define a area on the galaxy map. We have manually mapped all planets to their respective sectors, if new planets should start existing (what is highly unlikely) we will add them too.
+## License
 
-### Planets
-
-Celestial bodies inside a sector. As the war for democracy rages on, the planets are the main battlegrounds. Planets carry player counts and controlling faction.
-
-### Attacks
-
-Attacks always have a source and a target. The source is the planet that the attack is coming from, and the target is the planet that the attack is going to. You an check the attack progress by having a look on the planet's health properties.
-
-### Factions
-
-Factions are divided in three groups: Terminids, Humans and Automatons. Humans are the only faction that can be controlled by players. The other two are controlled by the game as Non-Player Characters (NPCs).
-
-### War
-
-The current war season is the 1st. The war season is a period of time in which the factions fight for control of the planets. The war season has a start and an end date which of the time of this writing is bugged out and not working properly.
-
-### Events
-
-Events are in game briefings and updates that are sent to the players. They are used to inform the players about the current state of the game and the war.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
