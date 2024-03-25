@@ -8,6 +8,9 @@
 <br />
 
 <p align="center">
+  <a href="https://documenter.getpostman.com/view/33840175/2sA35Bd54w">
+  <img style="border-radius:3px" height="20px" src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman" />
+  </a>
   <a href="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql">
     <img src="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL" />
   </a>
@@ -28,7 +31,7 @@ To start using the HellHub API, you can use the following base for your requests
 https://api-hellhub-collective.koyeb.app/api
 ```
 
-Followed by the endpoint you want to access. Our data is **updated every 30 minutes**. For more information on the available endpoints, check the [postman collection](postman.json).
+Followed by the endpoint you want to access. Our data is **updated every 30 minutes**. For more information on the available endpoints, check out the [postman collection](https://documenter.getpostman.com/view/33840175/2sA35Bd54w).
 
 ## Fair usage
 
