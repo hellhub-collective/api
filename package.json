@@ -1,5 +1,5 @@
 {
-  "name": "@hellhub/api",
+  "name": "@hellhub-collective/api",
   "description": "The official API for the community driven HellHub app",
   "module": "./src/index.ts",
   "main": "build/index.mjs",
