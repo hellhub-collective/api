@@ -25,9 +25,9 @@ export async function refreshAndStoreSourceData() {
     where: { index: warId },
     data: {
       index: warId,
-      time: new Date(warTime.time),
-      endDate: new Date(warInfo.endDate),
-      startDate: new Date(warInfo.startDate),
+      time: new Date(warTime.time * 1000),
+      endDate: new Date(warInfo.endDate * 1000),
+      startDate: new Date(warInfo.startDate * 1000),
     },
   });
 
@@ -69,7 +69,7 @@ export async function refreshAndStoreSourceData() {
         type: article.type,
         message: article.message,
         tagIds: article.tagIds.join(","),
-        publishedAt: new Date(article.published),
+        publishedAt: new Date(article.published * 1000),
       },
     });
   }
@@ -225,8 +225,8 @@ export async function refreshAndStoreSourceData() {
         health: event.health,
         maxHealth: event.maxHealth,
         hqNodeIndex: jointOp?.hqNodeIndex,
-        startTime: new Date(event.startTime),
-        expireTime: new Date(event.expireTime),
+        startTime: new Date(event.startTime * 1000),
+        expireTime: new Date(event.expireTime * 1000),
         campaign: { connect: { index: event.campaignId } },
         planet: planet ? { connect: { index: planet.index } } : undefined,
         faction: faction ? { connect: { index: faction.index } } : undefined,
