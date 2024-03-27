@@ -1,5 +1,5 @@
 import app from "../../src";
-import type { Planet } from "@prisma/client";
+import type { Planet, Stats } from "@prisma/client";
 import { describe, expect, it } from "bun:test";
 
 describe("Planet endpoints work as expected", () => {
@@ -52,5 +52,14 @@ describe("Planet endpoints work as expected", () => {
     expect(response.status).toBe(200);
     expect(json).toHaveProperty("data");
     expect(json.data).toBeInstanceOf(Array);
+  });
+
+  it("GET /planets/:id/statistics", async () => {
+    const response = await app.request("/api/planets/1/statistics");
+    const json: { data: Stats; error: object | null } =
+      (await response.json()) as any;
+    expect(response.status).toBe(200);
+    expect(json).toHaveProperty("data");
+    expect(json.data).toHaveProperty("id");
   });
 });
