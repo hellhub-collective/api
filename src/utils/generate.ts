@@ -2,8 +2,17 @@ import path from "path";
 import fs from "fs/promises";
 import { PrismaClient } from "@prisma/client";
 
+import type {
+  News,
+  Stats,
+  WarInfo,
+  WarStatus,
+  Assignment,
+  CurrentWarId,
+  CurrentWarTime,
+} from "types/source";
+
 import type { StratagemMap } from "types/stratagem";
-import type { WarInfo, WarStatus } from "types/source";
 
 export interface NameEntry {
   index: number;
@@ -89,18 +98,55 @@ export async function prepareForSourceData() {
  * and not transform, or store it in the database.
  */
 export async function fetchSourceData() {
-  const WAR_ID = process.env.WAR_ID!;
   const API_URL = process.env.API_URL!;
 
+  const response = await fetch(`${API_URL}/WarSeason/current/WarID`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "Accept-Language": "en-US",
+    },
+  });
+
+  const { id: warId }: CurrentWarId = (await response.json()) as any;
+
   const responses = await Promise.all([
-    fetch(`${API_URL}/WarSeason/${WAR_ID}/Status`, {
+    fetch(`${API_URL}/WarSeason/${warId}/Status`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
         "Accept-Language": "en-US",
       },
     }),
-    fetch(`${API_URL}/WarSeason/${WAR_ID}/WarInfo`, {
+    fetch(`${API_URL}/WarSeason/${warId}/WarInfo`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Accept-Language": "en-US",
+      },
+    }),
+    fetch(`${API_URL}/WarSeason/${warId}/WarTime`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Accept-Language": "en-US",
+      },
+    }),
+    fetch(`${API_URL}/v2/Assignment/War/${warId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Accept-Language": "en-US",
+      },
+    }),
+    fetch(`${API_URL}/NewsFeed/${warId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Accept-Language": "en-US",
+      },
+    }),
+    fetch(`${API_URL}/Stats/War/${warId}/Summary`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -110,7 +156,16 @@ export async function fetchSourceData() {
   ]);
 
   const data = await Promise.all(responses.map(res => res.json()));
-  return { warStatus: data[0] as WarStatus, warInfo: data[1] as WarInfo };
+
+  return {
+    warId,
+    warNews: data[4] as News[],
+    warStats: data[5] as Stats,
+    warInfo: data[1] as WarInfo,
+    warStatus: data[0] as WarStatus,
+    warTime: data[2] as CurrentWarTime,
+    warAssignments: data[3] as Assignment[],
+  };
 }
 
 /**
@@ -118,7 +173,16 @@ export async function fetchSourceData() {
  * database.
  */
 export async function transformAndStoreSourceData() {
-  const { warInfo, warStatus } = await fetchSourceData();
+  const {
+    warId,
+    warInfo,
+    warTime,
+    warNews,
+    warStats,
+    warStatus,
+    warAssignments,
+  } = await fetchSourceData();
+
   const { factions, planets, sectors, stratagems } =
     await prepareForSourceData();
 
@@ -128,6 +192,47 @@ export async function transformAndStoreSourceData() {
     prisma.stratagemGroup.deleteMany(),
   ]);
 
+  // generate the assignment data
+  for (const assignment of warAssignments) {
+    const now = Date.now();
+    const expiresAt = now + assignment.expiresIn;
+
+    await prisma.reward.create({
+      data: {
+        type: assignment.setting.reward.type,
+        index: assignment.setting.reward.id32,
+        amount: assignment.setting.reward.amount,
+      },
+    });
+
+    await prisma.assignment.create({
+      data: {
+        index: assignment.id32,
+        type: assignment.setting.type,
+        expiresAt: new Date(expiresAt),
+        progress: assignment.progress[0],
+        title: assignment.setting.overrideTitle,
+        briefing: assignment.setting.overrideBrief,
+        description: assignment.setting.taskDescription,
+        reward: { connect: { index: assignment.setting.reward.id32 } },
+      },
+    });
+  }
+
+  // generate news data
+  for (const article of warNews) {
+    await prisma.news.create({
+      data: {
+        index: article.id,
+        type: article.type,
+        message: article.message ?? "",
+        tagIds: article.tagIds.join(","),
+        publishedAt: new Date(article.published),
+      },
+    });
+  }
+
+  // generate stratagem data
   for (const key in stratagems) {
     const group = await prisma.stratagemGroup.create({
       data: { name: stratagems[key].name },
@@ -147,7 +252,8 @@ export async function transformAndStoreSourceData() {
   // create the war data
   await prisma.war.create({
     data: {
-      index: warInfo.warId,
+      index: warId,
+      time: new Date(warTime.time),
       endDate: new Date(warInfo.endDate),
       startDate: new Date(warInfo.startDate),
     },
@@ -163,6 +269,29 @@ export async function transformAndStoreSourceData() {
   // generate the faction data
   for (const faction of factions) {
     await prisma.faction.create({ data: faction });
+  }
+
+  // generate global stats
+  if (warStats.galaxy_stats) {
+    const global = warStats.galaxy_stats;
+    await prisma.stats.create({
+      data: {
+        accuracy: global.accurracy,
+        deaths: BigInt(global.deaths),
+        revives: BigInt(global.revives),
+        bugKills: BigInt(global.bugKills),
+        timePlayed: BigInt(global.timePlayed),
+        bulletsHit: BigInt(global.bulletsHit),
+        missionTime: BigInt(global.missionTime),
+        missionsWon: BigInt(global.missionsWon),
+        friendlyKills: BigInt(global.friendlies),
+        missionsLost: BigInt(global.missionsLost),
+        bulletsFired: BigInt(global.bulletsFired),
+        missionSuccessRate: global.missionSuccessRate,
+        automatonKills: BigInt(global.automatonKills),
+        illuminateKills: BigInt(global.illuminateKills),
+      },
+    });
   }
 
   // generate the planet data
@@ -193,6 +322,33 @@ export async function transformAndStoreSourceData() {
         owner: { connect: { index: status.owner } },
         sector: { connect: { index: planetSector?.index } },
         initialOwner: { connect: { index: info.initialOwner } },
+      },
+    });
+
+    const stats = warStats.planets_stats.find(p => {
+      return p.planetIndex === planet.index;
+    });
+
+    if (!stats) continue;
+
+    // create planetary stats
+    await prisma.stats.create({
+      data: {
+        accuracy: stats.accurracy,
+        deaths: BigInt(stats.deaths),
+        revives: BigInt(stats.revives),
+        bugKills: BigInt(stats.bugKills),
+        timePlayed: BigInt(stats.timePlayed),
+        bulletsHit: BigInt(stats.bulletsHit),
+        missionTime: BigInt(stats.missionTime),
+        missionsWon: BigInt(stats.missionsWon),
+        friendlyKills: BigInt(stats.friendlies),
+        missionsLost: BigInt(stats.missionsLost),
+        bulletsFired: BigInt(stats.bulletsFired),
+        missionSuccessRate: stats.missionSuccessRate,
+        automatonKills: BigInt(stats.automatonKills),
+        planet: { connect: { index: planet.index } },
+        illuminateKills: BigInt(stats.illuminateKills),
       },
     });
   }
