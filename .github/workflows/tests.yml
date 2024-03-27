@@ -4,7 +4,6 @@ env:
   # prisma setip
   DATABASE_URL: "file:./database/data.db"
   # api setup
-  WAR_ID: "801"
   RATE_LIMIT: "200"
   API_URL: "https://api.live.prod.thehelldiversgame.com/api"
   # stratagem setup
