@@ -1,5 +1,76 @@
 // TODO: Reverse engineer the data types from the game that have never[] as a type
 
+export interface CurrentWarId {
+  id: number;
+}
+
+export interface CurrentWarTime {
+  time: number;
+}
+
+export interface News {
+  id: number;
+  type: number;
+  tagIds: number[];
+  message: string;
+  published: number;
+}
+
+export interface AssignmentTask {
+  type: number;
+  values: number[];
+  valueTypes: number[];
+}
+
+export interface AssignmentReward {
+  type: number;
+  id32: number;
+  amount: number;
+}
+
+export interface AssignmentSetting {
+  type: number;
+  overrideTitle: string;
+  overrideBrief: string;
+  taskDescription: string;
+  tasks: AssignmentTask[];
+  reward: AssignmentReward;
+  flags: number;
+}
+
+export interface Assignment {
+  id32: number;
+  progress: number[];
+  expiresIn: number;
+  setting: AssignmentSetting;
+}
+
+export interface GalaxyStats {
+  missionsWon: number;
+  missionsLost: number;
+  missionTime: number;
+  bugKills: number;
+  automatonKills: number;
+  illuminateKills: number;
+  bulletsFired: number;
+  bulletsHit: number;
+  timePlayed: number;
+  deaths: number;
+  revives: number;
+  friendlies: number;
+  missionSuccessRate: number;
+  accurracy: number;
+}
+
+export interface PlanetStats extends GalaxyStats {
+  planetIndex: number;
+}
+
+export interface Stats {
+  galaxy_stats: GalaxyStats;
+  planets_stats: PlanetStats[];
+}
+
 export interface PlanetStatus {
   index: number;
   owner: number;
