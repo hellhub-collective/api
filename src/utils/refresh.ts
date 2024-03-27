@@ -10,16 +10,69 @@ const prisma = new PrismaClient();
  */
 export async function refreshAndStoreSourceData() {
   const { factions, planets, sectors } = await prepareForSourceData();
-  const { warInfo, warStatus } = await fetchSourceData();
+
+  const {
+    warId,
+    warNews,
+    warTime,
+    warInfo,
+    warStats,
+    warStatus,
+    warAssignments,
+  } = await fetchSourceData();
 
   await prisma.war.update({
-    where: { index: warInfo.warId },
+    where: { index: warId },
     data: {
-      index: warInfo.warId,
+      index: warId,
+      time: new Date(warTime.time),
       endDate: new Date(warInfo.endDate),
       startDate: new Date(warInfo.startDate),
     },
   });
+
+  // generate the assignment data
+  await prisma.assignment.deleteMany();
+  await prisma.reward.deleteMany();
+  for (const assignment of warAssignments) {
+    const now = Date.now();
+    const expiresAt = now + assignment.expiresIn * 1000;
+
+    await prisma.reward.create({
+      data: {
+        type: assignment.setting.reward.type,
+        index: assignment.setting.reward.id32,
+        amount: assignment.setting.reward.amount,
+      },
+    });
+
+    await prisma.assignment.create({
+      data: {
+        index: assignment.id32,
+        type: assignment.setting.type,
+        expiresAt: new Date(expiresAt),
+        progress: assignment.progress[0],
+        title: assignment.setting.overrideTitle,
+        briefing: assignment.setting.overrideBrief,
+        description: assignment.setting.taskDescription,
+        reward: { connect: { index: assignment.setting.reward.id32 } },
+      },
+    });
+  }
+
+  // generate news data
+  await prisma.news.deleteMany();
+  for (const article of warNews) {
+    await prisma.news.create({
+      data: {
+        index: article.id,
+        type: article.type,
+        message: article.message,
+        tagIds: article.tagIds.join(","),
+        publishedAt: new Date(article.published),
+      },
+    });
+  }
 
   // generate the sector data
   for (const sector of sectors) {
@@ -34,6 +87,30 @@ export async function refreshAndStoreSourceData() {
     await prisma.faction.update({
       where: { index: faction.index },
       data: faction,
+    });
+  }
+
+  // generate global stats
+  await prisma.stats.deleteMany();
+  if (warStats.galaxy_stats) {
+    const global = warStats.galaxy_stats;
+    await prisma.stats.create({
+      data: {
+        accuracy: global.accurracy,
+        deaths: BigInt(global.deaths),
+        revives: BigInt(global.revives),
+        bugKills: BigInt(global.bugKills),
+        timePlayed: BigInt(global.timePlayed),
+        bulletsHit: BigInt(global.bulletsHit),
+        missionTime: BigInt(global.missionTime),
+        missionsWon: BigInt(global.missionsWon),
+        friendlyKills: BigInt(global.friendlies),
+        missionsLost: BigInt(global.missionsLost),
+        bulletsFired: BigInt(global.bulletsFired),
+        missionSuccessRate: global.missionSuccessRate,
+        automatonKills: BigInt(global.automatonKills),
+        illuminateKills: BigInt(global.illuminateKills),
+      },
     });
   }
 
@@ -66,6 +143,33 @@ export async function refreshAndStoreSourceData() {
         owner: { connect: { index: status.owner } },
         sector: { connect: { index: planetSector?.index } },
         initialOwner: { connect: { index: info.initialOwner } },
+      },
+    });
+
+    const stats = warStats.planets_stats.find(p => {
+      return p.planetIndex === planet.index;
+    });
+
+    if (!stats) continue;
+
+    // create planetary stats
+    await prisma.stats.create({
+      data: {
+        accuracy: stats.accurracy,
+        deaths: BigInt(stats.deaths),
+        revives: BigInt(stats.revives),
+        bugKills: BigInt(stats.bugKills),
+        timePlayed: BigInt(stats.timePlayed),
+        bulletsHit: BigInt(stats.bulletsHit),
+        missionTime: BigInt(stats.missionTime),
+        missionsWon: BigInt(stats.missionsWon),
+        friendlyKills: BigInt(stats.friendlies),
+        missionsLost: BigInt(stats.missionsLost),
+        bulletsFired: BigInt(stats.bulletsFired),
+        missionSuccessRate: stats.missionSuccessRate,
+        automatonKills: BigInt(stats.automatonKills),
+        planet: { connect: { index: planet.index } },
+        illuminateKills: BigInt(stats.illuminateKills),
       },
     });
   }

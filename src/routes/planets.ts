@@ -9,4 +9,5 @@ export default async function planets(app: Hono) {
   app.get("/planets/:id/owners", Planets.getPlanetOwners);
   app.get("/planets/:id/attacks", Planets.getPlanetAttacks);
   app.get("/planets/:id/campaigns", Planets.getPlanetCampaigns);
+  app.get("/planets/:id/statistics", Planets.getPlanetStatistics);
 }

@@ -16,6 +16,7 @@ model War {
   index     Int      @unique
   startDate DateTime
   endDate   DateTime
+  time      DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -66,6 +67,8 @@ model Planet {
   homeWorld      HomeWorld[]  @relation("HomeWorld")
   attacking      Attack[]     @relation("Attack")
   defending      Attack[]     @relation("Defend")
+  statistic      Stats?       @relation(fields: [statisticId], references: [id])
+  statisticId    Int?         @unique
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }
@@ -154,4 +157,61 @@ model Stratagem {
   groupId    Int?
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
+}
+
+model News {
+  id          Int      @id @default(autoincrement())
+  index       Int      @unique
+  type        Int
+  tagIds      String
+  message     String
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Stats {
+  id                 Int      @id @default(autoincrement())
+  missionsWon        BigInt
+  missionsLost       BigInt
+  missionTime        BigInt
+  bugKills           BigInt
+  automatonKills     BigInt
+  illuminateKills    BigInt
+  bulletsFired       BigInt
+  bulletsHit         BigInt
+  timePlayed         BigInt
+  deaths             BigInt
+  revives            BigInt
+  friendlyKills      BigInt
+  missionSuccessRate Int
+  accuracy           Int
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  planet             Planet?
+}
+
+model Reward {
+  id         Int         @id @default(autoincrement())
+  index      Int         @unique
+  type       Int
+  amount     Int
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  assignment Assignment?
+}
+
+model Assignment {
+  id          Int      @id @default(autoincrement())
+  index       Int      @unique
+  progress    Int
+  expiresAt   DateTime
+  type        Int
+  title       String
+  briefing    String
+  description String
+  reward      Reward   @relation(fields: [rewardId], references: [id])
+  rewardId    Int      @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

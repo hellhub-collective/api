@@ -228,3 +228,43 @@ export const getPlanetOrders = await witCache(async (ctx: Context) => {
     });
   }
 });
+
+export const getPlanetStatistics = await witCache(async (ctx: Context) => {
+  try {
+    const id = parseIntParam(ctx, "id");
+    const query = await parseQueryParams(ctx);
+
+    delete query.orderBy;
+    delete query.where;
+    delete query.orderBy;
+    delete (query as any).skip;
+    delete (query as any).take;
+
+    const stats = await prisma.stats.findFirst({
+      ...(query as any),
+      where: { planet: { id } },
+    });
+
+    if (!stats) {
+      ctx.status(404);
+      return ctx.json({
+        data: null,
+        error: { details: [`Statistics for planet with id (${id}) not found`] },
+      });
+    }
+
+    const edited = JSON.stringify(stats, (_, value) => {
+      if (typeof value === "bigint") return parseInt(value.toString(), 10);
+      return value;
+    });
+
+    return ctx.json({ data: JSON.parse(edited), error: null });
+  } catch (error: any) {
+    console.error(error);
+    ctx.status(500);
+    return ctx.json({
+      data: null,
+      error: { details: [error.message] },
+    });
+  }
+});

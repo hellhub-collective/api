@@ -4,7 +4,6 @@ FROM oven/bun:latest as base
 WORKDIR /usr/src/app
 
 # Set environment variables
-ENV WAR_ID="801"
 ENV RATE_LIMIT="200"
 ENV DATABASE_URL="file:./database/data.db"
 ENV API_URL="https://api.live.prod.thehelldiversgame.com/api"
