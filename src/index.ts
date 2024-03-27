@@ -11,6 +11,7 @@ import orders from "routes/orders";
 import events from "routes/events";
 import planets from "routes/planets";
 import sectors from "routes/sectors";
+import reports from "routes/reports";
 import attacks from "routes/attacks";
 import factions from "routes/factions";
 import stratagems from "routes/stratagems";
@@ -30,6 +31,7 @@ const routes = [
   wars,
   events,
   orders,
+  reports,
   planets,
   sectors,
   attacks,
