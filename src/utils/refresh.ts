@@ -32,6 +32,7 @@ export async function refreshAndStoreSourceData() {
   });
 
   // generate the assignment data
+  await prisma.reward.deleteMany();
   await prisma.assignment.deleteMany();
   for (const assignment of warAssignments) {
     const now = Date.now();
