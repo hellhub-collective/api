@@ -2,8 +2,6 @@ import app from "../../src";
 import type { Order } from "@prisma/client";
 import { describe, expect, it } from "bun:test";
 
-let res = null;
-
 describe("Order endpoints work as expected", () => {
   it("GET /orders", async () => {
     const response = await app.request("/api/orders");
