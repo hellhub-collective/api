@@ -195,7 +195,7 @@ export async function transformAndStoreSourceData() {
   // generate the assignment data
   for (const assignment of warAssignments) {
     const now = Date.now();
-    const expiresAt = now + assignment.expiresIn;
+    const expiresAt = now + assignment.expiresIn * 1000;
 
     await prisma.reward.create({
       data: {
@@ -227,7 +227,7 @@ export async function transformAndStoreSourceData() {
         type: article.type,
         message: article.message ?? "",
         tagIds: article.tagIds.join(","),
-        publishedAt: new Date(article.published),
+        publishedAt: new Date(article.published * 1000),
       },
     });
   }
@@ -253,9 +253,9 @@ export async function transformAndStoreSourceData() {
   await prisma.war.create({
     data: {
       index: warId,
-      time: new Date(warTime.time),
-      endDate: new Date(warInfo.endDate),
-      startDate: new Date(warInfo.startDate),
+      time: new Date(warTime.time * 1000),
+      endDate: new Date(warInfo.endDate * 1000),
+      startDate: new Date(warInfo.startDate * 1000),
     },
   });
 
@@ -402,8 +402,8 @@ export async function transformAndStoreSourceData() {
         health: event.health,
         maxHealth: event.maxHealth,
         hqNodeIndex: jointOp?.hqNodeIndex,
-        startTime: new Date(event.startTime),
-        expireTime: new Date(event.expireTime),
+        startTime: new Date(event.startTime * 1000),
+        expireTime: new Date(event.expireTime * 1000),
         campaign: { connect: { index: event.campaignId } },
         planet: planet ? { connect: { index: planet.index } } : undefined,
         faction: faction ? { connect: { index: faction.index } } : undefined,
