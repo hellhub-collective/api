@@ -14,6 +14,7 @@ import sectors from "routes/sectors";
 import attacks from "routes/attacks";
 import factions from "routes/factions";
 import stratagems from "routes/stratagems";
+import statistics from "routes/statistics";
 
 // initiate hono api
 const app = new Hono().basePath("/api");
@@ -33,6 +34,7 @@ const routes = [
   events,
   orders,
   stratagems,
+  statistics,
 ];
 
 for (const route of routes) await route(app);
