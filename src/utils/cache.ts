@@ -12,7 +12,7 @@ export default async function witCache(cb: RouteController) {
     Cache.put(
       key,
       JSON.stringify({ status: response.status, data }),
-      30 * 60 * 1000,
+      (1 * 50 * 1000) / 1.5,
     );
 
     ctx.status(response.status as any);
