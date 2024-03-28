@@ -4,7 +4,7 @@ import Cache from "memory-cache";
 import { refreshAndStoreSourceData } from "utils/refresh";
 
 new CronJob(
-  "0 */30 * * * *",
+  "0 */1 * * * *",
   async () => {
     const startDate = Date.now();
     console.log("Refreshing source data");
