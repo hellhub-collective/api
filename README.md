@@ -28,10 +28,10 @@ The HellHub API is a community-driven project that strives to provide easy acces
 To start using the HellHub API, you can use the following base for your requests:
 
 ```bash
-https://api-hellhub-collective.koyeb.app/api
+https://api-hellhub-collective.koyeb.app/api2
 ```
 
-Followed by the endpoint you want to access. Our data is **updated every 30 minutes**. For more information on the available endpoints, check out the [postman collection](https://documenter.getpostman.com/view/33840175/2sA35Bd54w).
+Followed by the endpoint you want to access. Our data is **updated every minute**. For more information on the available endpoints, check out the [postman collection](https://documenter.getpostman.com/view/33840175/2sA35Bd54w).
 
 ## Fair usage
 
