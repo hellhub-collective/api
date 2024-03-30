@@ -53,12 +53,7 @@ export const getStatisticById = await witCache(async (ctx: Context) => {
       });
     }
 
-    const edited = JSON.stringify(statistic, (_, value) => {
-      if (typeof value === "bigint") return parseInt(value.toString(), 10);
-      return value;
-    });
-
-    return ctx.json({ data: JSON.parse(edited), error: null });
+    return ctx.json({ data: statistic, error: null });
   } catch (error: any) {
     console.error(error);
     ctx.status(500);
@@ -78,13 +73,8 @@ export const getAllStatistics = await witCache(async (ctx: Context) => {
       prisma.stats.findMany(query),
     ]);
 
-    const edited = JSON.stringify(statistics, (_, value) => {
-      if (typeof value === "bigint") return parseInt(value.toString(), 10);
-      return value;
-    });
-
     return ctx.json({
-      data: JSON.parse(edited),
+      data: statistics,
       error: null,
       pagination: {
         page: query.skip / query.take + 1,
