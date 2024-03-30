@@ -13,7 +13,7 @@ datasource db {
 
 model War {
   id        Int      @id @default(autoincrement())
-  index     Int      @unique
+  index     BigInt   @unique
   startDate DateTime
   endDate   DateTime
   time      DateTime
@@ -23,7 +23,7 @@ model War {
 
 model Sector {
   id        Int      @id @default(autoincrement())
-  index     Int      @unique
+  index     BigInt   @unique
   name      String
   planets   Planet[]
   createdAt DateTime @default(now())
@@ -32,7 +32,7 @@ model Sector {
 
 model Faction {
   id             Int           @id @default(autoincrement())
-  index          Int           @unique
+  index          BigInt        @unique
   name           String
   orders         Order[]       @relation("Order")
   planets        Planet[]      @relation(name: "owner")
@@ -45,7 +45,7 @@ model Faction {
 
 model Planet {
   id             Int          @id @default(autoincrement())
-  index          Int          @unique
+  index          BigInt       @unique
   name           String
   owner          Faction      @relation(name: "owner", fields: [ownerId], references: [id])
   ownerId        Int
@@ -75,7 +75,7 @@ model Planet {
 
 model GlobalEvent {
   id        Int      @id @default(autoincrement())
-  index     Int      @unique
+  index     BigInt   @unique
   title     String
   faction   Faction? @relation(fields: [factionId], references: [id])
   factionId Int?
@@ -88,7 +88,7 @@ model GlobalEvent {
 model Campaign {
   id        Int      @id @default(autoincrement())
   type      Int
-  index     Int      @unique
+  index     BigInt   @unique
   count     Int
   order     Order[]  @relation("Order")
   planet    Planet   @relation("Campaign", fields: [planetId], references: [id])
@@ -109,7 +109,7 @@ model HomeWorld {
 
 model Order {
   id          Int       @id @default(autoincrement())
-  index       Int       @unique
+  index       BigInt    @unique
   planet      Planet?   @relation("Order", fields: [planetId], references: [id])
   planetId    Int?
   faction     Faction?  @relation("Order", fields: [factionId], references: [id])
@@ -161,7 +161,7 @@ model Stratagem {
 
 model News {
   id          Int      @id @default(autoincrement())
-  index       Int      @unique
+  index       BigInt   @unique
   type        Int
   tagIds      String
   message     String
@@ -193,7 +193,7 @@ model Stats {
 
 model Reward {
   id         Int         @id @default(autoincrement())
-  index      Int         @unique
+  index      BigInt      @unique
   type       Int
   amount     Int
   createdAt  DateTime    @default(now())
@@ -203,7 +203,7 @@ model Reward {
 
 model Assignment {
   id          Int      @id @default(autoincrement())
-  index       Int      @unique
+  index       BigInt   @unique
   progress    Int
   expiresAt   DateTime
   type        Int
