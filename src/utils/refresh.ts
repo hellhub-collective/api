@@ -67,7 +67,7 @@ export async function refreshAndStoreSourceData() {
       data: {
         index: article.id,
         type: article.type,
-        message: article.message,
+        message: article.message ?? "",
         tagIds: article.tagIds.join(","),
         publishedAt: new Date(article.published * 1000),
       },
