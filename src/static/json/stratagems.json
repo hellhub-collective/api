@@ -150,6 +150,15 @@
         "cooldown": 480,
         "activation": 5,
         "imageUrl": "/2/9.svg"
+      },
+      {
+        "codename": "LAS-99",
+        "name": "Quasar Cannon",
+        "keys": ["down", "down", "up", "left", "right"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/2/10.svg"
       }
     ]
   },
@@ -467,6 +476,15 @@
         "cooldown": 480,
         "activation": 3,
         "imageUrl": "/6/9.svg"
+      },
+      {
+        "codename": "MG-206",
+        "name": "Heavy Machine Gun",
+        "keys": ["down", "left", "up", "down", "down"],
+        "uses": "Unlimited",
+        "cooldown": 480,
+        "activation": 3,
+        "imageUrl": "/6/10.svg"
       }
     ]
   },
