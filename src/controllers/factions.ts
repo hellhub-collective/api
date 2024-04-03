@@ -1,8 +1,8 @@
 import type { Context } from "hono";
 import { PrismaClient } from "@prisma/client";
 
-import witCache from "utils/cache";
 import parseIntParam from "utils/params";
+import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
 
 const prisma = new PrismaClient();
