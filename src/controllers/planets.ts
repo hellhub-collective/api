@@ -253,12 +253,7 @@ export const getPlanetStatistics = await witCache(async (ctx: Context) => {
       });
     }
 
-    const edited = JSON.stringify(stats, (_, value) => {
-      if (typeof value === "bigint") return parseInt(value.toString(), 10);
-      return value;
-    });
-
-    return ctx.json({ data: JSON.parse(edited), error: null });
+    return ctx.json({ data: stats, error: null });
   } catch (error: any) {
     console.error(error);
     ctx.status(500);
