@@ -4,6 +4,7 @@ import "polyfills/BigInt";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
+import logger from "middleware/logger";
 import cache from "middleware/request-cache";
 import rateLimit from "middleware/rate-limit";
 
@@ -23,6 +24,7 @@ import assignments from "routes/assignments";
 const app = new Hono().basePath("/api");
 
 // middleware for the api
+app.use(logger);
 app.use("/*", cors());
 app.use(rateLimit);
 app.use(cache);

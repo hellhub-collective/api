@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { CronJob } from "cron";
 
 import RequestCache from "classes/request-cache";
@@ -8,17 +9,16 @@ new CronJob(
   async () => {
     const startDate = Date.now();
     try {
-      console.log("Refreshing source data");
-
       await refreshAndStoreSourceData();
       RequestCache.flushAll();
-
-      const endDate = Date.now();
-      console.log(`Source data refreshed in ${endDate - startDate}ms`);
+      console.log(
+        `${chalk.bold(chalk.magenta("CRON"))} Refreshed source data ${`(${Date.now() - startDate}ms)`}`,
+      );
     } catch (err: any) {
-      const endDate = Date.now();
-      console.error(`Error refreshing source data in ${endDate - startDate}ms`);
-      console.error(err);
+      console.error(
+        `${chalk.bold(chalk.red("ERROR"))} Error refreshing source data ${`(${Date.now() - startDate}ms)`}`,
+        `\n${err}`,
+      );
     }
   },
   null,
