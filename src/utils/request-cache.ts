@@ -10,7 +10,7 @@ export default async function witCache(cb: RouteController) {
     const response = await cb(ctx);
 
     const data = await response.json();
-    RequestCache.set(key, { status: response.status, data }, 50);
+    RequestCache.set(key, { status: response.status, data }, 120);
 
     ctx.status(response.status as any);
     return ctx.json(data);

@@ -10,8 +10,8 @@ new CronJob(
     try {
       console.log("Refreshing source data");
 
-      RequestCache.flushAll();
       await refreshAndStoreSourceData();
+      RequestCache.flushAll();
 
       const endDate = Date.now();
       console.log(`Source data refreshed in ${endDate - startDate}ms`);
