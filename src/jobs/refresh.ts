@@ -1,17 +1,25 @@
 import { CronJob } from "cron";
-import Cache from "memory-cache";
 
+import RequestCache from "classes/request-cache";
 import { refreshAndStoreSourceData } from "utils/refresh";
 
 new CronJob(
   "0 */1 * * * *",
   async () => {
     const startDate = Date.now();
-    console.log("Refreshing source data");
-    await refreshAndStoreSourceData();
-    Cache.clear();
-    const endDate = Date.now();
-    console.log(`Source data refreshed in ${endDate - startDate}ms`);
+    try {
+      console.log("Refreshing source data");
+
+      RequestCache.flushAll();
+      await refreshAndStoreSourceData();
+
+      const endDate = Date.now();
+      console.log(`Source data refreshed in ${endDate - startDate}ms`);
+    } catch (err: any) {
+      const endDate = Date.now();
+      console.error(`Error refreshing source data in ${endDate - startDate}ms`);
+      console.error(err);
+    }
   },
   null,
   true,

@@ -1,5 +1,6 @@
-import Cache from "memory-cache";
 import type { Context, Next } from "hono";
+
+import RateLimitCache from "classes/rate-limit";
 
 const RATE_LIMIT = parseInt(process.env.RATE_LIMIT || "60");
 
@@ -13,7 +14,7 @@ interface RateLimit {
 export default async function rateLimit(ctx: Context, next: Next) {
   const ip = ctx.req.header("X-Forwarded-For") || ctx.req.header("X-Real-IP");
   const key = `rate-limit:${ip ?? "unknown"}`;
-  const rl: RateLimit = Cache.get(key);
+  const rl = RateLimitCache.get<RateLimit>(key);
 
   const now = Date.now();
   const reset = now + 1000 * 60;
@@ -31,7 +32,7 @@ export default async function rateLimit(ctx: Context, next: Next) {
       remaining: RATE_LIMIT - 1,
     };
 
-    Cache.put(key, payload, 1000 * 60);
+    RateLimitCache.set(key, payload, 60);
     return await next();
   }
 
@@ -42,7 +43,7 @@ export default async function rateLimit(ctx: Context, next: Next) {
       remaining: rl.limit - (rl.count + 1),
     };
 
-    Cache.put(key, payload, 1000 * 60);
+    RateLimitCache.set(key, payload, 60);
     return await next();
   }
 
