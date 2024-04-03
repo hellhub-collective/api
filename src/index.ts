@@ -4,7 +4,7 @@ import "polyfills/BigInt";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
-import cache from "middleware/cache";
+import cache from "middleware/request-cache";
 import rateLimit from "middleware/rate-limit";
 
 import wars from "routes/war";

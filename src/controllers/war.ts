@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import { PrismaClient } from "@prisma/client";
 
-import witCache from "utils/cache";
+import witCache from "utils/request-cache";
 
 const prisma = new PrismaClient();
 
