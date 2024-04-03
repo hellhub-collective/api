@@ -1,5 +1,6 @@
-import Cache from "memory-cache";
-import type { Context, TypedResponse } from "hono";
+import type { Context } from "hono";
+
+import RequestCache from "classes/request-cache";
 
 type RouteController = (ctx: Context) => Promise<Response>;
 
@@ -9,10 +10,10 @@ export default async function witCache(cb: RouteController) {
     const response = await cb(ctx);
     const data = await response.json();
 
-    Cache.put(
+    RequestCache.set(
       key,
       JSON.stringify({ status: response.status, data }),
-      (1 * 50 * 1000) / 1.5,
+      50,
     );
 
     ctx.status(response.status as any);
