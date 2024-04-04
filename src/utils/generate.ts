@@ -139,7 +139,7 @@ export async function fetchSourceData() {
         "Accept-Language": "en-US",
       },
     }),
-    fetch(`${API_URL}/NewsFeed/${warId}`, {
+    fetch(`${API_URL}/NewsFeed/${warId}?maxEntries=1024`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -220,7 +220,7 @@ export async function transformAndStoreSourceData() {
   }
 
   // generate news data
-  for (const article of warNews) {
+  for (const article of warNews.sort((a, b) => a.id - b.id)) {
     await prisma.news.create({
       data: {
         index: article.id,
