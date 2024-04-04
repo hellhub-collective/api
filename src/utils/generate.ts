@@ -139,7 +139,7 @@ export async function fetchSourceData() {
         "Accept-Language": "en-US",
       },
     }),
-    fetch(`${API_URL}/NewsFeed/${warId}`, {
+    fetch(`${API_URL}/NewsFeed/${warId}?maxEntries=1024`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
