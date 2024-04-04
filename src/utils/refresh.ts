@@ -62,7 +62,7 @@ export async function refreshAndStoreSourceData() {
 
   // generate news data
   await prisma.news.deleteMany();
-  for (const article of warNews) {
+  for (const article of warNews.sort((a, b) => a.id - b.id)) {
     await prisma.news.create({
       data: {
         index: article.id,

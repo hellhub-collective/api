@@ -220,7 +220,7 @@ export async function transformAndStoreSourceData() {
   }
 
   // generate news data
-  for (const article of warNews) {
+  for (const article of warNews.sort((a, b) => a.id - b.id)) {
     await prisma.news.create({
       data: {
         index: article.id,
