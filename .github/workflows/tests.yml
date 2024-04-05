@@ -5,6 +5,7 @@ env:
   DATABASE_URL: "file:./database/data.db"
   # api setup
   RATE_LIMIT: "200"
+  HISTORY_API_URL: "https://helldivers-b.omnedia.com/api"
   API_URL: "https://api.live.prod.thehelldiversgame.com/api"
   # stratagem setup
   STRATAGEM_IMAGE_URL: "https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public/stratagems"

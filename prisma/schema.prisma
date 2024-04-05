@@ -44,33 +44,36 @@ model Faction {
 }
 
 model Planet {
-  id             Int          @id @default(autoincrement())
-  index          BigInt       @unique
-  name           String
-  owner          Faction      @relation(name: "owner", fields: [ownerId], references: [id])
-  ownerId        Int
-  sector         Sector       @relation(fields: [sectorId], references: [id])
-  sectorId       Int
-  health         Int
-  maxHealth      Int
-  players        Int
-  disabled       Boolean
-  regeneration   Int
-  initialOwner   Faction      @relation(name: "initialOwner", fields: [initialOwnerId], references: [id])
-  initialOwnerId Int
-  positionX      Float
-  positionY      Float
-  globalEvent    GlobalEvent? @relation("GlobalEvent", fields: [globalEventId], references: [id])
-  globalEventId  Int?
-  orders         Order[]      @relation("Order")
-  campaign       Campaign[]   @relation("Campaign")
-  homeWorld      HomeWorld[]  @relation("HomeWorld")
-  attacking      Attack[]     @relation("Attack")
-  defending      Attack[]     @relation("Defend")
-  statistic      Stats?       @relation(fields: [statisticId], references: [id])
-  statisticId    Int?         @unique
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id              Int          @id @default(autoincrement())
+  index           BigInt       @unique
+  name            String
+  owner           Faction      @relation(name: "owner", fields: [ownerId], references: [id])
+  ownerId         Int
+  sector          Sector       @relation(fields: [sectorId], references: [id])
+  sectorId        Int
+  health          Int
+  maxHealth       Int
+  players         Int
+  disabled        Boolean
+  regeneration    Int
+  liberation      Float
+  liberationRate  Float
+  liberationState String
+  initialOwner    Faction      @relation(name: "initialOwner", fields: [initialOwnerId], references: [id])
+  initialOwnerId  Int
+  positionX       Float
+  positionY       Float
+  globalEvent     GlobalEvent? @relation("GlobalEvent", fields: [globalEventId], references: [id])
+  globalEventId   Int?
+  orders          Order[]      @relation("Order")
+  campaign        Campaign[]   @relation("Campaign")
+  homeWorld       HomeWorld[]  @relation("HomeWorld")
+  attacking       Attack[]     @relation("Attack")
+  defending       Attack[]     @relation("Defend")
+  statistic       Stats?       @relation(fields: [statisticId], references: [id])
+  statisticId     Int?         @unique
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }
 
 model GlobalEvent {

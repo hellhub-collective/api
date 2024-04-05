@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 # Set environment variables
 ENV RATE_LIMIT="200"
 ENV DATABASE_URL="file:./database/data.db"
+ENV HISTORY_API_URL="https://helldivers-b.omnedia.com/api"
 ENV API_URL="https://api.live.prod.thehelldiversgame.com/api"
 ENV STRATAGEM_IMAGE_URL="https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public/stratagems"
 
