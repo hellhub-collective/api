@@ -12,6 +12,7 @@ import type {
   CurrentWarTime,
 } from "types/source";
 
+import type { HistoryEntry } from "types/history";
 import type { StratagemMap } from "types/stratagem";
 
 export interface NameEntry {
@@ -153,6 +154,13 @@ export async function fetchSourceData() {
         "Accept-Language": "en-US",
       },
     }),
+    fetch(`${process.env.HISTORY_API_URL}/current-planets-progress`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Accept-Language": "en-US",
+      },
+    }),
   ]);
 
   const data = await Promise.all(responses.map(res => res.json()));
@@ -165,6 +173,7 @@ export async function fetchSourceData() {
     warStatus: data[0] as WarStatus,
     warTime: data[2] as CurrentWarTime,
     warAssignments: data[3] as Assignment[],
+    warHistory: data[6] as { planetsProgress: HistoryEntry[] },
   };
 }
 
@@ -180,6 +189,7 @@ export async function transformAndStoreSourceData() {
     warNews,
     warStats,
     warStatus,
+    warHistory,
     warAssignments,
   } = await fetchSourceData();
 
@@ -296,8 +306,11 @@ export async function transformAndStoreSourceData() {
 
   // generate the planet data
   for (const planet of planets) {
-    const status = warStatus.planetStatus.find(p => p.index === planet.index);
+    const { planetsProgress } = warHistory;
+
     const info = warInfo.planetInfos.find(p => p.index === planet.index);
+    const lib = planetsProgress.find(p => p.planetIndex === planet.index);
+    const status = warStatus.planetStatus.find(p => p.index === planet.index);
 
     if (!status || !info) {
       console.warn(`No data for planet ${planet.name}`, { status, info });
@@ -307,6 +320,27 @@ export async function transformAndStoreSourceData() {
     const planetSector = sectors.find(s => {
       return s.planets.some(p => p.index === planet.index);
     });
+
+    const liberationState = (() => {
+      if (!lib) return "N/A" as const;
+
+      let value;
+      const max_h = info.maxHealth;
+      const lib_r = lib.liberationChange;
+
+      const libPerHour = max_h * (lib_r / 100);
+      const regPerHour = status.regenPerSecond * 3600;
+
+      if (libPerHour > regPerHour) {
+        value = "WINNING" as const;
+      } else if (lib_r < 0.05) {
+        value = "DRAW" as const;
+      } else {
+        value = "LOSING" as const;
+      }
+
+      return value;
+    })();
 
     await prisma.planet.create({
       data: {
@@ -322,6 +356,10 @@ export async function transformAndStoreSourceData() {
         owner: { connect: { index: status.owner } },
         sector: { connect: { index: planetSector?.index } },
         initialOwner: { connect: { index: info.initialOwner } },
+        // liberation data based on history api
+        liberationState,
+        liberationRate: lib?.liberationChange ?? 0,
+        liberation: 100 - (100 / info.maxHealth) * status.health,
       },
     });
 
