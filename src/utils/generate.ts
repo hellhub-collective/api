@@ -100,6 +100,7 @@ export async function prepareForSourceData() {
  */
 export async function fetchSourceData() {
   const API_URL = process.env.API_URL!;
+  const HISTORY_API_URL = process.env.HISTORY_API_URL!;
 
   const response = await fetch(`${API_URL}/WarSeason/current/WarID`, {
     headers: {
@@ -154,7 +155,7 @@ export async function fetchSourceData() {
         "Accept-Language": "en-US",
       },
     }),
-    fetch(`${process.env.HISTORY_API_URL}/current-planets-progress`, {
+    fetch(`${HISTORY_API_URL}/current-planets-progress`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
