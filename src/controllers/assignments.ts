@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getAssignmentById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getAssignmentById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const assignment = await prisma.assignment.findUnique({
+    const assignment = await db.assignment.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllAssignments = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, assignments] = await Promise.all([
-      prisma.assignment.count({ where: query.where }),
-      prisma.assignment.findMany(query),
+      db.assignment.count({ where: query.where }),
+      db.assignment.findMany(query),
     ]);
 
     return ctx.json({
@@ -82,7 +80,7 @@ export const getAssignmentReward = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const reward = await prisma.reward.findFirst({
+    const reward = await db.reward.findFirst({
       where: { assignment: { id } },
     });
 

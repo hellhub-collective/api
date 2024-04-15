@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getSectorById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getSectorById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const sector = await prisma.sector.findUnique({
+    const sector = await db.sector.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllSectors = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, sectors] = await Promise.all([
-      prisma.sector.count({ where: query.where }),
-      prisma.sector.findMany(query),
+      db.sector.count({ where: query.where }),
+      db.sector.findMany(query),
     ]);
 
     return ctx.json({
@@ -76,8 +74,8 @@ export const getPlanetsBySector = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, planets] = await Promise.all([
-      prisma.planet.count({ where: query.where }),
-      prisma.planet.findMany({
+      db.planet.count({ where: query.where }),
+      db.planet.findMany({
         ...query,
         where: {
           ...(query.where ?? {}),

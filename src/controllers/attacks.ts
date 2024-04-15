@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getAttackById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getAttackById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const attack = await prisma.attack.findUnique({
+    const attack = await db.attack.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllAttacks = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, attacks] = await Promise.all([
-      prisma.attack.count({ where: query.where }),
-      prisma.attack.findMany(query),
+      db.attack.count({ where: query.where }),
+      db.attack.findMany(query),
     ]);
 
     return ctx.json({
@@ -83,10 +81,10 @@ export const getPlanetsByAttack = await witCache(async (ctx: Context) => {
     delete (query as any).take;
 
     const [target, source] = await Promise.all([
-      prisma.planet.findFirst({
+      db.planet.findFirst({
         where: { attacking: { some: { id } } },
       }),
-      prisma.planet.findFirst({
+      db.planet.findFirst({
         where: { defending: { some: { id } } },
       }),
     ]);

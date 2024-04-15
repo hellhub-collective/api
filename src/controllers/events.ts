@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getEventById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getEventById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const event = await prisma.globalEvent.findUnique({
+    const event = await db.globalEvent.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllEvents = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, events] = await Promise.all([
-      prisma.globalEvent.count({ where: query.where }),
-      prisma.globalEvent.findMany(query),
+      db.globalEvent.count({ where: query.where }),
+      db.globalEvent.findMany(query),
     ]);
 
     return ctx.json({

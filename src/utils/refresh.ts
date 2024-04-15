@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
+import { db } from "utils/database";
 import { fetchSourceData, prepareForSourceData } from "utils/generate";
-
-const prisma = new PrismaClient();
 
 /**
  * Refreshes all the database data based on the current war status.
@@ -22,7 +19,7 @@ export async function refreshAndStoreSourceData() {
     warAssignments,
   } = await fetchSourceData();
 
-  await prisma.war.update({
+  await db.war.update({
     where: { index: warId },
     data: {
       index: warId,
@@ -33,13 +30,13 @@ export async function refreshAndStoreSourceData() {
   });
 
   // generate the assignment data
-  await prisma.assignment.deleteMany();
-  await prisma.reward.deleteMany();
+  await db.assignment.deleteMany();
+  await db.reward.deleteMany();
   for (const assignment of warAssignments) {
     const now = Date.now();
     const expiresAt = now + assignment.expiresIn * 1000;
 
-    await prisma.reward.create({
+    await db.reward.create({
       data: {
         type: assignment.setting.reward.type,
         index: assignment.setting.reward.id32,
@@ -47,7 +44,7 @@ export async function refreshAndStoreSourceData() {
       },
     });
 
-    await prisma.assignment.create({
+    await db.assignment.create({
       data: {
         index: assignment.id32,
         type: assignment.setting.type,
@@ -62,9 +59,9 @@ export async function refreshAndStoreSourceData() {
   }
 
   // generate news data
-  await prisma.news.deleteMany();
+  await db.news.deleteMany();
   for (const article of warNews.sort((a, b) => a.id - b.id)) {
-    await prisma.news.create({
+    await db.news.create({
       data: {
         index: article.id,
         type: article.type,
@@ -77,7 +74,7 @@ export async function refreshAndStoreSourceData() {
 
   // generate the sector data
   for (const sector of sectors) {
-    await prisma.sector.update({
+    await db.sector.update({
       where: { index: sector.index },
       data: { index: sector.index, name: sector.name },
     });
@@ -85,17 +82,17 @@ export async function refreshAndStoreSourceData() {
 
   // generate the faction data
   for (const faction of factions) {
-    await prisma.faction.update({
+    await db.faction.update({
       where: { index: faction.index },
       data: faction,
     });
   }
 
   // generate global stats
-  await prisma.stats.deleteMany();
+  await db.stats.deleteMany();
   if (warStats.galaxy_stats) {
     const global = warStats.galaxy_stats;
-    await prisma.stats.create({
+    await db.stats.create({
       data: {
         accuracy: global.accurracy,
         deaths: BigInt(global.deaths),
@@ -153,7 +150,7 @@ export async function refreshAndStoreSourceData() {
       return value;
     })();
 
-    await prisma.planet.update({
+    await db.planet.update({
       where: { index: planet.index },
       data: {
         name: planet.name,
@@ -182,7 +179,7 @@ export async function refreshAndStoreSourceData() {
     if (!stats) continue;
 
     // create planetary stats
-    await prisma.stats.create({
+    await db.stats.create({
       data: {
         accuracy: stats.accurracy,
         deaths: BigInt(stats.deaths),
@@ -204,9 +201,9 @@ export async function refreshAndStoreSourceData() {
   }
 
   // generate attack and defense data
-  await prisma.attack.deleteMany();
+  await db.attack.deleteMany();
   for (const attack of warStatus.planetAttacks) {
-    await prisma.attack.create({
+    await db.attack.create({
       data: {
         source: { connect: { index: attack.source } },
         target: { connect: { index: attack.target } },
@@ -219,7 +216,7 @@ export async function refreshAndStoreSourceData() {
     return warStatus.campaigns.map(c => c.planetIndex).includes(p.index);
   });
 
-  await prisma.campaign.deleteMany();
+  await db.campaign.deleteMany();
   for (const campaign of warStatus.campaigns) {
     const planet = campaignPlanets.find(p => p.index === campaign.planetIndex);
 
@@ -230,7 +227,7 @@ export async function refreshAndStoreSourceData() {
       continue;
     }
 
-    await prisma.campaign.create({
+    await db.campaign.create({
       data: {
         index: campaign.id,
         type: campaign.type,
@@ -241,13 +238,13 @@ export async function refreshAndStoreSourceData() {
   }
 
   // generate the planet event data (attack/defend orders)
-  await prisma.order.deleteMany();
+  await db.order.deleteMany();
   for (const event of warStatus.planetEvents) {
     const planet = planets.find(p => p.index === event.planetIndex);
     const faction = factions.find(f => f.index === event.race);
     const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
 
-    await prisma.order.create({
+    await db.order.create({
       data: {
         index: event.id,
         eventType: event.eventType === 1 ? "DEFEND" : "ATTACK",
@@ -264,7 +261,7 @@ export async function refreshAndStoreSourceData() {
   }
 
   // generate the global event data
-  await prisma.globalEvent.deleteMany();
+  await db.globalEvent.deleteMany();
   for (const globals of warStatus.globalEvents) {
     const faction = factions.find(f => f.index === globals.race);
 
@@ -272,7 +269,7 @@ export async function refreshAndStoreSourceData() {
       globals.planetIndices.includes(p.index);
     });
 
-    await prisma.globalEvent.create({
+    await db.globalEvent.create({
       data: {
         title: globals.title,
         index: globals.eventId,
@@ -284,7 +281,7 @@ export async function refreshAndStoreSourceData() {
   }
 
   // create the home world data
-  await prisma.homeWorld.deleteMany();
+  await db.homeWorld.deleteMany();
   for (const homeWorld of warInfo.homeWorlds) {
     const homeWorldPlanet = planets.find(p => {
       return homeWorld.planetIndices?.[0] === p.index;
@@ -306,7 +303,7 @@ export async function refreshAndStoreSourceData() {
       continue;
     }
 
-    await prisma.homeWorld.create({
+    await db.homeWorld.create({
       data: {
         faction: { connect: { index: owner.index } },
         planet: { connect: { index: homeWorldPlanet.index } },

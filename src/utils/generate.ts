@@ -1,6 +1,5 @@
 import path from "path";
 import fs from "fs/promises";
-import { PrismaClient } from "@prisma/client";
 
 import type {
   News,
@@ -12,6 +11,7 @@ import type {
   CurrentWarTime,
 } from "types/source";
 
+import { db } from "utils/database";
 import type { HistoryEntry } from "types/history";
 import type { StratagemMap } from "types/stratagem";
 
@@ -25,8 +25,6 @@ export interface SectorEntry {
   name: string;
   planets: NameEntry[];
 }
-
-const prisma = new PrismaClient();
 
 /**
  * Populate the database with names from static JSON files, this needs to be
@@ -199,8 +197,8 @@ export async function transformAndStoreSourceData() {
 
   // index all stratagems
   await Promise.all([
-    prisma.stratagem.deleteMany(),
-    prisma.stratagemGroup.deleteMany(),
+    db.stratagem.deleteMany(),
+    db.stratagemGroup.deleteMany(),
   ]);
 
   // generate the assignment data
@@ -208,7 +206,7 @@ export async function transformAndStoreSourceData() {
     const now = Date.now();
     const expiresAt = now + assignment.expiresIn * 1000;
 
-    await prisma.reward.create({
+    await db.reward.create({
       data: {
         type: assignment.setting.reward.type,
         index: assignment.setting.reward.id32,
@@ -216,7 +214,7 @@ export async function transformAndStoreSourceData() {
       },
     });
 
-    await prisma.assignment.create({
+    await db.assignment.create({
       data: {
         index: assignment.id32,
         type: assignment.setting.type,
@@ -232,7 +230,7 @@ export async function transformAndStoreSourceData() {
 
   // generate news data
   for (const article of warNews.sort((a, b) => a.id - b.id)) {
-    await prisma.news.create({
+    await db.news.create({
       data: {
         index: article.id,
         type: article.type,
@@ -245,12 +243,12 @@ export async function transformAndStoreSourceData() {
 
   // generate stratagem data
   for (const key in stratagems) {
-    const group = await prisma.stratagemGroup.create({
+    const group = await db.stratagemGroup.create({
       data: { name: stratagems[key].name },
     });
 
     for (const stratagem of stratagems[key].entries) {
-      await prisma.stratagem.create({
+      await db.stratagem.create({
         data: {
           ...stratagem,
           keys: stratagem.keys.join(","),
@@ -261,7 +259,7 @@ export async function transformAndStoreSourceData() {
   }
 
   // create the war data
-  await prisma.war.create({
+  await db.war.create({
     data: {
       index: warId,
       time: new Date(warTime.time * 1000),
@@ -272,20 +270,20 @@ export async function transformAndStoreSourceData() {
 
   // generate the sector data
   for (const sector of sectors) {
-    await prisma.sector.create({
+    await db.sector.create({
       data: { index: sector.index, name: sector.name },
     });
   }
 
   // generate the faction data
   for (const faction of factions) {
-    await prisma.faction.create({ data: faction });
+    await db.faction.create({ data: faction });
   }
 
   // generate global stats
   if (warStats.galaxy_stats) {
     const global = warStats.galaxy_stats;
-    await prisma.stats.create({
+    await db.stats.create({
       data: {
         accuracy: global.accurracy,
         deaths: BigInt(global.deaths),
@@ -343,7 +341,7 @@ export async function transformAndStoreSourceData() {
       return value;
     })();
 
-    await prisma.planet.create({
+    await db.planet.create({
       data: {
         name: planet.name,
         index: planet.index,
@@ -371,7 +369,7 @@ export async function transformAndStoreSourceData() {
     if (!stats) continue;
 
     // create planetary stats
-    await prisma.stats.create({
+    await db.stats.create({
       data: {
         accuracy: stats.accurracy,
         deaths: BigInt(stats.deaths),
@@ -394,7 +392,7 @@ export async function transformAndStoreSourceData() {
 
   // generate attack and defense data
   for (const attack of warStatus.planetAttacks) {
-    await prisma.attack.create({
+    await db.attack.create({
       data: {
         source: { connect: { index: attack.source } },
         target: { connect: { index: attack.target } },
@@ -418,7 +416,7 @@ export async function transformAndStoreSourceData() {
       continue;
     }
 
-    await prisma.campaign.create({
+    await db.campaign.create({
       data: {
         index: campaign.id,
         type: campaign.type,
@@ -434,7 +432,7 @@ export async function transformAndStoreSourceData() {
     const faction = factions.find(f => f.index === event.race);
     const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
 
-    await prisma.order.create({
+    await db.order.create({
       data: {
         index: event.id,
         eventType: event.eventType === 1 ? "DEFEND" : "ATTACK",
@@ -458,7 +456,7 @@ export async function transformAndStoreSourceData() {
       globals.planetIndices.includes(p.index);
     });
 
-    await prisma.globalEvent.create({
+    await db.globalEvent.create({
       data: {
         title: globals.title,
         index: globals.eventId,
@@ -491,7 +489,7 @@ export async function transformAndStoreSourceData() {
       continue;
     }
 
-    await prisma.homeWorld.create({
+    await db.homeWorld.create({
       data: {
         faction: { connect: { index: owner.index } },
         planet: { connect: { index: homeWorldPlanet.index } },

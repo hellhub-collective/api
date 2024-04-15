@@ -1,11 +1,10 @@
 import type { Context } from "hono";
-import { PrismaClient, type Stats } from "@prisma/client";
+import type { Stats } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getStatisticById = await witCache(async (ctx: Context) => {
   try {
@@ -28,12 +27,12 @@ export const getStatisticById = await witCache(async (ctx: Context) => {
     let statistic: Stats | null = null;
 
     if (id === "galaxy") {
-      statistic = await prisma.stats.findFirst({
+      statistic = await db.stats.findFirst({
         ...(query as any),
         where: { planet: { is: null } },
       });
     } else {
-      statistic = await prisma.stats.findUnique({
+      statistic = await db.stats.findUnique({
         ...(query as any),
         where: { id },
       });
@@ -69,8 +68,8 @@ export const getAllStatistics = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, statistics] = await Promise.all([
-      prisma.stats.count({ where: query.where }),
-      prisma.stats.findMany(query),
+      db.stats.count({ where: query.where }),
+      db.stats.findMany(query),
     ]);
 
     return ctx.json({

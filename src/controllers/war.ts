@@ -1,13 +1,11 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import witCache from "utils/request-cache";
-
-const prisma = new PrismaClient();
 
 export const getCurrentWar = await witCache(async (ctx: Context) => {
   try {
-    const war = await prisma.war.findFirst();
+    const war = await db.war.findFirst();
 
     return ctx.json({
       data: war,

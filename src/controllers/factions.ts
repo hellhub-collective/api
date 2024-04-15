@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getFactionById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getFactionById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const faction = await prisma.faction.findUnique({
+    const faction = await db.faction.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllFactions = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, factions] = await Promise.all([
-      prisma.faction.count({ where: query.where }),
-      prisma.faction.findMany(query),
+      db.faction.count({ where: query.where }),
+      db.faction.findMany(query),
     ]);
 
     return ctx.json({
@@ -77,10 +75,10 @@ export const getFactionPlanets = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, planets] = await Promise.all([
-      prisma.planet.count({
+      db.planet.count({
         where: { ...(query.where ?? {}), ownerId: id },
       }),
-      prisma.planet.findMany({
+      db.planet.findMany({
         ...query,
         where: { ...(query.where ?? {}), ownerId: id },
       }),
@@ -112,14 +110,14 @@ export const getFactionPushbacks = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, planets] = await Promise.all([
-      prisma.planet.count({
+      db.planet.count({
         where: {
           ...(query.where ?? {}),
           ownerId: { not: id },
           initialOwnerId: id,
         },
       }),
-      prisma.planet.findMany({
+      db.planet.findMany({
         ...query,
         where: {
           ...(query.where ?? {}),
@@ -160,7 +158,7 @@ export const getFactionOrigin = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const planet = await prisma.planet.findFirst({
+    const planet = await db.planet.findFirst({
       ...(query as any),
       where: { homeWorld: { some: { factionId: id } } },
     });
@@ -192,10 +190,10 @@ export const getFactionOrders = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, orders] = await Promise.all([
-      prisma.order.count({
+      db.order.count({
         where: { ...(query.where ?? {}), factionId: id },
       }),
-      prisma.order.findMany({
+      db.order.findMany({
         ...query,
         where: { ...(query.where ?? {}), factionId: id },
       }),
