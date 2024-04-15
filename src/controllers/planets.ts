@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getPlanetById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getPlanetById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const planet = await prisma.planet.findUnique({
+    const planet = await db.planet.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllPlanets = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, planets] = await Promise.all([
-      prisma.planet.count({ where: query.where }),
-      prisma.planet.findMany(query),
+      db.planet.count({ where: query.where }),
+      db.planet.findMany(query),
     ]);
 
     return ctx.json({
@@ -77,12 +75,12 @@ export const getPlanetAttacks = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, attacks] = await Promise.all([
-      prisma.attack.count({
+      db.attack.count({
         where: {
           OR: [{ source: { id } }, { target: { id } }],
         },
       }),
-      prisma.attack.findMany({
+      db.attack.findMany({
         ...(query ?? {}),
         where: {
           ...(query.where as any),
@@ -130,10 +128,10 @@ export const getPlanetOwners = await witCache(async (ctx: Context) => {
     delete (query as any).take;
 
     const [owner, initialOwner] = await Promise.all([
-      prisma.faction.findFirst({
+      db.faction.findFirst({
         where: { planets: { some: { id } } },
       }),
-      prisma.faction.findFirst({
+      db.faction.findFirst({
         where: { initialPlanets: { some: { id } } },
       }),
     ]);
@@ -165,10 +163,10 @@ export const getPlanetCampaigns = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, campaigns] = await Promise.all([
-      prisma.campaign.count({
+      db.campaign.count({
         where: { planetId: id },
       }),
-      prisma.campaign.findMany({
+      db.campaign.findMany({
         ...(query ?? {}),
         where: { ...(query.where as any), planetId: id },
       }),
@@ -200,10 +198,10 @@ export const getPlanetOrders = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, orders] = await Promise.all([
-      prisma.order.count({
+      db.order.count({
         where: { planetId: id },
       }),
-      prisma.order.findMany({
+      db.order.findMany({
         ...(query ?? {}),
         where: { ...(query.where as any), planetId: id },
       }),
@@ -240,7 +238,7 @@ export const getPlanetStatistics = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const stats = await prisma.stats.findFirst({
+    const stats = await db.stats.findFirst({
       ...(query as any),
       where: { planet: { id } },
     });

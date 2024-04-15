@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getStratagemById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getStratagemById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const stratagem = await prisma.stratagem.findUnique({
+    const stratagem = await db.stratagem.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -52,8 +50,8 @@ export const getAllStratagems = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, stratagems] = await Promise.all([
-      prisma.stratagem.count({ where: query.where }),
-      prisma.stratagem.findMany(query),
+      db.stratagem.count({ where: query.where }),
+      db.stratagem.findMany(query),
     ]);
 
     return ctx.json({

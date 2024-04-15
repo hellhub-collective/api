@@ -1,11 +1,9 @@
 import type { Context } from "hono";
-import { PrismaClient } from "@prisma/client";
 
+import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-
-const prisma = new PrismaClient();
 
 export const getOrderById = await witCache(async (ctx: Context) => {
   try {
@@ -18,7 +16,7 @@ export const getOrderById = await witCache(async (ctx: Context) => {
     delete (query as any).skip;
     delete (query as any).take;
 
-    const order = await prisma.order.findUnique({
+    const order = await db.order.findUnique({
       ...(query as any),
       where: { id },
     });
@@ -47,8 +45,8 @@ export const getAllOrders = await witCache(async (ctx: Context) => {
     const query = await parseQueryParams(ctx);
 
     const [count, orders] = await Promise.all([
-      prisma.order.count({ where: query.where }),
-      prisma.order.findMany(query),
+      db.order.count({ where: query.where }),
+      db.order.findMany(query),
     ]);
 
     return ctx.json({
