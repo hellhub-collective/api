@@ -61,7 +61,7 @@ RUN bun run output
 # upload source maps to sentry
 ARG SOURCE_MAP_TOKEN
 ENV SENTRY_AUTH_TOKEN=${SOURCE_MAP_TOKEN}
-RUN if [[ -z "${SOURCE_MAP_TOKEN}" ]]; then echo "Sourcemap upload failed, SENTRY_AUTH_TOKEN not set"; else bun run sentry:sourcemaps; fi
+RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "Sourcemap upload failed, SENTRY_AUTH_TOKEN not set"; else bun run sentry:sourcemaps; fi
 
 # create a non-root use
 RUN chmod a+rw prisma/database prisma/database/*
