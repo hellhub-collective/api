@@ -70,6 +70,9 @@ model Planet {
   homeWorld       HomeWorld[]  @relation("HomeWorld")
   attacking       Attack[]     @relation("Attack")
   defending       Attack[]     @relation("Defend")
+  effects         Effect[]     @relation("Effect")
+  biome           Biome        @relation(fields: [biomeId], references: [id])
+  biomeId         Int
   statistic       Stats?       @relation(fields: [statisticId], references: [id])
   statisticId     Int?         @unique
   createdAt       DateTime     @default(now())
@@ -215,6 +218,26 @@ model Assignment {
   description String
   reward      Reward   @relation(fields: [rewardId], references: [id])
   rewardId    Int      @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Biome {
+  id          Int      @id @default(autoincrement())
+  index       String   @unique
+  name        String
+  description String
+  planets     Planet[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Effect {
+  id          Int      @id @default(autoincrement())
+  index       String   @unique
+  name        String
+  description String
+  planets     Planet[] @relation("Effect")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
