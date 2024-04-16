@@ -9,8 +9,10 @@ import cache from "middleware/request-cache";
 import rateLimit from "middleware/rate-limit";
 
 import wars from "routes/war";
+import biomes from "routes/biomes";
 import orders from "routes/orders";
 import events from "routes/events";
+import effects from "routes/effects";
 import planets from "routes/planets";
 import sectors from "routes/sectors";
 import reports from "routes/reports";
@@ -32,10 +34,12 @@ app.use(cache);
 // routes for the api
 const routes = [
   wars,
+  biomes,
   events,
   orders,
   reports,
   planets,
+  effects,
   sectors,
   attacks,
   factions,
