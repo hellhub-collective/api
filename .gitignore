@@ -176,3 +176,6 @@ dist
 
 # Database
 prisma/database
+
+# Sentry Config File
+.sentryclirc

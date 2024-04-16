@@ -5,6 +5,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 
 import logger from "middleware/logger";
+import { initSentry } from "utils/sentry";
 import cache from "middleware/request-cache";
 import rateLimit from "middleware/rate-limit";
 
@@ -21,6 +22,8 @@ import factions from "routes/factions";
 import stratagems from "routes/stratagems";
 import statistics from "routes/statistics";
 import assignments from "routes/assignments";
+
+initSentry();
 
 // initiate hono api
 const app = new Hono().basePath("/api");

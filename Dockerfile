@@ -58,6 +58,9 @@ RUN bun test
 # build the app
 RUN bun run output
 
+# upload source maps to sentry
+RUN if [ -n "$SENTRY_AUTH_TOKEN" ]; then bun run sentry:sourcemaps; fi
+
 # create a non-root use
 RUN chmod a+rw prisma/database prisma/database/*
 

@@ -4,6 +4,7 @@ import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import captureException from "utils/sentry";
 
 export const getEventById = await witCache(async (ctx: Context) => {
   try {
@@ -31,7 +32,7 @@ export const getEventById = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: event, error: null });
   } catch (error: any) {
-    console.error(error);
+    captureException(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -60,7 +61,7 @@ export const getAllEvents = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    console.error(error);
+    captureException(error);
     ctx.status(500);
     return ctx.json({
       data: null,
