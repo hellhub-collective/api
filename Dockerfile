@@ -58,6 +58,10 @@ RUN bun test
 # build the app
 RUN bun run output
 
+# install ca-certificates
+RUN apt-get update
+RUN apt-get install ca-certificates
+
 # upload source maps to sentry
 ARG SOURCE_MAP_TOKEN
 ENV SENTRY_AUTH_TOKEN=${SOURCE_MAP_TOKEN}
