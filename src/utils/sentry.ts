@@ -26,6 +26,7 @@ export function initSentry(): void {
     integrations: [],
     tracesSampleRate: 0.6,
     dsn: process.env.SENTRY_DSN,
+    release: process.env.KOYEB_GIT_SHA,
     environment: process.env.NODE_ENV ?? "development",
     tracePropagationTargets: [
       "localhost",
