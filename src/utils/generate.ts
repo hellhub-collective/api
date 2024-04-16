@@ -20,52 +20,93 @@ export interface NameEntry {
   name: string;
 }
 
+export interface PlanetEntry {
+  name: string;
+  index: number;
+  biome: string;
+  effects: string[];
+}
+
 export interface SectorEntry {
   index: number;
   name: string;
-  planets: NameEntry[];
+  planets: PlanetEntry[];
 }
+
+export interface BiomeEntry {
+  name: string;
+  description: string;
+}
+
+export interface EffectEntry extends BiomeEntry {}
 
 /**
  * Populate the database with names from static JSON files, this needs to be
  * executed before the helldiver's 2 server is contacted.
  */
 export async function prepareForSourceData() {
-  const [factions, planets, sectors]: [
+  const [factions, planets, sectors, biomes, effects]: [
     NameEntry[],
-    NameEntry[],
+    Array<NameEntry & { biome: string; effects: string[] }>,
     SectorEntry[],
-  ] = [[], [], []];
+    Array<Omit<NameEntry, "index"> & { index: string; description: string }>,
+    Array<Omit<NameEntry, "index"> & { index: string; description: string }>,
+  ] = [[], [], [], [], []];
 
-  const [planetsData, sectorsData, factionsData, stratagemsData] =
-    await Promise.all([
-      fs.readFile(
-        path.join(process.cwd(), "src", "static/json/planets.json"),
-        "utf-8",
-      ),
-      fs.readFile(
-        path.join(process.cwd(), "src", "static/json/sectors.json"),
-        "utf-8",
-      ),
-      fs.readFile(
-        path.join(process.cwd(), "src", "static/json/factions.json"),
-        "utf-8",
-      ),
-      fs.readFile(
-        path.join(process.cwd(), "src", "static/json/stratagems.json"),
-        "utf-8",
-      ),
-    ]);
+  const [
+    planetsData,
+    sectorsData,
+    factionsData,
+    stratagemsData,
+    biomesData,
+    effectsData,
+  ] = await Promise.all([
+    fs.readFile(
+      path.join(process.cwd(), "src", "static/json/planets.json"),
+      "utf-8",
+    ),
+    fs.readFile(
+      path.join(process.cwd(), "src", "static/json/sectors.json"),
+      "utf-8",
+    ),
+    fs.readFile(
+      path.join(process.cwd(), "src", "static/json/factions.json"),
+      "utf-8",
+    ),
+    fs.readFile(
+      path.join(process.cwd(), "src", "static/json/stratagems.json"),
+      "utf-8",
+    ),
+    fs.readFile(
+      path.join(process.cwd(), "src", "static/json/biomes.json"),
+      "utf-8",
+    ),
+    fs.readFile(
+      path.join(process.cwd(), "src", "static/json/effects.json"),
+      "utf-8",
+    ),
+  ]);
 
   const stratagemsJSON: StratagemMap = JSON.parse(stratagemsData);
-  const planetsJSON: Record<string, string> = JSON.parse(planetsData);
+  const biomesJSON: Record<string, BiomeEntry> = JSON.parse(biomesData);
   const factionsJSON: Record<string, string> = JSON.parse(factionsData);
+  const effectsJSON: Record<string, EffectEntry> = JSON.parse(effectsData);
+  const planetsJSON: Record<string, PlanetEntry> = JSON.parse(planetsData);
   const sectorsJSON: Record<string, Array<number>> = JSON.parse(sectorsData);
+
+  // populate biomes
+  for (const key in biomesJSON) {
+    biomes.push({ ...biomesJSON[key], index: key });
+  }
+
+  // populate effects
+  for (const key in effectsJSON) {
+    effects.push({ ...effectsJSON[key], index: key });
+  }
 
   // populate planets
   for (const key in planetsJSON) {
-    const name = planetsJSON[key];
-    planets.push({ index: parseInt(key), name });
+    planets.push({ ...planetsJSON[key], index: parseInt(key) });
   }
 
   // populate sectors
@@ -77,8 +118,8 @@ export async function prepareForSourceData() {
       name: key,
       index: i + 1,
       planets: children.map(index => ({
-        index: index,
-        name: planetsJSON[index],
+        ...planetsJSON[index],
+        index,
       })),
     });
   }
@@ -89,7 +130,14 @@ export async function prepareForSourceData() {
     factions.push({ index: parseInt(key), name });
   }
 
-  return { factions, planets, sectors, stratagems: stratagemsJSON };
+  return {
+    factions,
+    planets,
+    sectors,
+    stratagems: stratagemsJSON,
+    effects,
+    biomes,
+  };
 }
 
 /**
@@ -192,8 +240,18 @@ export async function transformAndStoreSourceData() {
     warAssignments,
   } = await fetchSourceData();
 
-  const { factions, planets, sectors, stratagems } =
+  const { factions, planets, sectors, stratagems, biomes, effects } =
     await prepareForSourceData();
+
+  // create all biomes
+  for (const biome of biomes) {
+    await db.biome.create({ data: biome });
+  }
+
+  // create all effects
+  for (const effect of effects) {
+    await db.effect.create({ data: effect });
+  }
 
   // index all stratagems
   await Promise.all([
@@ -320,6 +378,11 @@ export async function transformAndStoreSourceData() {
       return s.planets.some(p => p.index === planet.index);
     });
 
+    const planetBiome = biomes.find(b => b.index === planet.biome);
+    const planetEffects = planet.effects.map(e =>
+      effects.find(f => f.index === e),
+    );
+
     const liberationState = (() => {
       if (!lib) return "N/A" as const;
 
@@ -353,8 +416,10 @@ export async function transformAndStoreSourceData() {
         positionY: info.position.y,
         regeneration: status.regenPerSecond,
         owner: { connect: { index: status.owner } },
+        biome: { connect: { index: planetBiome?.index } },
         sector: { connect: { index: planetSector?.index } },
         initialOwner: { connect: { index: info.initialOwner } },
+        effects: { connect: planetEffects.map(e => ({ index: e?.index })) },
         // liberation data based on history api
         liberationState,
         liberationRate: lib?.liberationChange ?? 0,
