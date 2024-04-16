@@ -20,10 +20,10 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
+    "output": "bun run scripts/build.ts",
     "dev": "bun run --hot ./src/index.ts",
     "refresh": "bun run ./scripts/refresh.ts",
     "clean": "rm -rf prisma/database prisma/migrations",
-    "output": "bun run scripts/build.ts && bun run sentry:sourcemaps",
     "serve": "pm2 start --name=\"@hellhub/api\" --interpreter ~/.bun/bin/bun build/index.js",
     "generate": "bun run ./scripts/generate.ts",
     "sentry:sourcemaps": "bun sentry-cli sourcemaps inject --org hellhub --project hellhub-api ./build && bun sentry-cli sourcemaps upload --no-rewrite --org hellhub --project hellhub-api ./build"
