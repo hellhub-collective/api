@@ -58,14 +58,16 @@ RUN bun test
 # build the app
 RUN bun run output
 
-# install ca-certificates
+
 RUN apt-get update
-RUN apt-get install ca-certificates
+RUN 
 
 # upload source maps to sentry
 ARG SOURCE_MAP_TOKEN
 ENV SENTRY_AUTH_TOKEN=${SOURCE_MAP_TOKEN}
-RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "Sourcemap upload failed, SENTRY_AUTH_TOKEN not set"; else bun run sentry:sourcemaps; fi
+# install ca-certificates if not running in GitHub action runner
+RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "CA certificate install not required"; else apt-get update && apt-get install ca-certificates; fi
+RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "Sourcemap upload not executed. GitHub action runner detected."; else bun run sentry:sourcemaps; fi
 
 # create a non-root use
 RUN chmod a+rw prisma/database prisma/database/*
