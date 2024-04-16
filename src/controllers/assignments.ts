@@ -4,7 +4,6 @@ import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-import captureException from "utils/sentry";
 
 export const getAssignmentById = await witCache(async (ctx: Context) => {
   try {
@@ -32,7 +31,7 @@ export const getAssignmentById = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: assignment, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -61,7 +60,7 @@ export const getAllAssignments = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -97,7 +96,7 @@ export const getAssignmentReward = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: reward, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
