@@ -4,7 +4,6 @@ import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-import captureException from "utils/sentry";
 
 export const getPlanetById = await witCache(async (ctx: Context) => {
   try {
@@ -32,7 +31,7 @@ export const getPlanetById = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: planet, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -61,7 +60,7 @@ export const getAllPlanets = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -108,7 +107,7 @@ export const getPlanetAttacks = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -149,7 +148,7 @@ export const getPlanetOwners = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: { owner, initialOwner }, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -184,7 +183,7 @@ export const getPlanetCampaigns = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -219,7 +218,7 @@ export const getPlanetOrders = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -254,7 +253,7 @@ export const getPlanetStatistics = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: stats, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,

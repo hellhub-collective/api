@@ -4,7 +4,6 @@ import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
-import captureException from "utils/sentry";
 
 export const getFactionById = await witCache(async (ctx: Context) => {
   try {
@@ -32,7 +31,7 @@ export const getFactionById = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: faction, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -61,7 +60,7 @@ export const getAllFactions = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -96,7 +95,7 @@ export const getFactionPlanets = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -139,7 +138,7 @@ export const getFactionPushbacks = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -176,7 +175,7 @@ export const getFactionOrigin = await witCache(async (ctx: Context) => {
 
     return ctx.json({ data: planet, error: null });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,
@@ -211,7 +210,7 @@ export const getFactionOrders = await witCache(async (ctx: Context) => {
       },
     });
   } catch (error: any) {
-    captureException(error);
+    ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
     return ctx.json({
       data: null,

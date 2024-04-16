@@ -45,6 +45,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@hono/sentry": "^1.0.1",
     "@prisma/client": "^5.11.0",
     "@sentry/bun": "^7.110.1",
     "@sentry/cli": "^2.31.0",

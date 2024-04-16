@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { CronJob } from "cron";
 import * as Sentry from "@sentry/bun";
 
-import captureException from "utils/sentry";
 import RequestCache from "classes/request-cache";
 import { refreshAndStoreSourceData } from "utils/refresh";
 
@@ -34,10 +33,11 @@ new CronJob(
           checkInId,
           status: "ok",
           monitorSlug: "refresh-from-source-data",
+          duration: Date.now() - startDate,
         });
       }
     } catch (err: any) {
-      captureException(err, false);
+      Sentry.captureException(err);
 
       // send the cron check-in result to sentry
       if (checkInId) {
@@ -45,6 +45,7 @@ new CronJob(
           checkInId,
           status: "error",
           monitorSlug: "refresh-from-source-data",
+          duration: Date.now() - startDate,
         });
       }
 

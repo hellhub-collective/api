@@ -3,10 +3,11 @@ import "polyfills/BigInt";
 
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { sentry } from "@hono/sentry";
 
 import logger from "middleware/logger";
-import { initSentry } from "utils/sentry";
 import cache from "middleware/request-cache";
+import { sentryOptions } from "utils/sentry";
 import rateLimit from "middleware/rate-limit";
 
 import wars from "routes/war";
@@ -23,12 +24,14 @@ import stratagems from "routes/stratagems";
 import statistics from "routes/statistics";
 import assignments from "routes/assignments";
 
-initSentry();
-
 // initiate hono api
 const app = new Hono().basePath("/api");
 
 // middleware for the api
+if (process.env.SENTRY_DSN && process.env.NODE_ENV === "production") {
+  app.use("*", sentry({ ...(sentryOptions as any) }));
+}
+
 app.use(logger);
 app.use("/*", cors());
 app.use(rateLimit);
