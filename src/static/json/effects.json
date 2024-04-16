@@ -1,1 +1,54 @@
-{}
+{
+  "none": {
+    "name": "None",
+    "description": "This planet's environment is not yet known, or has no environmental modifiers."
+  },
+  "extreme_cold": {
+    "name": "Extreme Cold",
+    "description": "Icy temperatures reduce rate of fire and delay heat buildup in weapons."
+  },
+  "thick_fog": {
+    "name": "Thick Fog",
+    "description": "Dense fog lightly reduce visibility for both enemy and friendly units."
+  },
+  "rainstorms": {
+    "name": "Rainstorms",
+    "description": "Torrential rainstorms reduce visibility."
+  },
+  "intense_heat": {
+    "name": "Intense Heat",
+    "description": "High temperatures increase stamina drain and speed up heat buildup in weapons."
+  },
+  "tremors": {
+    "name": "Tremors",
+    "description": "Frequent earthquakes stun players and enemies alike."
+  },
+  "blizzards": {
+    "name": "Blizzards",
+    "description": "Intense blizzard reduce mobility and moderately reduce visibility for both enemy and friendly units."
+  },
+  "meteor_storms": {
+    "name": "Meteor Storms",
+    "description": "Meteors impact the surface causing massive damage"
+  },
+  "sandstorms": {
+    "name": "Sandstorms",
+    "description": "Dense sandstorms reduce mobility and greatly reduce visibility for both enemy and friendly units."
+  },
+  "ion_storms": {
+    "name": "Ion Storms",
+    "description": "Ion storms intermittently disable Stratagems."
+  },
+  "acid_storms": {
+    "name": "Acid Storms",
+    "description": "Violent acid storms reduce visibility."
+  },
+  "volcanic_activity": {
+    "name": "Volcanic Activity",
+    "description": "Volcanoes throw burning rocks around this planet."
+  },
+  "fire_tornadoes": {
+    "name": "Fire Tornadoes",
+    "description": "Planet is ravaged by deadly fire tornadoes."
+  }
+}
