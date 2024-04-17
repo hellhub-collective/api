@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/bun";
 import { db } from "utils/database";
 
 export const sentryOptions: Sentry.BunOptions = {
-  tracesSampleRate: 0.6,
+  tracesSampleRate: 0.3,
   dsn: process.env.SENTRY_DSN,
   release: process.env.KOYEB_GIT_SHA,
   environment: process.env.NODE_ENV ?? "development",
