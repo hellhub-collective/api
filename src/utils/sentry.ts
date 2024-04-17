@@ -1,11 +1,19 @@
 import * as Sentry from "@sentry/bun";
 
+import { db } from "utils/database";
+
 export const sentryOptions: Sentry.BunOptions = {
-  integrations: [],
   tracesSampleRate: 0.6,
   dsn: process.env.SENTRY_DSN,
   release: process.env.KOYEB_GIT_SHA,
   environment: process.env.NODE_ENV ?? "development",
+  integrations: [
+    new Sentry.Integrations.Http(),
+    new Sentry.Integrations.Undici(),
+    new Sentry.Integrations.Console(),
+    new Sentry.Integrations.RequestData(),
+    new Sentry.Integrations.Prisma({ client: db }),
+  ],
   tracePropagationTargets: [
     "localhost",
     /^https:\/\/api-hellhub-collective\.koyeb\.app\/api/,
