@@ -10,8 +10,8 @@ function cronJSON(defaultName: string, cron: Cron) {
   return {
     name: cron.name ?? defaultName,
     pattern: cron.getPattern(),
-    status: cron.isRunning() ? "scheduled" : "stopped",
-    running: cron.isBusy(),
+    status: cron.isRunning() ? "ok" : "stopped",
+    busy: cron.isBusy(),
     runs: {
       current,
       previous,
