@@ -1,4 +1,4 @@
-import "jobs/refresh";
+import "jobs";
 import "polyfills/BigInt";
 
 import { Hono } from "hono";
@@ -13,6 +13,7 @@ import rateLimit from "middleware/rate-limit";
 import { initSentry, sentryOptions } from "utils/sentry";
 
 import wars from "routes/war";
+import crons from "routes/crons";
 import biomes from "routes/biomes";
 import orders from "routes/orders";
 import events from "routes/events";
@@ -45,6 +46,7 @@ app.use(cache);
 // routes for the api
 const routes = [
   wars,
+  crons,
   biomes,
   events,
   orders,
