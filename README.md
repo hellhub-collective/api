@@ -8,8 +8,8 @@
 <br />
 
 <p align="center">
-  <a href="https://documenter.getpostman.com/view/33840175/2sA35Bd54w">
-  <img style="border-radius:3px" height="20px" src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman" />
+  <a href="https://app.getpostman.com/run-collection/33840175-bdd6c32e-63d7-4a15-a99d-0c21a2d91786?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33840175-bdd6c32e-63d7-4a15-a99d-0c21a2d91786%26entityType%3Dcollection%26workspaceId%3De406a520-6ab3-409f-814d-982957037cbb#?env%5BProduction%5D=W3sia2V5IjoiZGF0YXNvdXJjZV91cmwiLCJ2YWx1ZSI6Imh0dHBzOi8vYXBpLmxpdmUucHJvZC50aGVoZWxsZGl2ZXJzZ2FtZS5jb20vYXBpIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQiLCJzZXNzaW9uVmFsdWUiOiJodHRwczovL2FwaS5saXZlLnByb2QudGhlaGVsbGRpdmVyc2dhbWUuY29tL2FwaSIsInNlc3Npb25JbmRleCI6MH0seyJrZXkiOiJhcGlfdXJsIiwidmFsdWUiOiJodHRwczovL2FwaS1oZWxsaHViLWNvbGxlY3RpdmUua295ZWIuYXBwIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQiLCJzZXNzaW9uVmFsdWUiOiJodHRwczovL2FwaS1oZWxsaHViLWNvbGxlY3RpdmUua295ZWIuYXBwIiwic2Vzc2lvbkluZGV4IjoxfV0=">
+    <img src="https://run.pstmn.io/button.svg" height="20px" alt="Run In Postman" />
   </a>
   <a href="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql">
     <img src="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL" />
