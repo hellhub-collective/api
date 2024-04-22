@@ -2,7 +2,8 @@
   "0": {
     "name": "Super Earth",
     "biome": "unknown",
-    "effects": ["none"]
+    "effects": ["none"],
+    "imageName": "superearth"
   },
   "1": {
     "name": "Klen Dahth II",
@@ -1197,7 +1198,8 @@
   "239": {
     "name": "Tien Kwan",
     "biome": "icemoss_special",
-    "effects": ["extreme_cold", "meteor_storms"]
+    "effects": ["extreme_cold", "meteor_storms"],
+    "imageName": "tienkwan"
   },
   "240": {
     "name": "Troost",
@@ -1302,6 +1304,7 @@
   "260": {
     "name": "Cyberstan",
     "biome": "icemoss_special",
-    "effects": ["tremors"]
+    "effects": ["tremors"],
+    "imageName": "cyberstan"
   }
 }
