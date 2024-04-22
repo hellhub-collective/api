@@ -30,7 +30,10 @@ export const getStratagemById = await witCache(async (ctx: Context) => {
     }
 
     // slightly transform the data
-    const imageBaseUrl = process.env.STRATAGEM_IMAGE_URL || "";
+    const imageBaseUrl = process.env.STORAGE_URL
+      ? `/${process.env.STORAGE_URL}/stratagems`
+      : "";
+
     stratagem.imageUrl = `${imageBaseUrl}${stratagem.imageUrl}`;
     (stratagem as any).keys = stratagem.keys.split(",");
 
@@ -57,7 +60,10 @@ export const getAllStratagems = await witCache(async (ctx: Context) => {
     return ctx.json({
       data: stratagems.map(stratagem => {
         // slightly transform the data
-        const imageBaseUrl = process.env.STRATAGEM_IMAGE_URL || "";
+        const imageBaseUrl = process.env.STORAGE_URL
+          ? `/${process.env.STORAGE_URL}/stratagems`
+          : "";
+
         stratagem.imageUrl = `${imageBaseUrl}${stratagem.imageUrl}`;
         (stratagem as any).keys = stratagem.keys.split(",");
         return stratagem;

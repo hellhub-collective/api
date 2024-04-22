@@ -8,7 +8,7 @@ env:
   HISTORY_API_URL: "https://helldivers-b.omnedia.com/api"
   API_URL: "https://api.live.prod.thehelldiversgame.com/api"
   # stratagem setup
-  STRATAGEM_IMAGE_URL: "https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public/stratagems"
+  STORAGE_URL: "https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public"
 
 on:
   pull_request:
