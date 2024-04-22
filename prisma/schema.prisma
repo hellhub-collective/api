@@ -53,6 +53,7 @@ model Planet {
   sectorId        Int
   health          Int
   maxHealth       Int
+  imageUrl        String
   players         Int
   disabled        Boolean
   regeneration    Int
