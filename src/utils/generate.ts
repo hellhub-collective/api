@@ -24,6 +24,7 @@ export interface PlanetEntry {
   name: string;
   index: number;
   biome: string;
+  imageName: string;
   effects: string[];
 }
 
@@ -47,7 +48,7 @@ export interface EffectEntry extends BiomeEntry {}
 export async function prepareForSourceData() {
   const [factions, planets, sectors, biomes, effects]: [
     NameEntry[],
-    Array<NameEntry & { biome: string; effects: string[] }>,
+    Array<NameEntry & { imageUrl: string; biome: string; effects: string[] }>,
     SectorEntry[],
     Array<Omit<NameEntry, "index"> & { index: string; description: string }>,
     Array<Omit<NameEntry, "index"> & { index: string; description: string }>,
@@ -106,7 +107,18 @@ export async function prepareForSourceData() {
 
   // populate planets
   for (const key in planetsJSON) {
-    planets.push({ ...planetsJSON[key], index: parseInt(key) });
+    const entry = planetsJSON[key];
+    const folder = entry.imageName ? "unique" : "biome";
+    const file = `${entry.imageName ?? entry.biome}.webp`;
+    const baseImageUrl = process.env.STORAGE_URL
+      ? `${process.env.STORAGE_URL}`
+      : "";
+
+    planets.push({
+      ...planetsJSON[key],
+      index: parseInt(key),
+      imageUrl: `${baseImageUrl}/planets/${folder}/${file}`,
+    });
   }
 
   // populate sectors
@@ -412,6 +424,7 @@ export async function transformAndStoreSourceData() {
         disabled: info.disabled,
         players: status.players,
         maxHealth: info.maxHealth,
+        imageUrl: planet.imageUrl,
         positionX: info.position.x,
         positionY: info.position.y,
         regeneration: status.regenPerSecond,
