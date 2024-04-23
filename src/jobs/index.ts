@@ -7,20 +7,20 @@ import { refreshAndStoreSourceData } from "utils/refresh";
 
 export const refresh_from_source = Cron("0 */1 * * * *", async () => {
   const startDate = Date.now();
+  const monitorSlug = "refresh-from-source-data";
 
   // start a check-in with sentry
   let checkInId = (() => {
     if (process.env.NODE_ENV !== "production") return;
     if (!process.env.SENTRY_DSN) return;
-    return Sentry.captureCheckIn({
-      monitorSlug: "refresh-from-source-data",
-      status: "in_progress",
-    });
+    return Sentry.captureCheckIn({ monitorSlug, status: "in_progress" });
   })();
 
   try {
     await refreshAndStoreSourceData();
     RequestCache.flushAll();
+    // run the garbage collector
+    await Bun.gc(true);
 
     console.log(
       `${chalk.bold(chalk.magenta("CRON"))} Refreshed source data ${`(${Date.now() - startDate}ms)`}`,
@@ -28,11 +28,7 @@ export const refresh_from_source = Cron("0 */1 * * * *", async () => {
 
     // send the cron check-in result to sentry
     if (!checkInId) return;
-    Sentry.captureCheckIn({
-      checkInId,
-      status: "ok",
-      monitorSlug: "refresh-from-source-data",
-    });
+    Sentry.captureCheckIn({ status: "ok", checkInId, monitorSlug });
   } catch (err: any) {
     Sentry.captureException(err);
 
