@@ -1,9 +1,8 @@
-# use the official Bun image
-# see all versions at https://hub.docker.com/r/oven/bun/tags
+# use the official bun image
 FROM oven/bun:latest as base
 WORKDIR /usr/src/app
 
-# Set environment variables
+# set environment variables
 ENV RATE_LIMIT="200"
 ENV DATABASE_URL="file:./database/data.db"
 ENV HISTORY_API_URL="https://helldivers-b.omnedia.com/api"
@@ -20,8 +19,6 @@ RUN cd /temp/dev && bun install --frozen-lockfile
 # install with --production (exclude devDependencies)
 RUN mkdir -p /temp/prod
 COPY package.json bun.lockb /temp/prod/
-
-# install production dependencies
 RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 # copy node_modules from temp directory
@@ -30,36 +27,31 @@ FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
+# synchronize the database schema & generate client
+RUN bunx prisma migrate deploy
+RUN bunx prisma db push
+
+# generate source data for the api
+RUN bun run generate
+
+# test generated source data
+RUN bun test
+
 # copy production dependencies and source code into final image
 FROM base AS release
-COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/package.json .
-COPY --from=prerelease /usr/src/app .
+COPY --from=prerelease /usr/src/app/src src
+COPY --from=prerelease /usr/src/app/prisma prisma
+COPY --from=prerelease /usr/src/app/node_modules node_modules
+COPY --from=prerelease /usr/src/app/package.json package.json
+COPY --from=prerelease /usr/src/app/tsconfig.json tsconfig.json
 
-# set the environment to production
+# src directory permissions
+RUN chown -R bun:bun /usr/src/app
+
+# set production environment
 ENV NODE_ENV=production
-
-# create the database
-RUN bunx prisma migrate deploy
-RUN bunx prisma db push --skip-generate
-
-# create primsa client
-RUN bunx prisma generate
-
-# build the app
-RUN bun run output
-
-# upload source maps to sentry
-ARG SOURCE_MAP_TOKEN
-ENV SENTRY_AUTH_TOKEN=${SOURCE_MAP_TOKEN}
-# install ca-certificates if not running in GitHub action runner
-RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "CA certificate install not required"; else apt-get -y update && apt-get -y install ca-certificates; fi
-RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "Sourcemap upload not executed. GitHub action runner detected."; else bun run sentry:sourcemaps; fi
-
-# create a non-root use
-RUN chmod a+rw prisma/database prisma/database/*
 
 # run the app
 USER bun
 EXPOSE 3000/tcp
-ENTRYPOINT ["bun", "--smol", "run", "build/index.js"]
+ENTRYPOINT ["bun", "run", "--smol", "src/index.ts"]
