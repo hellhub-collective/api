@@ -62,4 +62,4 @@ RUN chmod a+rw prisma/database prisma/database/*
 # run the app
 USER bun
 EXPOSE 3000/tcp
-ENTRYPOINT ["bun", "run", "build/index.js"]
+ENTRYPOINT ["bun", "--smol", "run", "build/index.js"]
