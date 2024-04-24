@@ -19,8 +19,6 @@ export const refresh_from_source = Cron("0 */1 * * * *", async () => {
   try {
     await refreshAndStoreSourceData();
     RequestCache.flushAll();
-    // run the garbage collector
-    await Bun.gc(true);
 
     console.log(
       `${chalk.bold(chalk.magenta("CRON"))} Refreshed source data ${`(${Date.now() - startDate}ms)`}`,
