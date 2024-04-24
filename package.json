@@ -20,6 +20,7 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
+    "postinstall": "bunx prisma generate",
     "output": "bun run scripts/build.ts",
     "dev": "bun run --hot ./src/index.ts",
     "refresh": "bun run ./scripts/refresh.ts",

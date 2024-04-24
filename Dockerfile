@@ -46,9 +46,6 @@ RUN bun run clean
 RUN bunx prisma migrate deploy
 RUN bunx prisma db push
 
-# create primsa client
-RUN bunx prisma generate
-
 # fetch the initial data
 RUN bun run generate
 
@@ -65,10 +62,10 @@ ENV SENTRY_AUTH_TOKEN=${SOURCE_MAP_TOKEN}
 RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "CA certificate install not required"; else apt-get -y update && apt-get -y install ca-certificates; fi
 RUN if [ -z "${SOURCE_MAP_TOKEN}" ]; then echo "Sourcemap upload not executed. GitHub action runner detected."; else bun run sentry:sourcemaps; fi
 
-# create a non-root use
+# create a non-root user
 RUN chmod a+rw prisma/database prisma/database/*
+USER bun
 
 # run the app
-USER bun
 EXPOSE 3000/tcp
 ENTRYPOINT ["bun", "run", "build/index.js"]
