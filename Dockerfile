@@ -40,11 +40,11 @@ RUN bun test
 
 # copy production dependencies and source code into final image
 FROM base AS release
-COPY --from=prerelease /usr/src/app/prisma /usr/src/app/prisma
-COPY ./node_modules /usr/src/app/node_modules
-COPY ./package.json /usr/src/app/package.json
-COPY ./tsconfig.json /usr/src/app/tsconfig.json
-COPY ./src /usr/src/app/src
+COPY --from=prerelease /usr/src/app/src src
+COPY --from=prerelease /usr/src/app/prisma prisma
+COPY --from=prerelease /usr/src/app/node_modules node_modules
+COPY --from=prerelease /usr/src/app/package.json package.json
+COPY --from=prerelease /usr/src/app/tsconfig.json tsconfig.json
 
 # src directory permissions
 RUN chown -R bun:bun /usr/src/app
