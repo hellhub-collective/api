@@ -18,6 +18,7 @@
     "build"
   ],
   "scripts": {
+    "postinstall": "bunx prisma generate --schema=./prisma/schema.prisma",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "output": "bun run scripts/build.ts",
