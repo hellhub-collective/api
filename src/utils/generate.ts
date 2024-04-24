@@ -284,18 +284,29 @@ export async function transformAndStoreSourceData() {
       },
     });
 
-    await db.assignment.create({
+    const created = await db.assignment.create({
       data: {
         index: assignment.id32,
         type: assignment.setting.type,
         expiresAt: new Date(expiresAt),
-        progress: assignment.progress[0],
+        progress: assignment.progress.join(","),
         title: assignment.setting.overrideTitle,
         briefing: assignment.setting.overrideBrief,
         description: assignment.setting.taskDescription,
         reward: { connect: { index: assignment.setting.reward.id32 } },
       },
     });
+
+    for (const task of assignment.setting.tasks) {
+      await db.assignmentTask.create({
+        data: {
+          type: task.type,
+          values: task.values.join(","),
+          valueTypes: task.valueTypes.join(","),
+          assignment: { connect: { id: created.id } },
+        },
+      });
+    }
   }
 
   // generate news data
