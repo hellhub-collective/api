@@ -44,7 +44,7 @@ RUN bun run clean
 
 # create the database
 RUN bunx prisma migrate deploy
-RUN bunx prisma db push --skip-generate
+RUN bunx prisma db push
 
 # create primsa client
 RUN bunx prisma generate
