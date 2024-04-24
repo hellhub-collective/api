@@ -18,7 +18,6 @@
     "build"
   ],
   "scripts": {
-    "postinstall": "bunx prisma generate --schema=./prisma/schema.prisma",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "output": "bun run scripts/build.ts",
@@ -47,13 +46,20 @@
   },
   "dependencies": {
     "@hono/sentry": "^1.0.1",
-    "@prisma/client": "^5.12.1",
+    "@prisma/client": "^5.13.0",
     "@sentry/bun": "^7.110.1",
     "@sentry/cli": "^2.31.0",
     "chalk": "^5.3.0",
     "croner": "^8.0.2",
     "hono": "^4.1.0",
     "node-cache": "^5.1.2",
+    "prisma": "^5.13.0",
     "qs": "^6.12.0"
-  }
+  },
+  "trustedDependencies": [
+    "@prisma/client",
+    "@prisma/engines",
+    "@sentry/cli",
+    "prisma"
+  ]
 }
