@@ -28,8 +28,6 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 # synchronize the database schema & generate client
-
-
 RUN bunx prisma migrate deploy
 RUN bunx prisma db push --skip-generate
 RUN bunx prisma generate
@@ -42,11 +40,11 @@ RUN bun test
 
 # copy production dependencies and source code into final image
 FROM base AS release
-COPY src /usr/src/app/src
-COPY node_modules /usr/src/app/node_modules
-COPY package.json /usr/src/app/package.json
-COPY tsconfig.json /usr/src/app/tsconfig.json
 COPY --from=prerelease /usr/src/app/prisma /usr/src/app/prisma
+COPY ./node_modules /usr/src/app/node_modules
+COPY ./package.json /usr/src/app/package.json
+COPY ./tsconfig.json /usr/src/app/tsconfig.json
+COPY ./src /usr/src/app/src
 
 # src directory permissions
 RUN chown -R bun:bun /usr/src/app
