@@ -208,19 +208,31 @@ model Reward {
   assignment Assignment?
 }
 
+model AssignmentTask {
+  id           Int         @id @default(autoincrement())
+  type         Int
+  values       String
+  valueTypes   String
+  assignment   Assignment? @relation(fields: [assignmentId], references: [id])
+  assignmentId Int?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
 model Assignment {
-  id          Int      @id @default(autoincrement())
-  index       BigInt   @unique
-  progress    Int
+  id          Int              @id @default(autoincrement())
+  index       BigInt           @unique
+  progress    String
   expiresAt   DateTime
   type        Int
   title       String
   briefing    String
   description String
-  reward      Reward   @relation(fields: [rewardId], references: [id])
-  rewardId    Int      @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  tasks       AssignmentTask[]
+  reward      Reward           @relation(fields: [rewardId], references: [id])
+  rewardId    Int              @unique
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 }
 
 model Biome {
