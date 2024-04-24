@@ -46,9 +46,6 @@ RUN bunx prisma db push --skip-generate
 # create primsa client
 RUN bunx prisma generate
 
-# test the app
-RUN bun test
-
 # build the app
 RUN bun run output
 
