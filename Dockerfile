@@ -29,8 +29,7 @@ COPY . .
 
 # synchronize the database schema & generate client
 RUN bunx prisma migrate deploy
-RUN bunx prisma db push --skip-generate
-RUN bunx prisma generate
+RUN bunx prisma db push
 
 # generate source data for the api
 RUN bun run generate
