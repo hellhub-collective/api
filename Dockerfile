@@ -2,6 +2,20 @@
 FROM oven/bun:latest as base
 WORKDIR /usr/src/app
 
+# install nodejs and npm
+RUN apt-get update
+RUN echo "y" | apt-get install curl
+# nvm env vars
+RUN mkdir -p /usr/local/nvm
+ENV NVM_DIR /usr/local/nvm
+# set the exact version
+ENV NODE_VERSION v20.11.1
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION"
+# add node and npm to the PATH
+ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/bin
+ENV PATH $NODE_PATH:$PATH
+
 # set environment variables
 ENV RATE_LIMIT="200"
 ENV DATABASE_URL="file:./database/data.db"
