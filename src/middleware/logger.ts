@@ -58,6 +58,7 @@ export default async function logger(ctx: Context, next: Next) {
   try {
     await next();
   } finally {
+    if (process.env.NODE_ENV === "test") return;
     const durationMs = Date.now() - start;
     const ip = ctx.req.header("X-Forwarded-For") || ctx.req.header("X-Real-IP");
     console.log(

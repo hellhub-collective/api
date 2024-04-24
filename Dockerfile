@@ -39,21 +39,12 @@ COPY --from=prerelease /usr/src/app .
 # set the environment to production
 ENV NODE_ENV=production
 
-# delete all migrations
-RUN bun run clean
-
 # create the database
 RUN bunx prisma migrate deploy
-RUN bunx prisma db push
+RUN bunx prisma db push --skip-generate
 
 # create primsa client
 RUN bunx prisma generate
-
-# fetch the initial data
-RUN bun run generate
-
-# test the app
-RUN bun test
 
 # build the app
 RUN bun run output
@@ -71,4 +62,4 @@ RUN chmod a+rw prisma/database prisma/database/*
 # run the app
 USER bun
 EXPOSE 3000/tcp
-ENTRYPOINT ["bun", "run", "build/index.js"]
+ENTRYPOINT ["bun", "--smol", "run", "build/index.js"]

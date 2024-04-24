@@ -4,6 +4,24 @@ import { db } from "utils/database";
 import parseIntParam from "utils/params";
 import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import type { Assignment, AssignmentTask } from "@prisma/client";
+
+function transformAssignment(assignment: Assignment): Assignment {
+  // turn joined data into array
+  if (assignment.progress !== null && assignment.progress !== undefined) {
+    (assignment as any).progress = assignment.progress.split(",").map(Number);
+  }
+
+  // turn joined data into array
+  if ((assignment as any).tasks?.length) {
+    for (const task of (assignment as any).tasks as AssignmentTask[]) {
+      (task as any).valueTypes = task.valueTypes.split(",").map(Number);
+      (task as any).values = task.values.split(",").map(Number);
+    }
+  }
+
+  return assignment;
+}
 
 export const getAssignmentById = await witCache(async (ctx: Context) => {
   try {
@@ -29,7 +47,7 @@ export const getAssignmentById = await witCache(async (ctx: Context) => {
       });
     }
 
-    return ctx.json({ data: assignment, error: null });
+    return ctx.json({ data: transformAssignment(assignment), error: null });
   } catch (error: any) {
     ctx.get("sentry")?.captureException?.(error);
     ctx.status(500);
@@ -50,7 +68,7 @@ export const getAllAssignments = await witCache(async (ctx: Context) => {
     ]);
 
     return ctx.json({
-      data: assignments,
+      data: assignments.map(transformAssignment),
       error: null,
       pagination: {
         page: query.skip / query.take + 1,
