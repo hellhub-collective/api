@@ -7,7 +7,6 @@ describe("Assignment endpoints work as expected", () => {
     const response = await app.request("/api/assignments");
     const json: { data: Order[]; error: object | null } =
       (await response.json()) as any;
-    console.log(json);
     expect(response.status).toBe(200);
     expect(json).toHaveProperty("data");
     expect(json.data).toBeInstanceOf(Array);
