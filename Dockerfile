@@ -55,4 +55,4 @@ ENV NODE_ENV=production
 # run the app
 USER bun
 EXPOSE 3000/tcp
-ENTRYPOINT ["bun", "--smol", "run", "src/index.ts"]
+ENTRYPOINT ["bun", "run", "--smol", "src/index.ts"]
