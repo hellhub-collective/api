@@ -14,8 +14,8 @@
   <a href="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql">
     <img src="https://github.com/hellhub-collective/api/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL" />
   </a>
-  <a href="https://github.com/hellhub-collective/api/actions/workflows/tests.yml">
-    <img src="https://github.com/hellhub-collective/api/actions/workflows/tests.yml/badge.svg" alt="Tests" />
+  <a href="https://github.com/hellhub-collective/api/releases/latest">
+    <img src="https://img.shields.io/github/v/release/hellhub-collective/api" alt="Latest release" />
   </a>
 </p>
 
