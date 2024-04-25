@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/bun";
 
 import db from "utils/database";
+import GameDate from "utils/game-date";
 import { fetchSourceData, prepareForSourceData } from "utils/generate";
 
 /**
@@ -23,6 +24,8 @@ export async function refreshAndStoreSourceData() {
     } = await fetchSourceData();
 
     const result: { trx?: any[] } = { trx: [] };
+    const gameDate = GameDate(warTime.time, warInfo.startDate);
+
     result.trx = await db.$transaction([
       // Delete existing data
       db.assignmentTask.deleteMany(),
@@ -79,13 +82,14 @@ export async function refreshAndStoreSourceData() {
       ...warNews
         .sort((a, b) => a.id - b.id)
         .map(article => {
+          const publishedAt = gameDate.addSeconds(article.published);
           return db.news.create({
             data: {
               index: article.id,
               type: article.type,
               message: article.message ?? "",
               tagIds: article.tagIds.join(","),
-              publishedAt: new Date(article.published * 1000),
+              publishedAt: new Date(publishedAt),
             },
           });
         }),
@@ -245,6 +249,10 @@ export async function refreshAndStoreSourceData() {
         const planet = planets.find(p => p.index === event.planetIndex);
         const faction = factions.find(f => f.index === event.race);
         const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
+
+        const startTime = gameDate.addSeconds(event.startTime);
+        const expireTime = gameDate.addSeconds(event.expireTime);
+
         return db.order.create({
           data: {
             index: event.id,
@@ -252,8 +260,8 @@ export async function refreshAndStoreSourceData() {
             health: event.health,
             maxHealth: event.maxHealth,
             hqNodeIndex: jointOp?.hqNodeIndex,
-            startTime: new Date(event.startTime * 1000),
-            expireTime: new Date(event.expireTime * 1000),
+            startTime: new Date(startTime),
+            expireTime: new Date(expireTime),
             campaign: { connect: { index: event.campaignId } },
             planet: planet ? { connect: { index: planet.index } } : undefined,
             faction: faction

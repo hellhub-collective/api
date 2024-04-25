@@ -13,6 +13,7 @@ import type {
 } from "types/source";
 
 import db from "utils/database";
+import GameDate from "utils/game-date";
 import type { HistoryEntry } from "types/history";
 import type { StratagemMap } from "types/stratagem";
 
@@ -243,6 +244,9 @@ export async function fetchSourceData() {
  */
 export async function transformAndStoreSourceData() {
   try {
+    const { factions, planets, sectors, stratagems, biomes, effects } =
+      await prepareForSourceData();
+
     const {
       warId,
       warInfo,
@@ -254,10 +258,10 @@ export async function transformAndStoreSourceData() {
       warAssignments,
     } = await fetchSourceData();
 
-    const { factions, planets, sectors, stratagems, biomes, effects } =
-      await prepareForSourceData();
+    const result: { trx?: any[] } = { trx: [] };
+    const gameDate = GameDate(warTime.time, warInfo.startDate);
 
-    await db.$transaction([
+    result.trx = await db.$transaction([
       // create the war data
       db.war.create({
         data: {
@@ -307,13 +311,14 @@ export async function transformAndStoreSourceData() {
       ...warNews
         .sort((a, b) => a.id - b.id)
         .map(article => {
+          const publishedAt = gameDate.addSeconds(article.published);
           return db.news.create({
             data: {
               index: article.id,
               type: article.type,
               message: article.message ?? "",
               tagIds: article.tagIds.join(","),
-              publishedAt: new Date(article.published * 1000),
+              publishedAt: new Date(publishedAt),
             },
           });
         }),
@@ -487,6 +492,10 @@ export async function transformAndStoreSourceData() {
         const planet = planets.find(p => p.index === event.planetIndex);
         const faction = factions.find(f => f.index === event.race);
         const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
+
+        const startTime = gameDate.addSeconds(event.startTime);
+        const expireTime = gameDate.addSeconds(event.expireTime);
+
         return db.order.create({
           data: {
             index: event.id,
@@ -494,8 +503,8 @@ export async function transformAndStoreSourceData() {
             health: event.health,
             maxHealth: event.maxHealth,
             hqNodeIndex: jointOp?.hqNodeIndex,
-            startTime: new Date(event.startTime * 1000),
-            expireTime: new Date(event.expireTime * 1000),
+            startTime: new Date(startTime),
+            expireTime: new Date(expireTime),
             campaign: { connect: { index: event.campaignId } },
             planet: planet ? { connect: { index: planet.index } } : undefined,
             faction: faction
@@ -540,6 +549,8 @@ export async function transformAndStoreSourceData() {
           });
         }),
     ]);
+
+    delete result.trx;
   } catch (err) {
     Sentry.captureException(err);
   }
