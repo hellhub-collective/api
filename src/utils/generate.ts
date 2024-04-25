@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
+import * as Sentry from "@sentry/bun";
 
 import type {
   News,
@@ -11,7 +12,8 @@ import type {
   CurrentWarTime,
 } from "types/source";
 
-import { db } from "utils/database";
+import db from "utils/database";
+import GameDate from "utils/game-date";
 import type { HistoryEntry } from "types/history";
 import type { StratagemMap } from "types/stratagem";
 
@@ -241,348 +243,315 @@ export async function fetchSourceData() {
  * database.
  */
 export async function transformAndStoreSourceData() {
-  const {
-    warId,
-    warInfo,
-    warTime,
-    warNews,
-    warStats,
-    warStatus,
-    warHistory,
-    warAssignments,
-  } = await fetchSourceData();
+  try {
+    const { factions, planets, sectors, stratagems, biomes, effects } =
+      await prepareForSourceData();
 
-  const { factions, planets, sectors, stratagems, biomes, effects } =
-    await prepareForSourceData();
+    const {
+      warId,
+      warInfo,
+      warTime,
+      warNews,
+      warStats,
+      warStatus,
+      warHistory,
+      warAssignments,
+    } = await fetchSourceData();
 
-  // create all biomes
-  for (const biome of biomes) {
-    await db.biome.create({ data: biome });
-  }
+    const result: { trx?: any[] } = { trx: [] };
+    const gameDate = GameDate(warTime.time, warInfo.startDate);
 
-  // create all effects
-  for (const effect of effects) {
-    await db.effect.create({ data: effect });
-  }
-
-  // index all stratagems
-  await Promise.all([
-    db.stratagem.deleteMany(),
-    db.stratagemGroup.deleteMany(),
-  ]);
-
-  // generate the assignment data
-  for (const assignment of warAssignments) {
-    const now = Date.now();
-    const expiresAt = now + assignment.expiresIn * 1000;
-
-    await db.reward.create({
-      data: {
-        type: assignment.setting.reward.type,
-        index: assignment.setting.reward.id32,
-        amount: assignment.setting.reward.amount,
-      },
-    });
-
-    const created = await db.assignment.create({
-      data: {
-        index: assignment.id32,
-        type: assignment.setting.type,
-        expiresAt: new Date(expiresAt),
-        progress: assignment.progress.join(","),
-        title: assignment.setting.overrideTitle,
-        briefing: assignment.setting.overrideBrief,
-        description: assignment.setting.taskDescription,
-        reward: { connect: { index: assignment.setting.reward.id32 } },
-      },
-    });
-
-    for (const task of assignment.setting.tasks) {
-      await db.assignmentTask.create({
+    result.trx = await db.$transaction([
+      // create the war data
+      db.war.create({
         data: {
-          type: task.type,
-          values: task.values.join(","),
-          valueTypes: task.valueTypes.join(","),
-          assignment: { connect: { id: created.id } },
+          index: warId,
+          time: new Date(warTime.time * 1000),
+          endDate: new Date(warInfo.endDate * 1000),
+          startDate: new Date(warInfo.startDate * 1000),
         },
-      });
-    }
-  }
+      }),
+      // generate the faction data
+      ...factions.map(faction => db.faction.create({ data: faction })),
+      // create all biomes
+      ...biomes.map(biome => db.biome.create({ data: biome })),
+      // create all effects
+      ...effects.map(effect => db.effect.create({ data: effect })),
+      // generate the assignment data
+      ...warAssignments.map(assignment => {
+        const now = Date.now();
+        const expiresAt = now + assignment.expiresIn * 1000;
+        return db.assignment.create({
+          data: {
+            index: assignment.id32,
+            type: assignment.setting.type,
+            expiresAt: new Date(expiresAt),
+            progress: assignment.progress.join(","),
+            title: assignment.setting.overrideTitle,
+            briefing: assignment.setting.overrideBrief,
+            description: assignment.setting.taskDescription,
+            reward: {
+              create: {
+                type: assignment.setting.reward.type,
+                index: assignment.setting.reward.id32,
+                amount: assignment.setting.reward.amount,
+              },
+            },
+            tasks: {
+              create: assignment.setting.tasks.map(task => ({
+                type: task.type,
+                values: task.values.join(","),
+                valueTypes: task.valueTypes.join(","),
+              })),
+            },
+          },
+        });
+      }),
+      // generate news data
+      ...warNews
+        .sort((a, b) => a.id - b.id)
+        .map(article => {
+          const publishedAt = gameDate.addSeconds(article.published);
+          return db.news.create({
+            data: {
+              index: article.id,
+              type: article.type,
+              message: article.message ?? "",
+              tagIds: article.tagIds.join(","),
+              publishedAt: new Date(publishedAt),
+            },
+          });
+        }),
+      // generate stratagem data
+      ...Object.keys(stratagems).map(key => {
+        return db.stratagemGroup.create({
+          data: {
+            name: stratagems[key].name,
+            stratagems: {
+              create: stratagems[key].entries.map(stratagem => ({
+                ...stratagem,
+                keys: stratagem.keys.join(","),
+              })),
+            },
+          },
+        });
+      }),
+      // generate the sector data
+      ...sectors.map(sector => {
+        return db.sector.create({
+          data: { index: sector.index, name: sector.name },
+        });
+      }),
+      // generate global stats
+      ...(() => {
+        if (!warStats.galaxy_stats) return [];
+        const global = warStats.galaxy_stats;
+        return [
+          db.stats.create({
+            data: {
+              accuracy: global.accurracy,
+              deaths: BigInt(global.deaths),
+              revives: BigInt(global.revives),
+              bugKills: BigInt(global.bugKills),
+              timePlayed: BigInt(global.timePlayed),
+              bulletsHit: BigInt(global.bulletsHit),
+              missionTime: BigInt(global.missionTime),
+              missionsWon: BigInt(global.missionsWon),
+              friendlyKills: BigInt(global.friendlies),
+              missionsLost: BigInt(global.missionsLost),
+              bulletsFired: BigInt(global.bulletsFired),
+              missionSuccessRate: global.missionSuccessRate,
+              automatonKills: BigInt(global.automatonKills),
+              illuminateKills: BigInt(global.illuminateKills),
+            },
+          }),
+        ];
+      })(),
+      // generate the planet data
+      ...planets.map(planet => {
+        const { planetsProgress } = warHistory;
 
-  // generate news data
-  for (const article of warNews.sort((a, b) => a.id - b.id)) {
-    await db.news.create({
-      data: {
-        index: article.id,
-        type: article.type,
-        message: article.message ?? "",
-        tagIds: article.tagIds.join(","),
-        publishedAt: new Date(article.published * 1000),
-      },
-    });
-  }
+        const info = warInfo.planetInfos.find(p => p.index === planet.index)!;
+        const lib = planetsProgress.find(p => p.planetIndex === planet.index);
+        const status = warStatus.planetStatus.find(
+          p => p.index === planet.index,
+        )!;
 
-  // generate stratagem data
-  for (const key in stratagems) {
-    const group = await db.stratagemGroup.create({
-      data: { name: stratagems[key].name },
-    });
+        const planetBiome = biomes.find(b => b.index === planet.biome);
 
-    for (const stratagem of stratagems[key].entries) {
-      await db.stratagem.create({
-        data: {
-          ...stratagem,
-          keys: stratagem.keys.join(","),
-          group: { connect: { id: group.id } },
-        },
-      });
-    }
-  }
+        const planetSector = sectors.find(s => {
+          return s.planets.some(p => p.index === planet.index);
+        });
 
-  // create the war data
-  await db.war.create({
-    data: {
-      index: warId,
-      time: new Date(warTime.time * 1000),
-      endDate: new Date(warInfo.endDate * 1000),
-      startDate: new Date(warInfo.startDate * 1000),
-    },
-  });
+        const planetEffects = planet.effects.map(e =>
+          effects.find(f => f.index === e),
+        );
 
-  // generate the sector data
-  for (const sector of sectors) {
-    await db.sector.create({
-      data: { index: sector.index, name: sector.name },
-    });
-  }
+        const liberationState = (() => {
+          if (!lib) return "N/A" as const;
 
-  // generate the faction data
-  for (const faction of factions) {
-    await db.faction.create({ data: faction });
-  }
+          let value;
+          const max_h = info.maxHealth;
+          const lib_r = lib.liberationChange;
 
-  // generate global stats
-  if (warStats.galaxy_stats) {
-    const global = warStats.galaxy_stats;
-    await db.stats.create({
-      data: {
-        accuracy: global.accurracy,
-        deaths: BigInt(global.deaths),
-        revives: BigInt(global.revives),
-        bugKills: BigInt(global.bugKills),
-        timePlayed: BigInt(global.timePlayed),
-        bulletsHit: BigInt(global.bulletsHit),
-        missionTime: BigInt(global.missionTime),
-        missionsWon: BigInt(global.missionsWon),
-        friendlyKills: BigInt(global.friendlies),
-        missionsLost: BigInt(global.missionsLost),
-        bulletsFired: BigInt(global.bulletsFired),
-        missionSuccessRate: global.missionSuccessRate,
-        automatonKills: BigInt(global.automatonKills),
-        illuminateKills: BigInt(global.illuminateKills),
-      },
-    });
-  }
+          const libPerHour = max_h * (lib_r / 100);
+          const regPerHour = status.regenPerSecond * 3600;
 
-  // generate the planet data
-  for (const planet of planets) {
-    const { planetsProgress } = warHistory;
+          if (libPerHour > regPerHour) {
+            value = "WINNING" as const;
+          } else if (lib_r < 0.05) {
+            value = "DRAW" as const;
+          } else {
+            value = "LOSING" as const;
+          }
 
-    const info = warInfo.planetInfos.find(p => p.index === planet.index);
-    const lib = planetsProgress.find(p => p.planetIndex === planet.index);
-    const status = warStatus.planetStatus.find(p => p.index === planet.index);
+          return value;
+        })();
 
-    if (!status || !info) {
-      console.warn(`No data for planet ${planet.name}`, { status, info });
-      continue;
-    }
+        const stats = warStats.planets_stats.find(p => {
+          return p.planetIndex === planet.index;
+        });
 
-    const planetSector = sectors.find(s => {
-      return s.planets.some(p => p.index === planet.index);
-    });
+        return db.planet.create({
+          data: {
+            name: planet.name,
+            index: planet.index,
+            health: status.health,
+            disabled: info.disabled,
+            players: status.players,
+            maxHealth: info.maxHealth,
+            imageUrl: planet.imageUrl,
+            positionX: info.position.x,
+            positionY: info.position.y,
+            regeneration: status.regenPerSecond,
+            owner: { connect: { index: status.owner } },
+            biome: { connect: { index: planetBiome?.index } },
+            sector: { connect: { index: planetSector?.index } },
+            initialOwner: { connect: { index: info.initialOwner } },
+            effects: { connect: planetEffects.map(e => ({ index: e?.index })) },
+            // liberation data based on history api
+            liberationState,
+            liberationRate: lib?.liberationChange ?? 0,
+            liberation: 100 - (100 / info.maxHealth) * status.health,
+            ...(!!stats
+              ? {
+                  statistic: {
+                    create: {
+                      accuracy: stats.accurracy,
+                      deaths: BigInt(stats.deaths),
+                      revives: BigInt(stats.revives),
+                      bugKills: BigInt(stats.bugKills),
+                      timePlayed: BigInt(stats.timePlayed),
+                      bulletsHit: BigInt(stats.bulletsHit),
+                      missionTime: BigInt(stats.missionTime),
+                      missionsWon: BigInt(stats.missionsWon),
+                      friendlyKills: BigInt(stats.friendlies),
+                      missionsLost: BigInt(stats.missionsLost),
+                      bulletsFired: BigInt(stats.bulletsFired),
+                      missionSuccessRate: stats.missionSuccessRate,
+                      automatonKills: BigInt(stats.automatonKills),
+                      illuminateKills: BigInt(stats.illuminateKills),
+                    },
+                  },
+                }
+              : {}),
+          },
+        });
+      }),
+      // generate attack and defense data
+      ...warStatus.planetAttacks.map(attack => {
+        return db.attack.create({
+          data: {
+            source: { connect: { index: attack.source } },
+            target: { connect: { index: attack.target } },
+          },
+        });
+      }),
+      // generate the campaign data
+      ...(() => {
+        const campaignPlanets = planets.filter(p => {
+          return warStatus.campaigns.map(c => c.planetIndex).includes(p.index);
+        });
 
-    const planetBiome = biomes.find(b => b.index === planet.biome);
-    const planetEffects = planet.effects.map(e =>
-      effects.find(f => f.index === e),
-    );
+        return warStatus.campaigns.map(campaign => {
+          const planet = campaignPlanets.find(
+            p => p.index === campaign.planetIndex,
+          )!;
+          return db.campaign.create({
+            data: {
+              index: campaign.id,
+              type: campaign.type,
+              count: campaign.count,
+              planet: { connect: { index: planet.index } },
+            },
+          });
+        });
+      })(),
+      // generate the planet event data (attack/defend orders)
+      ...warStatus.planetEvents.map(event => {
+        const planet = planets.find(p => p.index === event.planetIndex);
+        const faction = factions.find(f => f.index === event.race);
+        const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
 
-    const liberationState = (() => {
-      if (!lib) return "N/A" as const;
+        const startTime = gameDate.addSeconds(event.startTime);
+        const expireTime = gameDate.addSeconds(event.expireTime);
 
-      let value;
-      const max_h = info.maxHealth;
-      const lib_r = lib.liberationChange;
+        return db.order.create({
+          data: {
+            index: event.id,
+            eventType: event.eventType === 1 ? "DEFEND" : "ATTACK",
+            health: event.health,
+            maxHealth: event.maxHealth,
+            hqNodeIndex: jointOp?.hqNodeIndex,
+            startTime: new Date(startTime),
+            expireTime: new Date(expireTime),
+            campaign: { connect: { index: event.campaignId } },
+            planet: planet ? { connect: { index: planet.index } } : undefined,
+            faction: faction
+              ? { connect: { index: faction.index } }
+              : undefined,
+          },
+        });
+      }),
+      // generate the global event data
+      ...warStatus.globalEvents.map(globals => {
+        const faction = factions.find(f => f.index === globals.race);
+        const targets = planets.filter(p => {
+          globals.planetIndices.includes(p.index);
+        });
+        return db.globalEvent.create({
+          data: {
+            title: globals.title,
+            index: globals.eventId,
+            message: globals.message,
+            planets: { connect: targets.map(p => ({ index: p.index })) },
+            faction: faction
+              ? { connect: { index: faction.index } }
+              : undefined,
+          },
+        });
+      }),
+      // create the home world data
+      ...warInfo.homeWorlds
+        .filter(world => {
+          const owner = factions.find(f => f.index === world.race)!;
+          const home = planets.find(p => world.planetIndices?.[0] === p.index)!;
+          return !!home && !!owner;
+        })
+        .map(world => {
+          const owner = factions.find(f => f.index === world.race)!;
+          const home = planets.find(p => world.planetIndices?.[0] === p.index)!;
+          return db.homeWorld.create({
+            data: {
+              faction: { connect: { index: owner.index } },
+              planet: { connect: { index: home.index } },
+            },
+          });
+        }),
+    ]);
 
-      const libPerHour = max_h * (lib_r / 100);
-      const regPerHour = status.regenPerSecond * 3600;
-
-      if (libPerHour > regPerHour) {
-        value = "WINNING" as const;
-      } else if (lib_r < 0.05) {
-        value = "DRAW" as const;
-      } else {
-        value = "LOSING" as const;
-      }
-
-      return value;
-    })();
-
-    await db.planet.create({
-      data: {
-        name: planet.name,
-        index: planet.index,
-        health: status.health,
-        disabled: info.disabled,
-        players: status.players,
-        maxHealth: info.maxHealth,
-        imageUrl: planet.imageUrl,
-        positionX: info.position.x,
-        positionY: info.position.y,
-        regeneration: status.regenPerSecond,
-        owner: { connect: { index: status.owner } },
-        biome: { connect: { index: planetBiome?.index } },
-        sector: { connect: { index: planetSector?.index } },
-        initialOwner: { connect: { index: info.initialOwner } },
-        effects: { connect: planetEffects.map(e => ({ index: e?.index })) },
-        // liberation data based on history api
-        liberationState,
-        liberationRate: lib?.liberationChange ?? 0,
-        liberation: 100 - (100 / info.maxHealth) * status.health,
-      },
-    });
-
-    const stats = warStats.planets_stats.find(p => {
-      return p.planetIndex === planet.index;
-    });
-
-    if (!stats) continue;
-
-    // create planetary stats
-    await db.stats.create({
-      data: {
-        accuracy: stats.accurracy,
-        deaths: BigInt(stats.deaths),
-        revives: BigInt(stats.revives),
-        bugKills: BigInt(stats.bugKills),
-        timePlayed: BigInt(stats.timePlayed),
-        bulletsHit: BigInt(stats.bulletsHit),
-        missionTime: BigInt(stats.missionTime),
-        missionsWon: BigInt(stats.missionsWon),
-        friendlyKills: BigInt(stats.friendlies),
-        missionsLost: BigInt(stats.missionsLost),
-        bulletsFired: BigInt(stats.bulletsFired),
-        missionSuccessRate: stats.missionSuccessRate,
-        automatonKills: BigInt(stats.automatonKills),
-        planet: { connect: { index: planet.index } },
-        illuminateKills: BigInt(stats.illuminateKills),
-      },
-    });
-  }
-
-  // generate attack and defense data
-  for (const attack of warStatus.planetAttacks) {
-    await db.attack.create({
-      data: {
-        source: { connect: { index: attack.source } },
-        target: { connect: { index: attack.target } },
-      },
-    });
-  }
-
-  // generate the campaign data
-  const campaignPlanets = planets.filter(p => {
-    return warStatus.campaigns.map(c => c.planetIndex).includes(p.index);
-  });
-
-  // generate the campaign data
-  for (const campaign of warStatus.campaigns) {
-    const planet = campaignPlanets.find(p => p.index === campaign.planetIndex);
-
-    if (!planet) {
-      console.warn(`No planet found for campaign`, {
-        campaign,
-      });
-      continue;
-    }
-
-    await db.campaign.create({
-      data: {
-        index: campaign.id,
-        type: campaign.type,
-        count: campaign.count,
-        planet: { connect: { index: planet.index } },
-      },
-    });
-  }
-
-  // generate the planet event data (attack/defend orders)
-  for (const event of warStatus.planetEvents) {
-    const planet = planets.find(p => p.index === event.planetIndex);
-    const faction = factions.find(f => f.index === event.race);
-    const jointOp = warStatus.jointOperations.find(j => j.id === event.id);
-
-    await db.order.create({
-      data: {
-        index: event.id,
-        eventType: event.eventType === 1 ? "DEFEND" : "ATTACK",
-        health: event.health,
-        maxHealth: event.maxHealth,
-        hqNodeIndex: jointOp?.hqNodeIndex,
-        startTime: new Date(event.startTime * 1000),
-        expireTime: new Date(event.expireTime * 1000),
-        campaign: { connect: { index: event.campaignId } },
-        planet: planet ? { connect: { index: planet.index } } : undefined,
-        faction: faction ? { connect: { index: faction.index } } : undefined,
-      },
-    });
-  }
-
-  // generate the global event data
-  for (const globals of warStatus.globalEvents) {
-    const faction = factions.find(f => f.index === globals.race);
-
-    const targets = planets.filter(p => {
-      globals.planetIndices.includes(p.index);
-    });
-
-    await db.globalEvent.create({
-      data: {
-        title: globals.title,
-        index: globals.eventId,
-        message: globals.message,
-        planets: { connect: targets.map(p => ({ index: p.index })) },
-        faction: faction ? { connect: { index: faction.index } } : undefined,
-      },
-    });
-  }
-
-  // create the home world data
-  for (const homeWorld of warInfo.homeWorlds) {
-    const homeWorldPlanet = planets.find(p => {
-      return homeWorld.planetIndices?.[0] === p.index;
-    });
-
-    if (!homeWorldPlanet) {
-      console.warn(`No planets found for home world`, {
-        homeWorld,
-      });
-      continue;
-    }
-
-    const owner = factions.find(f => f.index === homeWorld.race);
-
-    if (!owner) {
-      console.warn(`No owner found for home world`, {
-        homeWorld,
-      });
-      continue;
-    }
-
-    await db.homeWorld.create({
-      data: {
-        faction: { connect: { index: owner.index } },
-        planet: { connect: { index: homeWorldPlanet.index } },
-      },
-    });
+    delete result.trx;
+  } catch (err) {
+    Sentry.captureException(err);
   }
 }

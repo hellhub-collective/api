@@ -1,9 +1,9 @@
 import type { Context } from "hono";
 
-import { db } from "utils/database";
-import witCache from "utils/request-cache";
+import db from "utils/database";
+import withCache from "utils/request-cache";
 
-export const getCurrentWar = await witCache(async (ctx: Context) => {
+export const getCurrentWar = await withCache(async (ctx: Context) => {
   try {
     const war = await db.war.findFirst();
 

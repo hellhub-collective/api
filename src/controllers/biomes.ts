@@ -1,11 +1,11 @@
 import type { Context } from "hono";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import parseIntParam from "utils/params";
-import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import withCache from "utils/request-cache";
 
-export const getBiomeById = await witCache(async (ctx: Context) => {
+export const getBiomeById = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -40,7 +40,7 @@ export const getBiomeById = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAllBiomes = await witCache(async (ctx: Context) => {
+export const getAllBiomes = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 
@@ -69,7 +69,7 @@ export const getAllBiomes = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetsByBiome = await witCache(async (ctx: Context) => {
+export const getPlanetsByBiome = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);

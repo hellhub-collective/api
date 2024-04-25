@@ -1,11 +1,11 @@
 import type { Context } from "hono";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import parseIntParam from "utils/params";
-import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import withCache from "utils/request-cache";
 
-export const getSectorById = await witCache(async (ctx: Context) => {
+export const getSectorById = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -40,7 +40,7 @@ export const getSectorById = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAllSectors = await witCache(async (ctx: Context) => {
+export const getAllSectors = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 
@@ -69,7 +69,7 @@ export const getAllSectors = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetsBySector = await witCache(async (ctx: Context) => {
+export const getPlanetsBySector = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 

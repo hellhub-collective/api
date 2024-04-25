@@ -1,9 +1,9 @@
 import type { Context } from "hono";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import parseIntParam from "utils/params";
-import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import withCache from "utils/request-cache";
 import type { Assignment, AssignmentTask } from "@prisma/client";
 
 function transformAssignment(assignment: Assignment): Assignment {
@@ -23,7 +23,7 @@ function transformAssignment(assignment: Assignment): Assignment {
   return assignment;
 }
 
-export const getAssignmentById = await witCache(async (ctx: Context) => {
+export const getAssignmentById = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -58,7 +58,7 @@ export const getAssignmentById = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAllAssignments = await witCache(async (ctx: Context) => {
+export const getAllAssignments = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 
@@ -87,7 +87,7 @@ export const getAllAssignments = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAssignmentReward = await witCache(async (ctx: Context) => {
+export const getAssignmentReward = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);

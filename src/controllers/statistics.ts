@@ -1,12 +1,12 @@
 import type { Context } from "hono";
 import type { Stats } from "@prisma/client";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import parseIntParam from "utils/params";
-import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import withCache from "utils/request-cache";
 
-export const getStatisticById = await witCache(async (ctx: Context) => {
+export const getStatisticById = await withCache(async (ctx: Context) => {
   try {
     let id: number | "galaxy" | null = null;
 
@@ -63,7 +63,7 @@ export const getStatisticById = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAllStatistics = await witCache(async (ctx: Context) => {
+export const getAllStatistics = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 

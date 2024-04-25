@@ -1,11 +1,11 @@
 import type { Context } from "hono";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import parseIntParam from "utils/params";
-import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import withCache from "utils/request-cache";
 
-export const getPlanetById = await witCache(async (ctx: Context) => {
+export const getPlanetById = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -40,7 +40,7 @@ export const getPlanetById = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAllPlanets = await witCache(async (ctx: Context) => {
+export const getAllPlanets = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 
@@ -69,7 +69,7 @@ export const getAllPlanets = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetAttacks = await witCache(async (ctx: Context) => {
+export const getPlanetAttacks = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -116,7 +116,7 @@ export const getPlanetAttacks = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetOwners = await witCache(async (ctx: Context) => {
+export const getPlanetOwners = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -157,7 +157,7 @@ export const getPlanetOwners = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetCampaigns = await witCache(async (ctx: Context) => {
+export const getPlanetCampaigns = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -192,7 +192,7 @@ export const getPlanetCampaigns = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetOrders = await witCache(async (ctx: Context) => {
+export const getPlanetOrders = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -227,7 +227,7 @@ export const getPlanetOrders = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getPlanetStatistics = await witCache(async (ctx: Context) => {
+export const getPlanetStatistics = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
