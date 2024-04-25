@@ -18,7 +18,7 @@ ENV PATH $NODE_PATH:$PATH
 
 # set environment variables
 ENV RATE_LIMIT="200"
-ENV DATABASE_URL="file:./database/data.db"
+ENV DATABASE_URL="file:../databases/data.db"
 ENV HISTORY_API_URL="https://helldivers-b.omnedia.com/api"
 ENV API_URL="https://api.live.prod.thehelldiversgame.com/api"
 ENV STORAGE_URL="https://vxspqnuarwhjjbxzgauv.supabase.co/storage/v1/object/public"
@@ -41,6 +41,10 @@ FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
+# reset old database and generate new one
+RUN bun run reset
+RUN bun run init
+
 # synchronize the database schema & generate client
 RUN bunx prisma migrate deploy
 RUN bunx prisma db push
@@ -55,6 +59,7 @@ RUN bun test
 FROM base AS release
 COPY --from=prerelease /usr/src/app/src src
 COPY --from=prerelease /usr/src/app/prisma prisma
+COPY --from=prerelease /usr/src/app/databases databases
 COPY --from=prerelease /usr/src/app/node_modules node_modules
 COPY --from=prerelease /usr/src/app/package.json package.json
 COPY --from=prerelease /usr/src/app/tsconfig.json tsconfig.json
