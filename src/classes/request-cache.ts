@@ -6,7 +6,6 @@ interface CachedRequest {
   key: string;
   data: object;
   status: StatusCode;
-  expiration: number;
 }
 
 class Cache {
@@ -44,7 +43,7 @@ class Cache {
     const result = stmt.get(key);
     if (!result) return null;
 
-    if (result.expiration < Date.now()) this.del(key);
+    if ((result as any).expiration < Date.now()) this.del(key);
     return { ...result, data: JSON.parse(result.data as any) };
   }
 
@@ -56,7 +55,7 @@ class Cache {
   }
 
   set(data: CachedRequest, ttl: number): void {
-    const expiration = Date.now() + ttl * 1000;
+    const expiration = Date.now() + 1000 * ttl;
 
     const stmt = this.db.prepare<CachedRequest, any>(
       `INSERT OR REPLACE INTO request_cache (key, status, data, expiration) VALUES (?, ?, ?, ?)`,

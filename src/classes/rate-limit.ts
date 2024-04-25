@@ -46,7 +46,11 @@ class RateLimiter {
     const result = stmt.get(ip);
     if (!result) return null;
 
-    if ((result as any).expiration < Date.now()) this.del(ip);
+    if (result.reset < Date.now()) {
+      this.del(ip);
+      return null;
+    }
+
     return result;
   }
 
@@ -57,21 +61,12 @@ class RateLimiter {
     stmt.run(ip);
   }
 
-  set(data: RateLimit, ttl: number): void {
-    const expiration = Date.now() + ttl * 1000;
-
+  set(data: RateLimit): void {
     const stmt = this.db.prepare<RateLimit, any>(
-      `INSERT OR REPLACE INTO rate_limit (ip, count, reset, threshold, remaining, expiration) VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT OR REPLACE INTO rate_limit (ip, count, reset, threshold, remaining) VALUES (?, ?, ?, ?, ?)`,
     );
 
-    stmt.run(
-      data.ip,
-      data.count,
-      data.reset,
-      data.threshold,
-      data.remaining,
-      expiration,
-    );
+    stmt.run(data.ip, data.count, data.reset, data.threshold, data.remaining);
   }
 
   flushAll(): void {

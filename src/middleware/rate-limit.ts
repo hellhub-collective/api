@@ -18,29 +18,23 @@ export default async function rateLimit(ctx: Context, next: Next) {
   ctx.res.headers.set("X-Rate-Remaining", `${rl?.remaining ?? RATE_LIMIT}`);
 
   if (!rl) {
-    RateLimiter.set(
-      {
-        ip,
-        count: 1,
-        reset: reset,
-        threshold: RATE_LIMIT,
-        remaining: RATE_LIMIT - 1,
-      },
-      60,
-    );
+    RateLimiter.set({
+      ip,
+      count: 1,
+      reset: reset,
+      threshold: RATE_LIMIT,
+      remaining: RATE_LIMIT - 1,
+    });
 
     return await next();
   }
 
   if (rl.count < RATE_LIMIT) {
-    RateLimiter.set(
-      {
-        ...rl,
-        count: rl.count + 1,
-        remaining: rl.threshold - (rl.count + 1),
-      },
-      60,
-    );
+    RateLimiter.set({
+      ...rl,
+      count: rl.count + 1,
+      remaining: rl.threshold - (rl.count + 1),
+    });
 
     return await next();
   }
