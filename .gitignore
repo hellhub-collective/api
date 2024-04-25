@@ -175,7 +175,7 @@ dist
 .DS_Store
 
 # Database
-prisma/database
+databases
 
 # Sentry Config File
 .sentryclirc
