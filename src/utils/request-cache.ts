@@ -5,7 +5,7 @@ import type { StatusCode } from "hono/utils/http-status";
 
 type RouteController = (ctx: Context) => Promise<Response>;
 
-export default async function witCache(cb: RouteController) {
+export default async function withCache(cb: RouteController) {
   return async function (ctx: Context) {
     const response = await cb(ctx);
 

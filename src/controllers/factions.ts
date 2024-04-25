@@ -1,11 +1,11 @@
 import type { Context } from "hono";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import parseIntParam from "utils/params";
-import witCache from "utils/request-cache";
 import parseQueryParams from "utils/query";
+import withCache from "utils/request-cache";
 
-export const getFactionById = await witCache(async (ctx: Context) => {
+export const getFactionById = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -40,7 +40,7 @@ export const getFactionById = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getAllFactions = await witCache(async (ctx: Context) => {
+export const getAllFactions = await withCache(async (ctx: Context) => {
   try {
     const query = await parseQueryParams(ctx);
 
@@ -69,7 +69,7 @@ export const getAllFactions = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getFactionPlanets = await witCache(async (ctx: Context) => {
+export const getFactionPlanets = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -104,7 +104,7 @@ export const getFactionPlanets = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getFactionPushbacks = await witCache(async (ctx: Context) => {
+export const getFactionPushbacks = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -147,7 +147,7 @@ export const getFactionPushbacks = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getFactionOrigin = await witCache(async (ctx: Context) => {
+export const getFactionOrigin = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);
@@ -184,7 +184,7 @@ export const getFactionOrigin = await witCache(async (ctx: Context) => {
   }
 });
 
-export const getFactionOrders = await witCache(async (ctx: Context) => {
+export const getFactionOrders = await withCache(async (ctx: Context) => {
   try {
     const id = parseIntParam(ctx, "id");
     const query = await parseQueryParams(ctx);

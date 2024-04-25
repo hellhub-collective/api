@@ -11,7 +11,7 @@ import type {
   CurrentWarTime,
 } from "types/source";
 
-import { db } from "utils/database";
+import db from "utils/database";
 import type { HistoryEntry } from "types/history";
 import type { StratagemMap } from "types/stratagem";
 

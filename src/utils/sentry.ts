@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/bun";
 
-import { db } from "utils/database";
+import db from "utils/database";
 
 export const sentryOptions: Sentry.BunOptions = {
   tracesSampleRate: 0.3,
