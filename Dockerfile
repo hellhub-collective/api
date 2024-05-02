@@ -42,8 +42,8 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 # reset old database and generate new one
-RUN bun run reset
-RUN bun run init
+RUN bun run db:reset
+RUN bun run db:init
 
 # synchronize the database schema & generate client
 RUN bunx prisma migrate deploy
@@ -55,14 +55,17 @@ RUN bun run generate
 # test generated source data
 RUN bun test
 
+# build the app
+RUN bun run app:reset
+RUN bun run app:build
+
 # copy production dependencies and source code into final image
 FROM base AS release
-COPY --from=prerelease /usr/src/app/src src
+COPY --from=prerelease /usr/src/app/build build
 COPY --from=prerelease /usr/src/app/prisma prisma
 COPY --from=prerelease /usr/src/app/databases databases
 COPY --from=prerelease /usr/src/app/node_modules node_modules
 COPY --from=prerelease /usr/src/app/package.json package.json
-COPY --from=prerelease /usr/src/app/tsconfig.json tsconfig.json
 
 # src directory permissions
 RUN chown -R bun:bun /usr/src/app
@@ -73,4 +76,4 @@ ENV NODE_ENV=production
 # run the app
 USER bun
 EXPOSE 3000/tcp
-ENTRYPOINT ["bun", "run", "--smol", "src/index.ts"]
+ENTRYPOINT ["bun", "run", "--smol", "build/index.mjs"]
