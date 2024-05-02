@@ -19,16 +19,17 @@
   ],
   "scripts": {
     "lint": "eslint . --ext .ts",
-    "reset": "rm -rf ./databases",
     "format": "prettier --write .",
-    "init": "bun run ./scripts/init.ts",
+    "db:reset": "rm -rf ./databases",
+    "db:init": "bun run ./scripts/init.ts",
     "dev": "bun run --hot ./src/index.ts",
     "refresh": "bun run ./scripts/refresh.ts",
-    "generate": "bun run ./scripts/generate.ts"
+    "generate": "bun run ./scripts/generate.ts",
+    "app:reset": "rm -rf ./build",
+    "app:build": "bun build ./src/index.ts --minify --entry-naming=\"[name].mjs\" --outdir=\"build\" --sourcemap=\"external\" --target=\"node\""
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/memory-cache": "^0.2.5",
     "@types/qs": "^6.9.12",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
